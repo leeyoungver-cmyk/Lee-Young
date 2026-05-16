@@ -80,7 +80,7 @@ export default function Home() {
             </div>
           </div>
           {/* Row 2: nav */}
-          <div className="px-5 h-10 flex items-center border-t border-line/40">
+          <div className="px-5 h-10 flex items-center">
             <nav className="flex items-center gap-5">
               {NAV.map((n) => (
                 <button
