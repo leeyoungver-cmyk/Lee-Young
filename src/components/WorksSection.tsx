@@ -16,7 +16,7 @@ export default function WorksSection({ works, lang = 'ko' }: { works: Work[]; la
   const years = Object.keys(grouped).sort((a, b) => b.localeCompare(a));
 
   return (
-    <div className="px-8 md:px-14 lg:px-20 py-16 md:py-24 max-w-5xl">
+    <div className="w-full px-8 md:px-14 lg:px-20 py-16 md:py-24 max-w-5xl mx-auto">
       <SectionHeader title="Works" />
 
       {works.length === 0 ? (
@@ -91,10 +91,7 @@ export default function WorksSection({ works, lang = 'ko' }: { works: Work[]; la
 
 function SectionHeader({ title }: { title: string }) {
   return (
-    <div className="flex items-center gap-5">
-      <h2 className="text-[11px] tracking-wider3 uppercase text-muted shrink-0">{title}</h2>
-      <div className="flex-1 h-px bg-line" />
-    </div>
+    <h2 className="text-[11px] tracking-wider3 uppercase text-muted">{title}</h2>
   );
 }
 

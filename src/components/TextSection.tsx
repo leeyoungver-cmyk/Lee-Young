@@ -86,9 +86,6 @@ export default function TextSection({ lang = 'ko' }: { lang?: Lang }) {
 
 function SectionHeader({ title }: { title: string }) {
   return (
-    <div className="flex items-center gap-5">
-      <h2 className="text-[11px] tracking-wider3 uppercase text-muted shrink-0">{title}</h2>
-      <div className="flex-1 h-px bg-line" />
-    </div>
+    <h2 className="text-[11px] tracking-wider3 uppercase text-muted">{title}</h2>
   );
 }
