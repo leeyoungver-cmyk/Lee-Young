@@ -40,14 +40,14 @@ export default function WorksSection({ works, lang = 'ko' }: { works: Work[]; la
                 </div>
 
                 {/* Grid */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12 items-start">
                   {items.map((w) => (
                     <button
                       key={w.id}
                       onClick={() => setOpenId(w.id)}
                       className="group text-left"
                     >
-                      <div className="aspect-[4/5] bg-subtle overflow-hidden">
+                      <div className="aspect-[3/4] bg-subtle overflow-hidden">
                         {w.images[0] ? (
                           /* eslint-disable-next-line @next/next/no-img-element */
                           <img
@@ -70,7 +70,7 @@ export default function WorksSection({ works, lang = 'ko' }: { works: Work[]; la
                             </span>
                           )}
                         </div>
-                        <div className="mt-1 text-[12px] text-muted">
+                        <div className="mt-1 text-[12px] text-muted truncate">
                           {w.year}{w.medium ? ` · ${lang === 'en' && w.mediumEn ? w.mediumEn : w.medium}` : ''}
                         </div>
                       </div>
