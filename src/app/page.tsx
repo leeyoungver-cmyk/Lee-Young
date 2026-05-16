@@ -126,39 +126,11 @@ export default function Home() {
             </div>
 
             <nav className="flex items-center shrink-0">
-              {NAV.map((n) =>
-                n.key === 'works' ? (
-                  <div key="works" className="group/works relative px-4">
-                    <button
-                      onClick={() => setActive('works')}
-                      className={`relative text-[11px] tracking-wider uppercase transition-colors duration-200 pb-1 ${
-                        active === 'works' ? 'text-ink' : 'text-muted hover:text-ink'
-                      }`}
-                    >
-                      Works
-                      <span className={`absolute bottom-0 left-0 right-0 h-px bg-ink transition-transform duration-300 origin-left ${
-                        active === 'works' ? 'scale-x-100' : 'scale-x-0'
-                      }`} />
-                    </button>
-                    {years.length > 0 && (
-                      <div className="absolute top-full right-0 pt-4 opacity-0 group-hover/works:opacity-100 pointer-events-none group-hover/works:pointer-events-auto transition-all duration-200 translate-y-1 group-hover/works:translate-y-0">
-                        <div className="flex flex-col items-end gap-2.5">
-                          {years.map((year) => (
-                            <button
-                              key={year}
-                              onClick={() => goToYear(year)}
-                              className="text-[10px] tracking-wider tabular-nums text-muted hover:text-ink transition-colors duration-150 whitespace-nowrap"
-                            >{year}</button>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                ) : (
+              {NAV.map((n) => (
+                <div key={n.key} className={`relative flex justify-center w-20 ${n.key === 'works' ? 'group/works' : ''}`}>
                   <button
-                    key={n.key}
                     onClick={() => setActive(n.key)}
-                    className={`relative px-4 text-[11px] tracking-wider uppercase transition-colors duration-200 pb-1 ${
+                    className={`relative text-[11px] tracking-wider uppercase transition-colors duration-200 pb-1 ${
                       active === n.key ? 'text-ink' : 'text-muted hover:text-ink'
                     }`}
                   >
@@ -167,8 +139,21 @@ export default function Home() {
                       active === n.key ? 'scale-x-100' : 'scale-x-0'
                     }`} />
                   </button>
-                )
-              )}
+                  {n.key === 'works' && years.length > 0 && (
+                    <div className="absolute top-full right-0 pt-4 opacity-0 group-hover/works:opacity-100 pointer-events-none group-hover/works:pointer-events-auto transition-all duration-200 translate-y-1 group-hover/works:translate-y-0">
+                      <div className="flex flex-col items-end gap-2.5">
+                        {years.map((year) => (
+                          <button
+                            key={year}
+                            onClick={() => goToYear(year)}
+                            className="text-[10px] tracking-wider tabular-nums text-muted hover:text-ink transition-colors duration-150 whitespace-nowrap"
+                          >{year}</button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              ))}
             </nav>
           </div>
         </div>
