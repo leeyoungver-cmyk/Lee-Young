@@ -100,10 +100,10 @@ export default function Home() {
           </div>
 
           {/* Row 3: year nav — Works 활성 시만 표시 */}
-          <div className={`overflow-hidden transition-all duration-300 ease-in-out ${
-            active === 'works' && years.length > 0 ? 'max-h-12 opacity-100' : 'max-h-0 opacity-0'
-          }`}>
-            <div className="px-5 pb-3 pt-2 flex items-center justify-between">
+          <div className={`overflow-hidden transition-[max-height,opacity] duration-500 ${
+            active === 'works' && years.length > 0 ? 'max-h-16 opacity-100' : 'max-h-0 opacity-0'
+          }`} style={{ transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)' }}>
+            <div className="px-5 pb-4 pt-2 flex items-center justify-between">
               {years.map((year) => (
                 <button
                   key={year}
