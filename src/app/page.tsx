@@ -140,8 +140,8 @@ export default function Home() {
                     }`} />
                   </button>
                   {n.key === 'works' && years.length > 0 && (
-                    <div className="absolute top-full right-0 pt-4 opacity-0 group-hover/works:opacity-100 pointer-events-none group-hover/works:pointer-events-auto transition-all duration-200 translate-y-1 group-hover/works:translate-y-0">
-                      <div className="flex flex-col items-end gap-2.5">
+                    <div className="absolute top-full left-1/2 -translate-x-1/2 pt-4 opacity-0 group-hover/works:opacity-100 pointer-events-none group-hover/works:pointer-events-auto transition-all duration-200 translate-y-1 group-hover/works:translate-y-0">
+                      <div className="flex flex-col items-center gap-2.5">
                         {years.map((year) => (
                           <button
                             key={year}
