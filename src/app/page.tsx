@@ -98,6 +98,23 @@ export default function Home() {
               ))}
             </nav>
           </div>
+
+          {/* Row 3: year nav — Works 활성 시만 표시 */}
+          <div className={`overflow-hidden transition-all duration-300 ease-in-out ${
+            active === 'works' && years.length > 0 ? 'max-h-12 opacity-100' : 'max-h-0 opacity-0'
+          }`}>
+            <div className="px-5 pb-3 pt-2 flex items-center justify-between">
+              {years.map((year) => (
+                <button
+                  key={year}
+                  onClick={() => goToYear(year)}
+                  className="text-[10px] tracking-wider tabular-nums text-muted hover:text-ink transition-colors duration-150"
+                >
+                  {year}
+                </button>
+              ))}
+            </div>
+          </div>
         </div>
 
         {/* ── Desktop: single row ── */}
