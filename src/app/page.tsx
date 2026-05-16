@@ -45,16 +45,16 @@ export default function Home() {
     <div className="min-h-screen flex flex-col">
       {/* Header */}
       <header className="sticky top-0 z-30 bg-bg/95 backdrop-blur border-b border-line">
-        <div className="px-8 md:px-14 lg:px-20 h-16 grid grid-cols-3 items-center">
+        <div className="relative px-4 md:px-14 lg:px-20 h-16 flex items-center justify-between">
           {/* Left: name */}
-          <button onClick={() => setActive('home')} className="text-left">
-            <span className="block text-[20px] md:text-[24px] tracking-wider2 uppercase font-bold leading-none text-[#3A3A3C]">
+          <button onClick={() => setActive('home')} className="text-left shrink-0">
+            <span className="block text-[18px] md:text-[24px] tracking-wider2 uppercase font-bold leading-none text-[#3A3A3C]">
               Lee Young
             </span>
           </button>
 
-          {/* Center: language toggle */}
-          <div className="flex items-center justify-center gap-1">
+          {/* Center: language toggle — absolutely centered */}
+          <div className="absolute left-1/2 -translate-x-1/2 flex items-center gap-1">
             <button
               onClick={() => setLang('ko')}
               className={`text-[10px] md:text-[11px] tracking-wider2 uppercase transition-colors ${
@@ -75,16 +75,19 @@ export default function Home() {
           </div>
 
           {/* Right: nav */}
-          <nav className="flex items-center justify-end gap-6 md:gap-10">
+          <nav className="flex items-center gap-4 md:gap-10 shrink-0">
             {NAV.map((n) => (
               <button
                 key={n.key}
                 onClick={() => setActive(n.key)}
-                className={`text-[10px] md:text-[11px] tracking-wider2 uppercase transition-colors ${
-                  active === n.key ? 'text-ink font-medium' : 'text-muted hover:text-ink'
+                className={`relative text-[10px] md:text-[11px] tracking-wider2 uppercase transition-colors duration-200 pb-1 ${
+                  active === n.key ? 'text-ink' : 'text-muted hover:text-ink'
                 }`}
               >
                 {n.label}
+                <span className={`absolute bottom-0 left-0 right-0 h-px bg-ink transition-transform duration-300 origin-left ${
+                  active === n.key ? 'scale-x-100' : 'scale-x-0'
+                }`} />
               </button>
             ))}
           </nav>
@@ -102,12 +105,14 @@ export default function Home() {
         </div>
       </main>
 
-      {/* Footer */}
-      <footer className="px-8 md:px-14 lg:px-20 py-8">
-        <p className="text-[10px] tracking-wider2 uppercase text-muted">
-          ⓒ 2025. Leeyoung. All Rights Reserved.
-        </p>
-      </footer>
+      {/* Footer — hidden on home */}
+      {active !== 'home' && (
+        <footer className="px-8 md:px-14 lg:px-20 py-8">
+          <p className="text-[10px] tracking-wider2 uppercase text-muted">
+            2026. Leeyoung. All rights reserved.
+          </p>
+        </footer>
+      )}
     </div>
   );
 }

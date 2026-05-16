@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import type { Work } from '@/types/work';
 import type { Lang } from '@/app/page';
 
@@ -53,7 +53,8 @@ export default function WorksSection({ works, lang = 'ko' }: { works: Work[]; la
                           <img
                             src={w.images[0].src}
                             alt={w.title}
-                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
+                            className="w-full h-full object-cover transition-[opacity,transform,filter] duration-500 group-hover:scale-[1.03] group-hover:brightness-[0.96] opacity-0"
+                            onLoad={(e) => { (e.currentTarget as HTMLImageElement).style.opacity = '1'; }}
                           />
                         ) : (
                           <div className="w-full h-full flex items-center justify-center text-[11px] tracking-wider2 uppercase text-muted">
@@ -99,11 +100,22 @@ function SectionHeader({ title }: { title: string }) {
 
 function WorkLightbox({ work, onClose, lang = 'ko' }: { work: Work; onClose: () => void; lang?: Lang }) {
   const isEn = lang === 'en';
+
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
+    window.addEventListener('keydown', onKey);
+    return () => {
+      document.body.style.overflow = '';
+      window.removeEventListener('keydown', onKey);
+    };
+  }, [onClose]);
+
   return (
     <div
       role="dialog"
       aria-modal
-      className="fixed inset-0 z-50 bg-bg overflow-y-auto"
+      className="fixed inset-0 z-50 bg-bg overflow-y-auto lightbox-enter"
       onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
     >
       <div className="max-w-5xl mx-auto px-8 md:px-14 py-10">
@@ -151,7 +163,8 @@ function WorkLightbox({ work, onClose, lang = 'ko' }: { work: Work; onClose: () 
               <img
                 src={img.src}
                 alt={img.caption ?? `${work.title} ${i + 1}`}
-                className="w-full h-auto"
+                className="w-full h-auto opacity-0 transition-opacity duration-700"
+                onLoad={(e) => { (e.currentTarget as HTMLImageElement).style.opacity = '1'; }}
               />
               {img.caption && (
                 <figcaption className="mt-3 text-[12px] text-muted leading-relaxed max-w-prose2">
