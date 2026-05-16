@@ -144,7 +144,11 @@ function WorkLightbox({ work, onClose, lang = 'ko' }: { work: Work; onClose: () 
               {(isEn ? (work.descriptionEn || work.description) : work.description)!
                 .split('\n\n')
                 .map((para, i) => (
-                  <p key={i}>{para.replace(/\n/g, ' ')}</p>
+                  <p key={i}>
+                    {para.split('\n').map((line, j, arr) => (
+                      <span key={j}>{line}{j < arr.length - 1 && <br />}</span>
+                    ))}
+                  </p>
                 ))}
             </div>
           )}
