@@ -8,7 +8,6 @@ export default function WorksSection({ works, lang = 'ko' }: { works: Work[]; la
   const [openId, setOpenId] = useState<string | null>(null);
   const open = works.find((w) => w.id === openId) ?? null;
 
-  // Group by year, descending
   const grouped = works.reduce<Record<string, Work[]>>((acc, work) => {
     const y = work.year ?? 'N/A';
     (acc[y] ??= []).push(work);
@@ -17,7 +16,7 @@ export default function WorksSection({ works, lang = 'ko' }: { works: Work[]; la
   const years = Object.keys(grouped).sort((a, b) => b.localeCompare(a));
 
   return (
-    <div className="px-8 md:px-14 lg:px-20 py-16 md:py-24 max-w-6xl">
+    <div className="px-8 md:px-14 lg:px-20 py-16 md:py-24 max-w-5xl">
       <SectionHeader title="Works" />
 
       {works.length === 0 ? (
@@ -28,19 +27,18 @@ export default function WorksSection({ works, lang = 'ko' }: { works: Work[]; la
           }
         </div>
       ) : (
-        <div className="mt-12 md:mt-16 space-y-16 md:space-y-20">
+        <div className="mt-16 md:mt-20 space-y-20 md:space-y-28">
           {years.map((year) => {
             const items = grouped[year];
             return (
               <section key={year} id={`year-${year}`}>
-                {/* Year group header */}
-                <div className="flex items-baseline gap-4 mb-8 md:mb-10">
-                  <span className="text-[20px] font-light tracking-tight shrink-0">{year}</span>
-                  <div className="flex-1 h-px bg-line self-center" />
+                {/* Year label — minimal, no rule */}
+                <div className="mb-10 md:mb-12">
+                  <span className="text-[11px] tracking-wider2 uppercase text-muted">{year}</span>
                 </div>
 
-                {/* Grid */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12 items-start">
+                {/* 2-column grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-14 md:gap-x-14 md:gap-y-20 items-start">
                   {items.map((w) => (
                     <button
                       key={w.id}
@@ -53,7 +51,7 @@ export default function WorksSection({ works, lang = 'ko' }: { works: Work[]; la
                           <img
                             src={w.images[0].src}
                             alt={w.title}
-                            className="w-full h-full object-cover transition-[opacity,transform,filter] duration-500 group-hover:scale-[1.03] group-hover:brightness-[0.96] opacity-0"
+                            className="w-full h-full object-cover transition-[opacity,transform,filter] duration-700 group-hover:scale-[1.03] group-hover:brightness-[0.95] opacity-0"
                             onLoad={(e) => { (e.currentTarget as HTMLImageElement).style.opacity = '1'; }}
                           />
                         ) : (
@@ -62,16 +60,18 @@ export default function WorksSection({ works, lang = 'ko' }: { works: Work[]; la
                           </div>
                         )}
                       </div>
-                      <div className="mt-4">
-                        <div className="text-[15px] leading-snug flex items-center gap-2">
-                          {lang === 'en' && w.titleEn ? w.titleEn : w.title}
+                      <div className="mt-5">
+                        <div className="flex items-center gap-2">
+                          <span className="text-[15px] md:text-[16px] leading-snug">
+                            {lang === 'en' && w.titleEn ? w.titleEn : w.title}
+                          </span>
                           {w.url && (
                             <span className="text-[9px] tracking-wider2 uppercase text-muted border border-line px-1.5 py-0.5 shrink-0">
                               Video
                             </span>
                           )}
                         </div>
-                        <div className="mt-1 text-[12px] text-muted truncate">
+                        <div className="mt-1.5 text-[12px] text-muted truncate">
                           {w.year}{w.medium ? ` · ${lang === 'en' && w.mediumEn ? w.mediumEn : w.medium}` : ''}
                         </div>
                       </div>
@@ -118,29 +118,29 @@ function WorkLightbox({ work, onClose, lang = 'ko' }: { work: Work; onClose: () 
       className="fixed inset-0 z-50 bg-bg overflow-y-auto lightbox-enter"
       onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
     >
-      <div className="max-w-5xl mx-auto px-8 md:px-14 py-10">
+      <div className="max-w-4xl mx-auto px-8 md:px-14 py-10">
         <div className="flex items-center justify-between">
           <div className="text-[10px] tracking-wider2 uppercase text-muted">
             Lee Young — Works
           </div>
           <button
             onClick={onClose}
-            className="text-[11px] tracking-wider2 uppercase hover:opacity-60 transition-opacity"
+            className="text-[11px] tracking-wider2 uppercase hover:opacity-50 transition-opacity"
             aria-label="Close"
           >
             Close ✕
           </button>
         </div>
 
-        <div className="mt-12 md:mt-16">
-          <h3 className="text-[22px] md:text-[30px] font-light tracking-tight leading-tight">
+        <div className="mt-14 md:mt-20">
+          <h3 className="text-[24px] md:text-[32px] font-light tracking-tight leading-tight">
             {isEn && work.titleEn ? work.titleEn : work.title}
           </h3>
-          <div className="mt-2 text-[12px] text-muted">
+          <div className="mt-3 text-[13px] text-muted tracking-wide">
             {work.year}{work.medium ? ` · ${isEn && work.mediumEn ? work.mediumEn : work.medium}` : ''}
           </div>
           {(isEn ? (work.descriptionEn || work.description) : work.description) && (
-            <p className="mt-6 max-w-prose2 text-[14px] leading-[1.9] text-ink/90 whitespace-pre-wrap">
+            <p className="mt-8 max-w-2xl text-[15px] leading-[1.9] text-ink/85 whitespace-pre-wrap">
               {isEn ? (work.descriptionEn || work.description) : work.description}
             </p>
           )}
@@ -149,14 +149,14 @@ function WorkLightbox({ work, onClose, lang = 'ko' }: { work: Work; onClose: () 
               href={work.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-6 inline-flex items-center gap-2 text-[11px] tracking-wider2 uppercase border border-ink px-4 py-2 hover:bg-ink hover:text-bg transition-colors"
+              className="mt-8 inline-flex items-center gap-2 text-[11px] tracking-wider2 uppercase border border-ink px-4 py-2 hover:bg-ink hover:text-bg transition-colors"
             >
               Video link →
             </a>
           )}
         </div>
 
-        <div className="mt-12 md:mt-16 space-y-12">
+        <div className="mt-16 md:mt-20 space-y-10">
           {work.images.map((img, i) => (
             <figure key={i}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -167,7 +167,7 @@ function WorkLightbox({ work, onClose, lang = 'ko' }: { work: Work; onClose: () 
                 onLoad={(e) => { (e.currentTarget as HTMLImageElement).style.opacity = '1'; }}
               />
               {img.caption && (
-                <figcaption className="mt-3 text-[12px] text-muted leading-relaxed max-w-prose2">
+                <figcaption className="mt-3 text-[12px] text-muted leading-relaxed">
                   {img.caption}
                 </figcaption>
               )}
@@ -175,7 +175,7 @@ function WorkLightbox({ work, onClose, lang = 'ko' }: { work: Work; onClose: () 
           ))}
         </div>
 
-        <div className="mt-20 mb-8 flex justify-center">
+        <div className="mt-24 mb-8 flex justify-center">
           <button
             onClick={onClose}
             className="text-[11px] tracking-wider2 uppercase text-muted hover:text-ink transition-colors"
