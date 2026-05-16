@@ -32,7 +32,7 @@ export default function WorksSection({ works, lang = 'ko' }: { works: Work[]; la
           {years.map((year) => {
             const items = grouped[year];
             return (
-              <section key={year}>
+              <section key={year} id={`year-${year}`}>
                 {/* Year group header */}
                 <div className="flex items-baseline gap-4 mb-8 md:mb-10">
                   <span className="text-[20px] font-light tracking-tight shrink-0">{year}</span>

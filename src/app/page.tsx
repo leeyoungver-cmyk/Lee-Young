@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import type { Work } from '@/types/work';
 import CVSection from '@/components/CVSection';
 import TextSection from '@/components/TextSection';
@@ -22,6 +22,18 @@ export default function Home() {
   const [active, setActive] = useState<SectionKey>('home');
   const [works, setWorks] = useState<Work[]>([]);
   const [lang, setLang] = useState<Lang>('ko');
+
+  const years = useMemo(() =>
+    [...new Set(works.map((w) => w.year))].sort((a, b) => b.localeCompare(a)),
+    [works]
+  );
+
+  const goToYear = (year: string) => {
+    setActive('works');
+    setTimeout(() => {
+      document.getElementById(`year-${year}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 80);
+  };
 
   useEffect(() => {
     fetch('/api/works')
@@ -76,20 +88,53 @@ export default function Home() {
 
           {/* Right: nav */}
           <nav className="flex items-center gap-4 md:gap-10 shrink-0">
-            {NAV.map((n) => (
-              <button
-                key={n.key}
-                onClick={() => setActive(n.key)}
-                className={`relative text-[10px] md:text-[11px] tracking-wider2 uppercase transition-colors duration-200 pb-1 ${
-                  active === n.key ? 'text-ink' : 'text-muted hover:text-ink'
-                }`}
-              >
-                {n.label}
-                <span className={`absolute bottom-0 left-0 right-0 h-px bg-ink transition-transform duration-300 origin-left ${
-                  active === n.key ? 'scale-x-100' : 'scale-x-0'
-                }`} />
-              </button>
-            ))}
+            {NAV.map((n) =>
+              n.key === 'works' ? (
+                <div key="works" className="group/works relative">
+                  <button
+                    onClick={() => setActive('works')}
+                    className={`relative text-[10px] md:text-[11px] tracking-wider2 uppercase transition-colors duration-200 pb-1 ${
+                      active === 'works' ? 'text-ink' : 'text-muted hover:text-ink'
+                    }`}
+                  >
+                    Works
+                    <span className={`absolute bottom-0 left-0 right-0 h-px bg-ink transition-transform duration-300 origin-left ${
+                      active === 'works' ? 'scale-x-100' : 'scale-x-0'
+                    }`} />
+                  </button>
+
+                  {/* Year dropdown */}
+                  {years.length > 0 && (
+                    <div className="absolute top-full right-0 pt-4 opacity-0 group-hover/works:opacity-100 pointer-events-none group-hover/works:pointer-events-auto transition-all duration-200 translate-y-1 group-hover/works:translate-y-0">
+                      <div className="flex flex-col items-end gap-2.5">
+                        {years.map((year) => (
+                          <button
+                            key={year}
+                            onClick={() => goToYear(year)}
+                            className="text-[10px] tracking-wider2 tabular-nums text-muted hover:text-ink transition-colors duration-150 whitespace-nowrap"
+                          >
+                            {year}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <button
+                  key={n.key}
+                  onClick={() => setActive(n.key)}
+                  className={`relative text-[10px] md:text-[11px] tracking-wider2 uppercase transition-colors duration-200 pb-1 ${
+                    active === n.key ? 'text-ink' : 'text-muted hover:text-ink'
+                  }`}
+                >
+                  {n.label}
+                  <span className={`absolute bottom-0 left-0 right-0 h-px bg-ink transition-transform duration-300 origin-left ${
+                    active === n.key ? 'scale-x-100' : 'scale-x-0'
+                  }`} />
+                </button>
+              )
+            )}
           </nav>
         </div>
       </header>
