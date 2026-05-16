@@ -10,14 +10,19 @@
 
 :root {
   --bg: #F8F9F6;
-  --ink: #1A1A1A;
-  --muted: #6B6B6B;
-  --line: #E2E3DE;
+  --ink: #1D1D1F;
+  --muted: #6E6E73;
+  --line: #D2D2D7;
+  --subtle: #F2F2F5;
 }
 
 * {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 html, body {
@@ -32,10 +37,11 @@ body::-webkit-scrollbar {
 }
 
 body {
-  font-family: 'Inter', 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  font-family: 'Inter', 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, 'SF Pro Text', system-ui, sans-serif;
   font-feature-settings: 'ss01', 'cv11';
   font-weight: 400;
-  letter-spacing: -0.005em;
+  letter-spacing: -0.01em;
+  font-size: 17px;
 }
 
 /* Selection */

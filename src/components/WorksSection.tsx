@@ -63,7 +63,7 @@ export default function WorksSection({ works, lang = 'ko' }: { works: Work[]; la
                         )}
                       </div>
                       <div className="mt-4">
-                        <div className="text-[14px] leading-snug flex items-center gap-2">
+                        <div className="text-[15px] leading-snug flex items-center gap-2">
                           {lang === 'en' && w.titleEn ? w.titleEn : w.title}
                           {w.url && (
                             <span className="text-[9px] tracking-wider2 uppercase text-muted border border-line px-1.5 py-0.5 shrink-0">
