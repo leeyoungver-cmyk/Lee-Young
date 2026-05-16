@@ -46,8 +46,11 @@ export default function Home() {
       {/* Header */}
       <header className="sticky top-0 z-30 bg-bg/95 backdrop-blur border-b border-line">
         <div className="relative px-4 md:px-14 lg:px-20 h-16 flex items-center justify-between">
-          {/* Left: name */}
-          <button onClick={() => setActive('home')} className="text-left shrink-0">
+          {/* Left: name — hidden on home */}
+          <button
+            onClick={() => setActive('home')}
+            className={`text-left shrink-0 transition-opacity duration-500 ${active === 'home' ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
+          >
             <span className="block text-[18px] md:text-[24px] tracking-wider2 uppercase font-bold leading-none text-[#3A3A3C]">
               Lee Young
             </span>
@@ -105,14 +108,11 @@ export default function Home() {
         </div>
       </main>
 
-      {/* Footer — hidden on home */}
-      {active !== 'home' && (
-        <footer className="px-8 md:px-14 lg:px-20 py-8">
-          <p className="text-[10px] tracking-wider2 uppercase text-muted">
-            2026. Leeyoung. All rights reserved.
-          </p>
-        </footer>
-      )}
+      <footer className="px-8 md:px-14 lg:px-20 py-8">
+        <p className="text-[10px] tracking-wider2 uppercase text-muted">
+          2026. Leeyoung. All rights reserved.
+        </p>
+      </footer>
     </div>
   );
 }
