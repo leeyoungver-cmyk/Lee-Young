@@ -118,7 +118,7 @@ function WorkLightbox({ work, onClose, lang = 'ko' }: { work: Work; onClose: () 
       className="fixed inset-0 z-50 bg-bg overflow-y-auto lightbox-enter"
       onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
     >
-      <div className="max-w-4xl mx-auto px-8 md:px-14 py-10">
+      <div className="max-w-4xl mx-auto px-5 md:px-14 py-8 md:py-10">
         <div className="flex items-center justify-between">
           <div className="text-[10px] tracking-wider2 uppercase text-muted">
             Lee Young — Works
@@ -133,7 +133,7 @@ function WorkLightbox({ work, onClose, lang = 'ko' }: { work: Work; onClose: () 
         </div>
 
         <div className="mt-14 md:mt-20">
-          <h3 className="text-[24px] md:text-[32px] font-light tracking-tight leading-tight">
+          <h3 className="text-[20px] md:text-[32px] font-light tracking-tight leading-tight">
             {isEn && work.titleEn ? work.titleEn : work.title}
           </h3>
           <div className="mt-3 text-[13px] text-muted tracking-wide">
