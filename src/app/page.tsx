@@ -125,13 +125,13 @@ export default function Home() {
               >EN</button>
             </div>
 
-            <nav className="flex items-center gap-10 shrink-0">
+            <nav className="flex items-center shrink-0">
               {NAV.map((n) =>
                 n.key === 'works' ? (
-                  <div key="works" className="group/works relative">
+                  <div key="works" className="group/works relative px-4">
                     <button
                       onClick={() => setActive('works')}
-                      className={`relative text-[11px] tracking-wider2 uppercase transition-colors duration-200 pb-1 ${
+                      className={`relative text-[11px] tracking-wider uppercase transition-colors duration-200 pb-1 ${
                         active === 'works' ? 'text-ink' : 'text-muted hover:text-ink'
                       }`}
                     >
@@ -147,7 +147,7 @@ export default function Home() {
                             <button
                               key={year}
                               onClick={() => goToYear(year)}
-                              className="text-[10px] tracking-wider2 tabular-nums text-muted hover:text-ink transition-colors duration-150 whitespace-nowrap"
+                              className="text-[10px] tracking-wider tabular-nums text-muted hover:text-ink transition-colors duration-150 whitespace-nowrap"
                             >{year}</button>
                           ))}
                         </div>
@@ -158,7 +158,7 @@ export default function Home() {
                   <button
                     key={n.key}
                     onClick={() => setActive(n.key)}
-                    className={`relative text-[11px] tracking-wider2 uppercase transition-colors duration-200 pb-1 ${
+                    className={`relative px-4 text-[11px] tracking-wider uppercase transition-colors duration-200 pb-1 ${
                       active === n.key ? 'text-ink' : 'text-muted hover:text-ink'
                     }`}
                   >
