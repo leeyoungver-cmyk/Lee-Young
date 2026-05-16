@@ -1,0 +1,43 @@
+export default function ContactSection() {
+  return (
+    <div className="px-8 md:px-14 lg:px-20 py-16 md:py-24 max-w-3xl">
+      <SectionHeader title="Contact" />
+
+      <dl className="mt-14 space-y-6 md:space-y-8">
+        <Row label="E-mail">
+          <a href="mailto:leeyoung.ver@gmail.com" className="hover:opacity-60 transition-opacity">
+            leeyoung.ver@gmail.com
+          </a>
+        </Row>
+        <Row label="Instagram">
+          <a
+            href="https://instagram.com/nomadizero"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:opacity-60 transition-opacity"
+          >
+            @nomadizero
+          </a>
+        </Row>
+      </dl>
+    </div>
+  );
+}
+
+function SectionHeader({ title }: { title: string }) {
+  return (
+    <div className="flex items-center gap-5">
+      <h2 className="text-[11px] tracking-wider3 uppercase text-muted shrink-0">{title}</h2>
+      <div className="flex-1 h-px bg-line" />
+    </div>
+  );
+}
+
+function Row({ label, children }: { label: string; children: React.ReactNode }) {
+  return (
+    <div className="grid grid-cols-[88px_1fr] md:grid-cols-[120px_1fr] gap-4">
+      <dt className="text-[11px] tracking-wider2 uppercase text-muted pt-[2px]">{label}</dt>
+      <dd className="text-[14px] md:text-[15px]">{children}</dd>
+    </div>
+  );
+}

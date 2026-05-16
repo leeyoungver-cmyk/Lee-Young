@@ -1,0 +1,21 @@
+node_modules
+.next
+out
+build
+dist
+
+# Env
+.env.local
+.env.*.local
+
+# Logs
+npm-debug.log*
+
+# IDE
+.vscode
+.idea
+.DS_Store
+
+# Uploaded images (uncomment if you don't want to commit them)
+# public/uploads/*
+# !public/uploads/.gitkeep
