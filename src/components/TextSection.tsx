@@ -5,24 +5,23 @@ const ko = (
     <p>
       <strong className="font-semibold text-ink">이영(b.2000)</strong>은 현실이라고 부르는 장면이 어떤 조건 속에서 만들어지고 유지되는지를
       의심하는 것에서 작업을 시작한다. 오늘날 이미지는 기록, 증거, 경험의 대리물로
-      기능하지만, 동시에 그 신뢰를 가장 쉽게 붕괴시키는 매체이기도 하다. 뉴스,
-      다큐멘터리, 기록 영상과 같이 사실을 전제하던 형식들 또한, 그 안의 이미지가 실제인지
+      기능하지만 동시에 그 신뢰를 가장 쉽게 붕괴시키는 매체이기도 하다. 뉴스,
+      다큐멘터리, 기록 영상과 같이 사실을 전제하던 형식들 또한 그 안의 이미지가 실제인지
       생성된 것인지 판별하기 어려운 상태에 놓여 있다.
     </p>
     <p>
       작업에서는 이러한 조건을 <strong className="font-semibold text-ink">'메타-멘터리(Meta-Mentary)'</strong>라는 개념으로 다루고자 한다.
       이는 사실과 허구를 구분하기 어려운 장면들에서 출발하며, 현실에서 비롯된 이미지와
       가상에서 생성된 이미지가 서로의 근거로 작동하는 상태를 포함한다. 이 과정에서
-      단일한 현실의 기준은 흔들린다.
+      단일한 현실의 기준은 더 이상 고정되지 않는다.
     </p>
     <p>
       작업은 이러한 이미지들을 공간으로 전환하는 방식으로 진행된다. 생성형 이미지,
-      기록 영상, 개인적 기억, 물리적 조형물은 하나의 출처로 수렴되지 않은 채 병치되며,
-      시간과 매체는 분리되지 않고 중첩되며,
-      장면은 하나의 서사로 정리되지 않는다.
+      기록 영상, 개인적 기억, 물리적 조형물은 하나의 출처로 수렴되지 않은 채 병치된다.
+      시간과 매체는 분리되지 않고 중첩되며 장면은 하나의 서사로 정리되지 않는다.
     </p>
     <p>
-      이때 작업에서 중요한 것은 무엇이 실제인가에 대한 판단이 아니라, 어떤 조건에서
+      이때 작업에서 중요한 것은 무엇이 실제인가에 대한 판단이 아니라 어떤 조건에서
       장면이 실제처럼 작동하는가에 대한 물음이다. 완전한 재현보다는 어긋남과 불일치가
       드러나는 방식으로 장면을 구성하며, 현실을 구성하는 방식 자체를 불안정한 상태로
       드러내고자 한다.
@@ -48,17 +47,16 @@ const en = (
       <strong className="font-semibold text-ink">'Meta-Mentary'</strong>: a term arising from scenes where truth
       and fiction resist differentiation, encompassing states in which images derived from
       reality and images generated from the virtual each serve as the basis for the other.
-      Within this process, any singular standard of reality is called into question.
+      Within this process, any singular standard of reality ceases to be fixed.
     </p>
     <p>
       The work proceeds by translating such images into spatial form. Generative images,
       documentary footage, personal memory, and physical objects are juxtaposed without
-      converging on a single origin. Time and medium do not separate but overlap, and
-      scenes resist resolution into a single
-      narrative.
+      converging on a single origin. Time and medium do not separate but overlap;
+      scenes resist resolution into a single narrative.
     </p>
     <p>
-      What becomes important is not a judgment about what is real, but an inquiry into the
+      What becomes important is not a judgment about what is real but an inquiry into the
       conditions under which a scene operates as real. Rather than complete representation,
       scenes are composed to foreground discontinuity and incongruity—in an attempt to
       expose the very process of constructing reality as something unstable.
