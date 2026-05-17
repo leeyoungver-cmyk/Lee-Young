@@ -63,7 +63,7 @@ export default function Home() {
           {/* Row 1: name + lang */}
           <div className="px-5 h-12 flex items-center justify-between">
             <button onClick={() => setActive('home')} className="text-left">
-              <span className="block text-[15px] tracking-wider uppercase font-bold leading-none text-[#3A3A3C]">
+              <span className="block font-cormorant text-[18px] tracking-[0.14em] uppercase font-medium leading-none text-[#3A3A3C]">
                 Lee Young
               </span>
             </button>
@@ -121,7 +121,7 @@ export default function Home() {
         <div className="hidden md:block">
           <div className="relative px-14 lg:px-20 h-16 flex items-center justify-between">
             <button onClick={() => setActive('home')} className="text-left shrink-0">
-              <span className="block text-[24px] tracking-wider2 uppercase font-bold leading-none text-[#3A3A3C]">
+              <span className="block font-cormorant text-[28px] tracking-[0.16em] uppercase font-medium leading-none text-[#3A3A3C]">
                 Lee Young
               </span>
             </button>
