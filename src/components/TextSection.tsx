@@ -52,7 +52,7 @@ const en = (
     <p>
       The work proceeds by translating such images into spatial form. Generative images,
       documentary footage, personal memory, and physical objects are juxtaposed without
-      converging on a single origin. Time and medium do not separate but overlap;
+      converging on a single origin. Time and medium do not separate but overlap,
       and the scenes thus constructed resist resolution into a single narrative.
     </p>
     <p>
@@ -71,7 +71,7 @@ export default function TextSection({ lang = 'ko' }: { lang?: Lang }) {
   return (
     <div className="px-8 md:px-14 lg:px-20 py-16 md:py-24 max-w-3xl">
       <SectionHeader title="Text" />
-      <div className="mt-14 text-[15px] md:text-[17px] leading-[1.88] text-ink/88 space-y-7 break-keep">
+      <div className={`mt-14 text-[15px] md:text-[17px] leading-[1.88] text-ink/88 space-y-7 ${lang === 'en' ? 'text-pretty' : 'break-keep'}`}>
         {lang === 'en' ? en : ko}
       </div>
     </div>
