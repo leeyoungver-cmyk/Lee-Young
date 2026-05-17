@@ -18,7 +18,7 @@ const ko = (
     <p>
       작업은 이러한 이미지들을 공간으로 전환하는 방식으로 진행된다. 생성형 이미지,
       기록 영상, 개인적 기억, 물리적 조형물은 하나의 출처로 수렴되지 않은 채 병치되며,
-      동일한 대상은 서로 다른 형태로 반복된다. 시간과 매체는 분리되지 않고 중첩되며,
+      시간과 매체는 분리되지 않고 중첩되며,
       장면은 하나의 서사로 정리되지 않는다.
     </p>
     <p>
@@ -54,8 +54,8 @@ const en = (
     <p>
       The work proceeds by translating such images into spatial form. Generative images,
       documentary footage, personal memory, and physical objects are juxtaposed without
-      converging on a single origin; the same subject recurs in different forms. Time and
-      medium do not separate but overlap, and scenes resist resolution into a single
+      converging on a single origin. Time and medium do not separate but overlap, and
+      scenes resist resolution into a single
       narrative.
     </p>
     <p>
