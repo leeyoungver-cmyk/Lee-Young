@@ -24,9 +24,8 @@ const ko = (
     <p>
       이때 작업에서 중요한 것은 무엇이 실제인가에 대한 판단이 아니라, 어떤 조건에서
       장면이 실제처럼 작동하는가에 대한 물음이다. 완전한 재현보다는 어긋남과 불일치가
-      드러나는 방식으로 장면을 구성한다. 분절된 이미지와 변형된 사물, 서로 다른
-      시간의 레이어는 동일한 기준으로 정리되지 않으며, 현실을 구성하는 방식 자체를
-      불안정한 상태로 드러내고자 한다.
+      드러나는 방식으로 장면을 구성하며, 현실을 구성하는 방식 자체를 불안정한 상태로
+      드러내고자 한다.
     </p>
     <p className="pt-2">
       <strong className="font-semibold text-ink">우리는 지금 무엇을 보고 있으며, 그 장면을 현실이라고 믿게 만드는 조건은 무엇인가?</strong>
@@ -61,10 +60,8 @@ const en = (
     <p>
       What becomes important is not a judgment about what is real, but an inquiry into the
       conditions under which a scene operates as real. Rather than complete representation,
-      scenes are composed to foreground discontinuity and incongruity. Fragmented images,
-      transformed objects, and layers from different times refuse to cohere under a
-      single standard—in an attempt to expose the very process of constructing reality
-      as something unstable.
+      scenes are composed to foreground discontinuity and incongruity—in an attempt to
+      expose the very process of constructing reality as something unstable.
     </p>
     <p className="pt-2">
       <strong className="font-semibold text-ink">What are we looking at right now—and what are the conditions that lead us to believe a scene is real?</strong>
