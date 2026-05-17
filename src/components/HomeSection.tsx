@@ -138,6 +138,9 @@ export default function HomeSection() {
   return (
     <div className="relative w-full h-[calc(100vh-88px)] md:h-[calc(100vh-64px)] select-none">
       <canvas ref={canvasRef} className="absolute inset-0 w-full h-full touch-none" />
+      <p className="md:hidden absolute bottom-5 left-0 right-0 text-center text-[9px] tracking-wider2 uppercase text-muted/60">
+        2026. Leeyoung. All rights reserved.
+      </p>
     </div>
   );
 }
