@@ -37,7 +37,7 @@ const ko = (
 const en = (
   <>
     <p>
-      <strong className="font-semibold text-ink">Lee Young (b. 2000)</strong> begins her practice by questioning
+      <strong className="font-semibold text-ink">Lee Young (b. 2000)</strong> begins his practice by questioning
       the conditions under which what we call 'reality' is constructed and sustained.
       Today, images function as proxies for record, evidence, and experience—while
       simultaneously being the medium most capable of collapsing that trust. Formats
@@ -46,7 +46,7 @@ const en = (
       from the generated.
     </p>
     <p>
-      Her work approaches these conditions through the concept of{' '}
+      His work approaches these conditions through the concept of{' '}
       <strong className="font-semibold text-ink">'Meta-Mentary'</strong>: a term that departs from scenes where truth
       and fiction resist differentiation, encompassing states in which images derived from
       reality and images generated from the virtual each serve as grounds for the other.
