@@ -47,9 +47,9 @@ const en = (
     </p>
     <p>
       His work approaches these conditions through the concept of{' '}
-      <strong className="font-semibold text-ink">'Meta-Mentary'</strong>: a term that departs from scenes where truth
+      <strong className="font-semibold text-ink">'Meta-Mentary'</strong>: a term arising from scenes where truth
       and fiction resist differentiation, encompassing states in which images derived from
-      reality and images generated from the virtual each serve as grounds for the other.
+      reality and images generated from the virtual each serve as the basis for the other.
       Within this process, any singular standard of reality ceases to be fixed.
     </p>
     <p>
@@ -60,7 +60,7 @@ const en = (
       narrative.
     </p>
     <p>
-      What becomes important is not a judgment of what is real, but the question of the
+      What becomes important is not a judgment about what is real, but the question of the
       conditions under which a scene operates as real. Rather than complete representation,
       scenes are composed to foreground discontinuity and incongruity. Fragmented images,
       transformed objects, and layers from different times resist organization under a
@@ -68,7 +68,7 @@ const en = (
       unstable.
     </p>
     <p className="pt-2">
-      <strong className="font-semibold text-ink">What are we looking at right now—and what are the conditions that make us believe that scene is real?</strong>
+      <strong className="font-semibold text-ink">What are we looking at right now—and what are the conditions that lead us to believe a scene is real?</strong>
     </p>
   </>
 );
