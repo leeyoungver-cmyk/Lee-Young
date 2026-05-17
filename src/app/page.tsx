@@ -190,7 +190,7 @@ export default function Home() {
 
       <footer className="px-8 md:px-14 lg:px-20 py-10">
         <p className="text-[8px] tracking-[0.22em] uppercase text-muted/50">
-          2026. Leeyoung. All rights reserved.
+          © 2026 Leeyoung. All rights reserved.
         </p>
       </footer>
     </div>
