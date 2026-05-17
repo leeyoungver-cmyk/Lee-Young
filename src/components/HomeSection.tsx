@@ -136,8 +136,8 @@ export default function HomeSection() {
   }, []);
 
   return (
-    <div className="relative w-full h-[calc(100vh-88px)] md:h-[calc(100vh-64px)]">
-      <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />
+    <div className="relative w-full h-[calc(100vh-88px)] md:h-[calc(100vh-64px)] select-none">
+      <canvas ref={canvasRef} className="absolute inset-0 w-full h-full touch-none" />
     </div>
   );
 }
