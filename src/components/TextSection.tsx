@@ -13,7 +13,7 @@ const ko = (
       작업에서는 이러한 조건을 <strong className="font-semibold text-ink">'메타-멘터리(Meta-Mentary)'</strong>라는 개념으로 다루고자 한다.
       이는 사실과 허구를 구분하기 어려운 장면들에서 출발하며, 현실에서 비롯된 이미지와
       가상에서 생성된 이미지가 서로의 근거로 작동하는 상태를 포함한다. 이 과정에서
-      단일한 현실의 기준은 더 이상 고정되지 않는다.
+      단일한 현실의 기준은 흔들린다.
     </p>
     <p>
       작업은 이러한 이미지들을 공간으로 전환하는 방식으로 진행된다. 생성형 이미지,
@@ -26,7 +26,7 @@ const ko = (
       장면이 실제처럼 작동하는가에 대한 물음이다. 완전한 재현보다는 어긋남과 불일치가
       드러나는 방식으로 장면을 구성한다. 분절된 이미지와 변형된 사물, 서로 다른
       시간의 레이어는 동일한 기준으로 정리되지 않으며, 현실을 구성하는 방식 자체를
-      불안정한 상태로 드러낸다.
+      불안정한 상태로 드러내고자 한다.
     </p>
     <p className="pt-2">
       <strong className="font-semibold text-ink">우리는 지금 무엇을 보고 있으며, 그 장면을 현실이라고 믿게 만드는 조건은 무엇인가?</strong>
@@ -49,7 +49,7 @@ const en = (
       <strong className="font-semibold text-ink">'Meta-Mentary'</strong>: a term arising from scenes where truth
       and fiction resist differentiation, encompassing states in which images derived from
       reality and images generated from the virtual each serve as the basis for the other.
-      Within this process, any singular standard of reality ceases to be fixed.
+      Within this process, any singular standard of reality is called into question.
     </p>
     <p>
       The work proceeds by translating such images into spatial form. Generative images,
@@ -63,8 +63,8 @@ const en = (
       conditions under which a scene operates as real. Rather than complete representation,
       scenes are composed to foreground discontinuity and incongruity. Fragmented images,
       transformed objects, and layers from different times refuse to cohere under a
-      single standard—exposing the very process of constructing reality as something
-      unstable.
+      single standard—in an attempt to expose the very process of constructing reality
+      as something unstable.
     </p>
     <p className="pt-2">
       <strong className="font-semibold text-ink">What are we looking at right now—and what are the conditions that lead us to believe a scene is real?</strong>
