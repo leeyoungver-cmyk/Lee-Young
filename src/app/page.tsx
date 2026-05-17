@@ -121,7 +121,7 @@ export default function Home() {
         <div className="hidden md:block">
           <div className="relative px-14 lg:px-20 h-16 flex items-center justify-between">
             <button onClick={() => setActive('home')} className="text-left shrink-0">
-              <span className="block text-[24px] tracking-[0.2em] uppercase font-light leading-none text-[#3A3A3C]">
+              <span className="block text-[24px] tracking-[0.2em] uppercase font-medium leading-none text-[#3A3A3C]">
                 Lee Young
               </span>
             </button>
