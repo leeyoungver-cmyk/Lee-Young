@@ -137,7 +137,7 @@ function WorkLightbox({ work, onClose, lang = 'ko' }: { work: Work; onClose: () 
             {work.year}{work.medium ? ` · ${isEn && work.mediumEn ? work.mediumEn : work.medium}` : ''}
           </div>
           {(isEn ? (work.descriptionEn || work.description) : work.description) && (
-            <div className={`mt-8 max-w-2xl text-[15px] leading-[1.9] text-ink/85 space-y-5 ${isEn ? 'text-pretty' : 'break-keep'}`}>
+            <div className={`mt-8 max-w-2xl text-[14px] md:text-[15px] leading-[1.9] text-ink/85 space-y-5 ${isEn ? 'text-pretty' : 'break-keep'}`}>
               {(isEn ? (work.descriptionEn || work.description) : work.description)!
                 .split('\n\n')
                 .map((para, i) => (

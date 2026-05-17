@@ -71,7 +71,7 @@ export default function TextSection({ lang = 'ko' }: { lang?: Lang }) {
   return (
     <div className="px-8 md:px-14 lg:px-20 py-16 md:py-24 max-w-3xl">
       <SectionHeader title="Text" />
-      <div className={`mt-14 text-[15px] md:text-[17px] leading-[1.88] text-ink/88 space-y-7 ${lang === 'en' ? 'text-pretty' : 'break-keep'}`}>
+      <div className={`mt-14 text-[14px] md:text-[17px] leading-[1.88] text-ink/88 space-y-7 ${lang === 'en' ? 'text-pretty' : 'break-keep'}`}>
         {lang === 'en' ? en : ko}
       </div>
     </div>
