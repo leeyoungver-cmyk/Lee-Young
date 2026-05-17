@@ -53,7 +53,7 @@ const en = (
       The work proceeds by translating such images into spatial form. Generative images,
       documentary footage, personal memory, and physical objects are juxtaposed without
       converging on a single origin. Time and medium do not separate but overlap;
-      scenes resist resolution into a single narrative.
+      and the scenes thus constructed resist resolution into a single narrative.
     </p>
     <p>
       What becomes important is not a judgment about what is real but an inquiry into the
