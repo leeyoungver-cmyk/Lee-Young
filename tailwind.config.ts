@@ -14,14 +14,12 @@ const config: Config = {
       fontFamily: {
         sans: [
           'Inter',
-          'Pretendard Variable',
           'Pretendard',
           '-apple-system',
           'BlinkMacSystemFont',
           'system-ui',
           'sans-serif',
         ],
-        cormorant: ['"Cormorant Garamond"', 'Georgia', 'serif'],
       },
       letterSpacing: {
         wider2: '0.16em',

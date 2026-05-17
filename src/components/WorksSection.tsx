@@ -130,14 +130,14 @@ function WorkLightbox({ work, onClose, lang = 'ko' }: { work: Work; onClose: () 
         </div>
 
         <div className="mt-14 md:mt-20">
-          <h3 className={`text-[20px] md:text-[32px] font-light tracking-tight leading-tight ${isEn ? 'font-cormorant' : ''}`}>
+          <h3 className="text-[20px] md:text-[32px] font-light tracking-tight leading-tight">
             {isEn && work.titleEn ? work.titleEn : work.title}
           </h3>
           <div className="mt-3 text-[13px] text-muted tracking-wide">
             {work.year}{work.medium ? ` · ${isEn && work.mediumEn ? work.mediumEn : work.medium}` : ''}
           </div>
           {(isEn ? (work.descriptionEn || work.description) : work.description) && (
-            <div className={`mt-8 max-w-2xl space-y-5 ${isEn ? 'font-cormorant text-[18px] md:text-[20px] leading-[1.82] text-ink/85 tracking-[0.008em] text-pretty' : 'text-[15px] leading-[1.9] text-ink/85'}`}>
+            <div className="mt-8 max-w-2xl text-[15px] leading-[1.9] text-ink/85 space-y-5">
               {(isEn ? (work.descriptionEn || work.description) : work.description)!
                 .split('\n\n')
                 .map((para, i) => (
