@@ -16,7 +16,15 @@
       "Bash(git push *)",
       "Bash(git commit *)",
       "Bash(git init *)",
-      "Bash(git revert *)"
+      "Bash(git revert *)",
+      "Bash(ls \"/Users/jang-eun-yeong/Desktop/과기대 후기모집 제출서류 모음/\")",
+      "Bash(python3 -c ' *)",
+      "Bash(pip3 install *)",
+      "Bash(mkdir -p \"/Users/jang-eun-yeong/Desktop/국민대 인터미디어 지원\")",
+      "Bash(python3)",
+      "Bash(rm -f *)",
+      "Bash(cat)",
+      "Bash(python3 /tmp/gen_plan.py)"
     ]
   }
 }

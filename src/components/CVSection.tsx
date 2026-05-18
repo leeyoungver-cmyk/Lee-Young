@@ -89,7 +89,7 @@ export default function CVSection({ lang = 'ko' }: { lang?: Lang }) {
           {exhibitions.map((e, i) => (
             <li key={i} className="grid grid-cols-[64px_1fr] md:grid-cols-[88px_1fr] gap-4 md:gap-8">
               <span className="text-[13px] md:text-[14px] tabular-nums text-muted pt-[2px]">{e.year}</span>
-              <div className="text-[14px] md:text-[17px] leading-relaxed">
+              <div className="text-[13px] md:text-[15px] leading-relaxed">
                 <span>{isEn && e.titleEn ? e.titleEn : e.title}</span>
                 <span className="text-muted">, {isEn && e.venueEn ? e.venueEn : e.venue}</span>
                 {e.url && (
@@ -114,9 +114,9 @@ export default function CVSection({ lang = 'ko' }: { lang?: Lang }) {
           {awards.map((a, i) => (
             <li key={i} className="grid grid-cols-[64px_1fr] md:grid-cols-[88px_1fr] gap-4 md:gap-8">
               <span className="text-[13px] md:text-[14px] tabular-nums text-muted pt-[2px]">{a.year}</span>
-              <div className="text-[14px] md:text-[17px] leading-relaxed">
+              <div className="text-[13px] md:text-[15px] leading-relaxed">
                 <div>{isEn ? a.titleEn : a.title}</div>
-                <div className="text-muted mt-1 text-[13px]">{isEn ? a.orgEn : a.org}</div>
+                <div className="text-muted mt-1 text-[12px]">{isEn ? a.orgEn : a.org}</div>
               </div>
             </li>
           ))}

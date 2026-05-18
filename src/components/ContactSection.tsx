@@ -34,7 +34,7 @@ function Row({ label, children }: { label: string; children: React.ReactNode }) 
   return (
     <div className="grid grid-cols-[88px_1fr] md:grid-cols-[120px_1fr] gap-4">
       <dt className="text-[11px] tracking-wider2 uppercase text-muted pt-[2px]">{label}</dt>
-      <dd className="text-[15px] md:text-[17px]">{children}</dd>
+      <dd className="text-[14px] md:text-[15px]">{children}</dd>
     </div>
   );
 }
