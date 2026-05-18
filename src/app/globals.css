@@ -119,6 +119,12 @@ input, textarea {
   background-size: 240px 240px;
 }
 
+@media (max-width: 767px) {
+  .grain::before {
+    background-size: 160px 160px;
+  }
+}
+
 /* Touch devices: don't keep :hover state stuck after tap */
 @media (hover: none) {
   button:hover {
