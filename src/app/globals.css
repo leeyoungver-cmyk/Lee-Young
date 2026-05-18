@@ -67,24 +67,65 @@ input, textarea {
   background: transparent;
 }
 
-/* Smooth section transitions */
+/* Smooth section transitions with blur-in */
 .section-enter {
-  animation: fadeIn 320ms cubic-bezier(0.16, 1, 0.3, 1);
+  animation: fadeIn 720ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; transform: translateY(12px); filter: blur(8px); }
+  to { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+
+/* Stagger inner paragraphs for softer reading flow */
+.section-enter p,
+.section-enter li,
+.section-enter h2,
+.section-enter h3 {
+  animation: softRise 800ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.section-enter p:nth-child(1) { animation-delay: 60ms; }
+.section-enter p:nth-child(2) { animation-delay: 140ms; }
+.section-enter p:nth-child(3) { animation-delay: 220ms; }
+.section-enter p:nth-child(4) { animation-delay: 300ms; }
+.section-enter p:nth-child(5) { animation-delay: 380ms; }
+.section-enter p:nth-child(6) { animation-delay: 460ms; }
+
+@keyframes softRise {
+  from { opacity: 0; transform: translateY(10px); filter: blur(6px); }
+  to { opacity: 1; transform: translateY(0); filter: blur(0); }
 }
 
 /* Lightbox animation */
 .lightbox-enter {
-  animation: lightboxIn 320ms cubic-bezier(0.16, 1, 0.3, 1);
+  animation: lightboxIn 520ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @keyframes lightboxIn {
-  from { opacity: 0; transform: translateY(12px); }
-  to { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; transform: translateY(16px); filter: blur(10px); }
+  to { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+
+/* Film grain overlay — subtle, fixed, global */
+.grain::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 100;
+  opacity: 0.055;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.7 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  background-size: 240px 240px;
+}
+
+/* Soft field-blur ambient orbs */
+.field-blur {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(80px);
+  opacity: 0.35;
+  pointer-events: none;
 }
 
 /* Hide scrollbar (optional) */
