@@ -62,7 +62,7 @@ export default function WorksSection({ works, lang = 'ko' }: { works: Work[]; la
                       </div>
                       <div className="mt-5">
                         <div className="flex items-center gap-2">
-                          <span className="text-[13px] md:text-[15px] leading-snug">
+                          <span className="text-[14px] md:text-[16px] leading-snug">
                             {lang === 'en' && w.titleEn ? w.titleEn : w.title}
                           </span>
                           {w.url && (
@@ -71,7 +71,7 @@ export default function WorksSection({ works, lang = 'ko' }: { works: Work[]; la
                             </span>
                           )}
                         </div>
-                        <div className="mt-1.5 text-[11px] text-muted truncate">
+                        <div className="mt-1.5 text-[12px] text-muted truncate">
                           {w.year}{w.medium ? ` · ${lang === 'en' && w.mediumEn ? w.mediumEn : w.medium}` : ''}
                         </div>
                       </div>
@@ -130,14 +130,14 @@ function WorkLightbox({ work, onClose, lang = 'ko' }: { work: Work; onClose: () 
         </div>
 
         <div className="mt-14 md:mt-20">
-          <h3 className="text-[18px] md:text-[28px] font-light tracking-tight leading-tight">
+          <h3 className="text-[19px] md:text-[29px] font-light tracking-tight leading-tight">
             {isEn && work.titleEn ? work.titleEn : work.title}
           </h3>
-          <div className="mt-3 text-[12px] text-muted tracking-wide">
+          <div className="mt-3 text-[13px] text-muted tracking-wide">
             {work.year}{work.medium ? ` · ${isEn && work.mediumEn ? work.mediumEn : work.medium}` : ''}
           </div>
           {(isEn ? (work.descriptionEn || work.description) : work.description) && (
-            <div className={`mt-8 max-w-2xl text-[13px] md:text-[14px] leading-[1.9] text-ink/85 space-y-5 ${isEn ? 'text-pretty' : 'break-keep'}`}>
+            <div className={`mt-8 max-w-2xl text-[14px] md:text-[15px] leading-[1.9] text-ink/85 space-y-5 ${isEn ? 'text-pretty' : 'break-keep'}`}>
               {(isEn ? (work.descriptionEn || work.description) : work.description)!
                 .split('\n\n')
                 .map((para, i) => (
@@ -172,7 +172,7 @@ function WorkLightbox({ work, onClose, lang = 'ko' }: { work: Work; onClose: () 
                 onLoad={(e) => { (e.currentTarget as HTMLImageElement).style.opacity = '1'; }}
               />
               {img.caption && (
-                <figcaption className="mt-3 text-[11px] text-muted leading-relaxed">
+                <figcaption className="mt-3 text-[12px] text-muted leading-relaxed">
                   {img.caption}
                 </figcaption>
               )}
