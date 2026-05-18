@@ -62,10 +62,24 @@ export default function Home() {
         <div className="md:hidden">
           {/* Row 1: name + lang */}
           <div className="px-5 h-12 flex items-center justify-between">
-            <button onClick={() => setActive('home')} className="text-left">
+            <button onClick={() => setActive('home')} className="text-left relative">
               <span
-                className="block text-[15px] tracking-[0.18em] uppercase font-medium leading-none text-[#3A3A3C] transition-[filter] duration-500"
-                style={active === 'home' ? { filter: 'blur(1.2px)' } : undefined}
+                aria-hidden
+                className="absolute inset-0 block text-[15px] tracking-[0.18em] uppercase font-medium leading-none text-[#3A3A3C] select-none pointer-events-none"
+                style={{
+                  filter: 'blur(3px)',
+                  WebkitMaskImage: 'linear-gradient(to right, transparent 25%, black 65%, rgba(0,0,0,0.5) 100%)',
+                  maskImage: 'linear-gradient(to right, transparent 25%, black 65%, rgba(0,0,0,0.5) 100%)',
+                }}
+              >
+                Lee Young
+              </span>
+              <span
+                className="relative block text-[15px] tracking-[0.18em] uppercase font-medium leading-none text-[#3A3A3C]"
+                style={{
+                  WebkitMaskImage: 'linear-gradient(to right, black 30%, transparent 95%)',
+                  maskImage: 'linear-gradient(to right, black 30%, transparent 95%)',
+                }}
               >
                 Lee Young
               </span>
@@ -123,10 +137,24 @@ export default function Home() {
         {/* ── Desktop: single row ── */}
         <div className="hidden md:block">
           <div className="relative px-14 lg:px-20 h-16 flex items-center justify-between">
-            <button onClick={() => setActive('home')} className="text-left shrink-0">
+            <button onClick={() => setActive('home')} className="text-left shrink-0 relative">
               <span
-                className="block text-[24px] tracking-[0.2em] uppercase font-medium leading-none text-[#3A3A3C] transition-[filter] duration-500"
-                style={active === 'home' ? { filter: 'blur(1.8px)' } : undefined}
+                aria-hidden
+                className="absolute inset-0 block text-[24px] tracking-[0.2em] uppercase font-medium leading-none text-[#3A3A3C] select-none pointer-events-none"
+                style={{
+                  filter: 'blur(5px)',
+                  WebkitMaskImage: 'linear-gradient(to right, transparent 25%, black 65%, rgba(0,0,0,0.5) 100%)',
+                  maskImage: 'linear-gradient(to right, transparent 25%, black 65%, rgba(0,0,0,0.5) 100%)',
+                }}
+              >
+                Lee Young
+              </span>
+              <span
+                className="relative block text-[24px] tracking-[0.2em] uppercase font-medium leading-none text-[#3A3A3C]"
+                style={{
+                  WebkitMaskImage: 'linear-gradient(to right, black 30%, transparent 95%)',
+                  maskImage: 'linear-gradient(to right, black 30%, transparent 95%)',
+                }}
               >
                 Lee Young
               </span>
