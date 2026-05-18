@@ -119,6 +119,13 @@ input, textarea {
   background-size: 240px 240px;
 }
 
+/* Touch devices: don't keep :hover state stuck after tap */
+@media (hover: none) {
+  button:hover {
+    filter: none !important;
+  }
+}
+
 /* Soft field-blur ambient orbs */
 .field-blur {
   position: absolute;
