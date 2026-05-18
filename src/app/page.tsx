@@ -108,7 +108,7 @@ export default function Home() {
                 <button
                   key={year}
                   onClick={() => goToYear(year)}
-                  className="text-[10px] tracking-wider tabular-nums text-muted hover:text-ink hover:[filter:blur(0.6px)] transition-all duration-150"
+                  className="text-[10px] tracking-wider tabular-nums text-muted hover:text-ink hover:[filter:blur(0.9px)] transition-all duration-150"
                 >
                   {year}
                 </button>
@@ -163,7 +163,7 @@ export default function Home() {
                           <button
                             key={year}
                             onClick={() => goToYear(year)}
-                            className="text-[10px] tracking-wider tabular-nums text-muted hover:text-ink hover:[filter:blur(0.6px)] transition-all duration-150 whitespace-nowrap"
+                            className="text-[10px] tracking-wider tabular-nums text-muted hover:text-ink hover:[filter:blur(0.9px)] transition-all duration-150 whitespace-nowrap"
                           >{year}</button>
                         ))}
                       </div>
