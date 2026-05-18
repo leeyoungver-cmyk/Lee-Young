@@ -62,11 +62,13 @@ export default function Home() {
         <div className="md:hidden">
           {/* Row 1: name + lang */}
           <div className="px-5 h-12 flex items-center justify-between">
-            <button onClick={() => setActive('home')} className="text-left">
-              <span
-                className="block text-[15px] tracking-[0.18em] uppercase font-medium leading-none text-[#3A3A3C] transition-[text-shadow] duration-500"
-                style={active === 'home' ? { textShadow: '0 0 14px rgba(140,160,180,0.55), 0 0 28px rgba(160,180,200,0.35)' } : undefined}
-              >
+            <button onClick={() => setActive('home')} className="text-left relative">
+              {active === 'home' && (
+                <span aria-hidden className="absolute inset-0 block text-[15px] tracking-[0.18em] uppercase font-medium leading-none text-[#3A3A3C] select-none pointer-events-none" style={{ filter: 'blur(6px)', opacity: 0.7, transform: 'translateX(2px)' }}>
+                  Lee Young
+                </span>
+              )}
+              <span className="relative block text-[15px] tracking-[0.18em] uppercase font-medium leading-none text-[#3A3A3C]">
                 Lee Young
               </span>
             </button>
@@ -123,11 +125,13 @@ export default function Home() {
         {/* ── Desktop: single row ── */}
         <div className="hidden md:block">
           <div className="relative px-14 lg:px-20 h-16 flex items-center justify-between">
-            <button onClick={() => setActive('home')} className="text-left shrink-0">
-              <span
-                className="block text-[24px] tracking-[0.2em] uppercase font-medium leading-none text-[#3A3A3C] transition-[text-shadow] duration-500"
-                style={active === 'home' ? { textShadow: '0 0 20px rgba(140,160,180,0.55), 0 0 40px rgba(160,180,200,0.35)' } : undefined}
-              >
+            <button onClick={() => setActive('home')} className="text-left shrink-0 relative">
+              {active === 'home' && (
+                <span aria-hidden className="absolute inset-0 block text-[24px] tracking-[0.2em] uppercase font-medium leading-none text-[#3A3A3C] select-none pointer-events-none" style={{ filter: 'blur(10px)', opacity: 0.75, transform: 'translateX(3px)' }}>
+                  Lee Young
+                </span>
+              )}
+              <span className="relative block text-[24px] tracking-[0.2em] uppercase font-medium leading-none text-[#3A3A3C]">
                 Lee Young
               </span>
             </button>
