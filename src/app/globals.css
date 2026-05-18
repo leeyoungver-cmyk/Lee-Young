@@ -67,13 +67,13 @@ input, textarea {
   background: transparent;
 }
 
-/* Smooth section transitions with blur-in */
+/* Smooth section transitions with light blur-in */
 .section-enter {
-  animation: fadeIn 720ms cubic-bezier(0.22, 1, 0.36, 1);
+  animation: fadeIn 480ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(12px); filter: blur(8px); }
+  from { opacity: 0; transform: translateY(8px); filter: blur(4px); }
   to { opacity: 1; transform: translateY(0); filter: blur(0); }
 }
 
@@ -82,27 +82,27 @@ input, textarea {
 .section-enter li,
 .section-enter h2,
 .section-enter h3 {
-  animation: softRise 800ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: softRise 520ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
-.section-enter p:nth-child(1) { animation-delay: 60ms; }
-.section-enter p:nth-child(2) { animation-delay: 140ms; }
-.section-enter p:nth-child(3) { animation-delay: 220ms; }
-.section-enter p:nth-child(4) { animation-delay: 300ms; }
-.section-enter p:nth-child(5) { animation-delay: 380ms; }
-.section-enter p:nth-child(6) { animation-delay: 460ms; }
+.section-enter p:nth-child(1) { animation-delay: 40ms; }
+.section-enter p:nth-child(2) { animation-delay: 90ms; }
+.section-enter p:nth-child(3) { animation-delay: 140ms; }
+.section-enter p:nth-child(4) { animation-delay: 190ms; }
+.section-enter p:nth-child(5) { animation-delay: 240ms; }
+.section-enter p:nth-child(6) { animation-delay: 290ms; }
 
 @keyframes softRise {
-  from { opacity: 0; transform: translateY(10px); filter: blur(6px); }
+  from { opacity: 0; transform: translateY(6px); filter: blur(3px); }
   to { opacity: 1; transform: translateY(0); filter: blur(0); }
 }
 
 /* Lightbox animation */
 .lightbox-enter {
-  animation: lightboxIn 520ms cubic-bezier(0.22, 1, 0.36, 1);
+  animation: lightboxIn 420ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @keyframes lightboxIn {
-  from { opacity: 0; transform: translateY(16px); filter: blur(10px); }
+  from { opacity: 0; transform: translateY(10px); filter: blur(5px); }
   to { opacity: 1; transform: translateY(0); filter: blur(0); }
 }
 
