@@ -86,8 +86,8 @@ export default function Home() {
                 <button
                   key={n.key}
                   onClick={() => setActive(n.key)}
-                  className={`relative text-[10px] tracking-wider uppercase transition-colors duration-200 pb-0.5 ${
-                    active === n.key ? 'text-ink' : 'text-muted'
+                  className={`relative text-[10px] tracking-wider uppercase transition-all duration-200 pb-0.5 ${
+                    active === n.key ? 'text-ink [filter:blur(0.6px)]' : 'text-muted hover:text-ink hover:[filter:blur(0.6px)]'
                   }`}
                 >
                   {n.label}
@@ -108,7 +108,7 @@ export default function Home() {
                 <button
                   key={year}
                   onClick={() => goToYear(year)}
-                  className="text-[10px] tracking-wider tabular-nums text-muted hover:text-ink transition-colors duration-150"
+                  className="text-[10px] tracking-wider tabular-nums text-muted hover:text-ink hover:[filter:blur(0.6px)] transition-all duration-150"
                 >
                   {year}
                 </button>
@@ -147,8 +147,8 @@ export default function Home() {
                 <div key={n.key} className={`relative flex justify-center w-20 ${n.key === 'works' ? 'group/works' : ''}`}>
                   <button
                     onClick={() => setActive(n.key)}
-                    className={`relative text-[11px] tracking-wider uppercase transition-colors duration-200 pb-1 ${
-                      active === n.key ? 'text-ink' : 'text-muted hover:text-ink'
+                    className={`relative text-[11px] tracking-wider uppercase transition-all duration-200 pb-1 ${
+                      active === n.key ? 'text-ink [filter:blur(0.7px)]' : 'text-muted hover:text-ink hover:[filter:blur(0.7px)]'
                     }`}
                   >
                     {n.label}
@@ -163,7 +163,7 @@ export default function Home() {
                           <button
                             key={year}
                             onClick={() => goToYear(year)}
-                            className="text-[10px] tracking-wider tabular-nums text-muted hover:text-ink transition-colors duration-150 whitespace-nowrap"
+                            className="text-[10px] tracking-wider tabular-nums text-muted hover:text-ink hover:[filter:blur(0.6px)] transition-all duration-150 whitespace-nowrap"
                           >{year}</button>
                         ))}
                       </div>
