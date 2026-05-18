@@ -62,11 +62,11 @@ export default function Home() {
         <div className="md:hidden">
           {/* Row 1: name + lang */}
           <div className="px-5 h-12 flex items-center justify-between">
-            <button onClick={() => setActive('home')} className="text-left relative">
-              {active === 'home' && (
-                <span aria-hidden className="pointer-events-none absolute -inset-x-8 -inset-y-6 -z-10 rounded-full" style={{ background: 'radial-gradient(closest-side, rgba(195,205,215,0.55), transparent 75%)', filter: 'blur(18px)' }} />
-              )}
-              <span className="block text-[15px] tracking-[0.18em] uppercase font-medium leading-none text-[#3A3A3C]">
+            <button onClick={() => setActive('home')} className="text-left">
+              <span
+                className="block text-[15px] tracking-[0.18em] uppercase font-medium leading-none text-[#3A3A3C] transition-[text-shadow] duration-500"
+                style={active === 'home' ? { textShadow: '0 0 14px rgba(140,160,180,0.55), 0 0 28px rgba(160,180,200,0.35)' } : undefined}
+              >
                 Lee Young
               </span>
             </button>
@@ -123,11 +123,11 @@ export default function Home() {
         {/* ── Desktop: single row ── */}
         <div className="hidden md:block">
           <div className="relative px-14 lg:px-20 h-16 flex items-center justify-between">
-            <button onClick={() => setActive('home')} className="text-left shrink-0 relative">
-              {active === 'home' && (
-                <span aria-hidden className="pointer-events-none absolute -inset-x-12 -inset-y-10 -z-10 rounded-full" style={{ background: 'radial-gradient(closest-side, rgba(195,205,215,0.6), transparent 75%)', filter: 'blur(28px)' }} />
-              )}
-              <span className="block text-[24px] tracking-[0.2em] uppercase font-medium leading-none text-[#3A3A3C]">
+            <button onClick={() => setActive('home')} className="text-left shrink-0">
+              <span
+                className="block text-[24px] tracking-[0.2em] uppercase font-medium leading-none text-[#3A3A3C] transition-[text-shadow] duration-500"
+                style={active === 'home' ? { textShadow: '0 0 20px rgba(140,160,180,0.55), 0 0 40px rgba(160,180,200,0.35)' } : undefined}
+              >
                 Lee Young
               </span>
             </button>
