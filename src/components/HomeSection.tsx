@@ -141,11 +141,6 @@ export default function HomeSection() {
       <div className="field-blur w-[55vw] h-[55vw] left-[-10vw] top-[10vh]" style={{ background: 'radial-gradient(circle, rgba(195,205,215,0.55), transparent 70%)' }} />
       <div className="field-blur w-[45vw] h-[45vw] right-[-8vw] bottom-[5vh]" style={{ background: 'radial-gradient(circle, rgba(200,210,215,0.5), transparent 70%)' }} />
       <canvas ref={canvasRef} className="absolute inset-0 w-full h-full touch-none" />
-      <div className="absolute bottom-6 left-0 right-0 flex justify-center pointer-events-none">
-        <p className="text-[8px] tracking-[0.22em] uppercase text-muted/40">
-          © 2026 Leeyoung. All rights reserved.
-        </p>
-      </div>
     </div>
   );
 }
