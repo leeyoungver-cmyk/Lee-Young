@@ -37,25 +37,25 @@ export default function WorksSection({ works, lang = 'ko' }: { works: Work[]; la
                   <span className="text-[11px] tracking-wider2 uppercase text-muted">{year}</span>
                 </div>
 
-                {/* 2-column grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-14 md:gap-x-14 md:gap-y-20 items-start">
+                {/* Masonry layout — each thumbnail keeps its natural aspect ratio */}
+                <div className="columns-1 md:columns-2 gap-x-10 md:gap-x-14">
                   {items.map((w) => (
                     <button
                       key={w.id}
                       onClick={() => setOpenId(w.id)}
-                      className="group text-left"
+                      className="group text-left block w-full break-inside-avoid mb-14 md:mb-20"
                     >
-                      <div className="aspect-[4/3] bg-subtle overflow-hidden">
+                      <div className="bg-subtle overflow-hidden">
                         {w.images[0] ? (
                           /* eslint-disable-next-line @next/next/no-img-element */
                           <img
                             src={w.images[0].src}
                             alt={w.title}
-                            className="w-full h-full object-cover transition-[opacity,transform,filter] duration-700 group-hover:scale-[1.03] group-hover:brightness-[0.95] opacity-0"
+                            className="block w-full h-auto transition-[opacity,transform,filter] duration-700 group-hover:scale-[1.03] group-hover:brightness-[0.95] opacity-0"
                             onLoad={(e) => { (e.currentTarget as HTMLImageElement).style.opacity = '1'; }}
                           />
                         ) : (
-                          <div className="w-full h-full flex items-center justify-center text-[11px] tracking-wider2 uppercase text-muted">
+                          <div className="aspect-[4/3] w-full flex items-center justify-center text-[11px] tracking-wider2 uppercase text-muted">
                             No image
                           </div>
                         )}
