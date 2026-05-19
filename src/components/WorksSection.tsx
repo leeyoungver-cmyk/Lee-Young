@@ -45,7 +45,7 @@ export default function WorksSection({ works, lang = 'ko' }: { works: Work[]; la
                       onClick={() => setOpenId(w.id)}
                       className="group text-left"
                     >
-                      <div className="aspect-[3/4] bg-subtle overflow-hidden">
+                      <div className="aspect-[4/3] bg-subtle overflow-hidden">
                         {w.images[0] ? (
                           /* eslint-disable-next-line @next/next/no-img-element */
                           <img
