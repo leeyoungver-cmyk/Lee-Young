@@ -70,14 +70,16 @@ export default function Home() {
             <div className="flex items-center gap-1.5">
               <button
                 onClick={() => setLang('ko')}
-                style={{ willChange: 'filter' }}
-                className={`text-[10px] tracking-wider uppercase transition-[filter,color] duration-500 ease-out ${lang === 'ko' ? 'text-ink font-medium' : 'text-muted hover:text-ink hover:[filter:blur(0.6px)] active:text-ink active:[filter:blur(0.6px)]'}`}
+                className={`relative text-[10px] tracking-wider uppercase transition-[filter,color] duration-500 ease-out [will-change:filter] ${
+                  lang === 'ko' ? 'text-ink' : 'text-muted hover:text-ink hover:[filter:blur(0.6px)] active:text-ink active:[filter:blur(0.6px)]'
+                }`}
               >KR</button>
               <span className="text-muted text-[9px]">/</span>
               <button
                 onClick={() => setLang('en')}
-                style={{ willChange: 'filter' }}
-                className={`text-[10px] tracking-wider uppercase transition-[filter,color] duration-500 ease-out ${lang === 'en' ? 'text-ink font-medium' : 'text-muted hover:text-ink hover:[filter:blur(0.6px)] active:text-ink active:[filter:blur(0.6px)]'}`}
+                className={`relative text-[10px] tracking-wider uppercase transition-[filter,color] duration-500 ease-out [will-change:filter] ${
+                  lang === 'en' ? 'text-ink' : 'text-muted hover:text-ink hover:[filter:blur(0.6px)] active:text-ink active:[filter:blur(0.6px)]'
+                }`}
               >EN</button>
             </div>
           </div>
@@ -131,17 +133,15 @@ export default function Home() {
             <div className="absolute left-1/2 -translate-x-1/2 flex items-center gap-1">
               <button
                 onClick={() => setLang('ko')}
-                style={{ willChange: 'filter' }}
-                className={`text-[11px] tracking-wider2 uppercase transition-[filter,color] duration-500 ease-out ${
-                  lang === 'ko' ? 'text-ink font-medium' : 'text-muted hover:text-ink hover:[filter:blur(0.7px)] active:text-ink active:[filter:blur(0.7px)]'
+                className={`relative text-[11px] tracking-wider2 uppercase transition-[filter,color] duration-500 ease-out [will-change:filter] ${
+                  lang === 'ko' ? 'text-ink' : 'text-muted hover:text-ink hover:[filter:blur(0.7px)] active:text-ink active:[filter:blur(0.7px)]'
                 }`}
               >KR</button>
               <span className="text-muted text-[10px]">/</span>
               <button
                 onClick={() => setLang('en')}
-                style={{ willChange: 'filter' }}
-                className={`text-[11px] tracking-wider2 uppercase transition-[filter,color] duration-500 ease-out ${
-                  lang === 'en' ? 'text-ink font-medium' : 'text-muted hover:text-ink hover:[filter:blur(0.7px)] active:text-ink active:[filter:blur(0.7px)]'
+                className={`relative text-[11px] tracking-wider2 uppercase transition-[filter,color] duration-500 ease-out [will-change:filter] ${
+                  lang === 'en' ? 'text-ink' : 'text-muted hover:text-ink hover:[filter:blur(0.7px)] active:text-ink active:[filter:blur(0.7px)]'
                 }`}
               >EN</button>
             </div>
