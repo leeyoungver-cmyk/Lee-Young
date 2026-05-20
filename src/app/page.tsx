@@ -70,12 +70,12 @@ export default function Home() {
             <div className="flex items-center gap-1.5">
               <button
                 onClick={() => setLang('ko')}
-                className={`text-[10px] tracking-wider uppercase transition-all duration-500 ${lang === 'ko' ? 'text-ink font-medium' : 'text-muted hover:text-ink hover:[filter:blur(0.6px)] active:text-ink active:[filter:blur(0.6px)]'}`}
+                className={`text-[10px] tracking-wider uppercase transition-all duration-500 ${lang === 'ko' ? 'text-ink font-medium [filter:blur(0.6px)]' : 'text-muted hover:text-ink hover:[filter:blur(0.6px)] active:text-ink active:[filter:blur(0.6px)]'}`}
               >KR</button>
               <span className="text-muted text-[9px]">/</span>
               <button
                 onClick={() => setLang('en')}
-                className={`text-[10px] tracking-wider uppercase transition-all duration-500 ${lang === 'en' ? 'text-ink font-medium' : 'text-muted hover:text-ink hover:[filter:blur(0.6px)] active:text-ink active:[filter:blur(0.6px)]'}`}
+                className={`text-[10px] tracking-wider uppercase transition-all duration-500 ${lang === 'en' ? 'text-ink font-medium [filter:blur(0.6px)]' : 'text-muted hover:text-ink hover:[filter:blur(0.6px)] active:text-ink active:[filter:blur(0.6px)]'}`}
               >EN</button>
             </div>
           </div>
@@ -87,7 +87,7 @@ export default function Home() {
                   key={n.key}
                   onClick={() => setActive(n.key)}
                   className={`relative text-[10px] tracking-wider uppercase transition-all duration-500 pb-0.5 ${
-                    active === n.key ? 'text-ink' : 'text-muted hover:text-ink hover:[filter:blur(0.6px)] active:text-ink active:[filter:blur(0.6px)]'
+                    active === n.key ? 'text-ink [filter:blur(0.6px)]' : 'text-muted hover:text-ink hover:[filter:blur(0.6px)] active:text-ink active:[filter:blur(0.6px)]'
                   }`}
                 >
                   {n.label}
@@ -108,7 +108,7 @@ export default function Home() {
                 <button
                   key={year}
                   onClick={() => goToYear(year)}
-                  className="text-[10px] tracking-wider tabular-nums text-muted hover:text-ink hover:[filter:blur(0.9px)] active:text-ink active:[filter:blur(0.9px)] transition-all duration-500"
+                  className="text-[10px] tracking-wider tabular-nums text-muted hover:text-ink hover:[filter:blur(0.9px)] active:text-ink active:[filter:blur(0.9px)] focus:text-ink focus:[filter:blur(0.9px)] transition-all duration-500"
                 >
                   {year}
                 </button>
@@ -130,14 +130,14 @@ export default function Home() {
               <button
                 onClick={() => setLang('ko')}
                 className={`text-[11px] tracking-wider2 uppercase transition-all duration-500 ${
-                  lang === 'ko' ? 'text-ink font-medium' : 'text-muted hover:text-ink hover:[filter:blur(0.7px)] active:text-ink active:[filter:blur(0.7px)]'
+                  lang === 'ko' ? 'text-ink font-medium [filter:blur(0.7px)]' : 'text-muted hover:text-ink hover:[filter:blur(0.7px)] active:text-ink active:[filter:blur(0.7px)]'
                 }`}
               >KR</button>
               <span className="text-muted text-[10px]">/</span>
               <button
                 onClick={() => setLang('en')}
                 className={`text-[11px] tracking-wider2 uppercase transition-all duration-500 ${
-                  lang === 'en' ? 'text-ink font-medium' : 'text-muted hover:text-ink hover:[filter:blur(0.7px)] active:text-ink active:[filter:blur(0.7px)]'
+                  lang === 'en' ? 'text-ink font-medium [filter:blur(0.7px)]' : 'text-muted hover:text-ink hover:[filter:blur(0.7px)] active:text-ink active:[filter:blur(0.7px)]'
                 }`}
               >EN</button>
             </div>
@@ -148,7 +148,7 @@ export default function Home() {
                   <button
                     onClick={() => setActive(n.key)}
                     className={`relative text-[11px] tracking-wider uppercase transition-all duration-500 pb-1 ${
-                      active === n.key ? 'text-ink' : 'text-muted hover:text-ink hover:[filter:blur(0.7px)] active:text-ink active:[filter:blur(0.7px)]'
+                      active === n.key ? 'text-ink [filter:blur(0.7px)]' : 'text-muted hover:text-ink hover:[filter:blur(0.7px)] active:text-ink active:[filter:blur(0.7px)]'
                     }`}
                   >
                     {n.label}
@@ -163,7 +163,7 @@ export default function Home() {
                           <button
                             key={year}
                             onClick={() => goToYear(year)}
-                            className="text-[10px] tracking-wider tabular-nums text-muted hover:text-ink hover:[filter:blur(0.9px)] active:text-ink active:[filter:blur(0.9px)] transition-all duration-500 whitespace-nowrap"
+                            className="text-[10px] tracking-wider tabular-nums text-muted hover:text-ink hover:[filter:blur(0.9px)] active:text-ink active:[filter:blur(0.9px)] focus:text-ink focus:[filter:blur(0.9px)] transition-all duration-500 whitespace-nowrap"
                           >{year}</button>
                         ))}
                       </div>
