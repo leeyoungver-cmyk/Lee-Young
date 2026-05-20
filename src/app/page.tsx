@@ -86,7 +86,7 @@ export default function Home() {
                 <button
                   key={n.key}
                   onClick={() => setActive(n.key)}
-                  className={`relative text-[10px] tracking-wider uppercase transition-all duration-500 pb-0.5 ${
+                  className={`relative text-[10px] tracking-wider uppercase transition-[filter,color] duration-500 ease-out [will-change:filter] pb-0.5 ${
                     active === n.key ? 'text-ink' : 'text-muted hover:text-ink hover:[filter:blur(0.6px)] active:text-ink active:[filter:blur(0.6px)]'
                   }`}
                 >
@@ -147,7 +147,7 @@ export default function Home() {
                 <div key={n.key} className={`relative flex justify-center w-20 ${n.key === 'works' ? 'group/works' : ''}`}>
                   <button
                     onClick={() => setActive(n.key)}
-                    className={`relative text-[11px] tracking-wider uppercase transition-all duration-500 pb-1 ${
+                    className={`relative text-[11px] tracking-wider uppercase transition-[filter,color] duration-500 ease-out [will-change:filter] pb-1 ${
                       active === n.key ? 'text-ink' : 'text-muted hover:text-ink hover:[filter:blur(0.7px)] active:text-ink active:[filter:blur(0.7px)]'
                     }`}
                   >
