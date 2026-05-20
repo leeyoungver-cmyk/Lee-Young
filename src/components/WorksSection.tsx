@@ -129,7 +129,7 @@ function WorkLightbox({ work, onClose, lang = 'ko' }: { work: Work; onClose: () 
           </div>
           <button
             onClick={onClose}
-            className="text-[11px] tracking-wider2 uppercase hover:[filter:blur(0.7px)] active:[filter:blur(0.7px)] focus:[filter:blur(0.7px)] transition-all duration-500"
+            className="text-[11px] tracking-wider2 uppercase hover:[filter:blur(0.7px)] active:[filter:blur(0.7px)] transition-all duration-500"
             aria-label="Close"
           >
             Close ✕
@@ -190,7 +190,7 @@ function WorkLightbox({ work, onClose, lang = 'ko' }: { work: Work; onClose: () 
         <div className="mt-24 mb-8 flex justify-center">
           <button
             onClick={onClose}
-            className="text-[11px] tracking-wider2 uppercase text-muted hover:text-ink hover:[filter:blur(0.7px)] active:text-ink active:[filter:blur(0.7px)] focus:text-ink focus:[filter:blur(0.7px)] transition-all duration-500"
+            className="text-[11px] tracking-wider2 uppercase text-muted hover:text-ink hover:[filter:blur(0.7px)] active:text-ink active:[filter:blur(0.7px)] transition-all duration-500"
           >
             ← Back to Works
           </button>
