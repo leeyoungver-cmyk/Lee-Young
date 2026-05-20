@@ -71,14 +71,14 @@ export default function Home() {
               <button
                 onClick={() => setLang('ko')}
                 className={`relative text-[10px] tracking-wider uppercase transition-[filter] duration-500 ease-out ${
-                  lang === 'ko' ? 'text-ink' : 'text-muted hover:text-ink hover:[filter:blur(0.6px)] active:text-ink active:[filter:blur(0.6px)]'
+                  lang === 'ko' ? 'text-ink' : 'text-muted hover:[filter:blur(0.6px)] active:[filter:blur(0.6px)]'
                 }`}
               >KR</button>
               <span className="text-muted text-[9px]">/</span>
               <button
                 onClick={() => setLang('en')}
                 className={`relative text-[10px] tracking-wider uppercase transition-[filter] duration-500 ease-out ${
-                  lang === 'en' ? 'text-ink' : 'text-muted hover:text-ink hover:[filter:blur(0.6px)] active:text-ink active:[filter:blur(0.6px)]'
+                  lang === 'en' ? 'text-ink' : 'text-muted hover:[filter:blur(0.6px)] active:[filter:blur(0.6px)]'
                 }`}
               >EN</button>
             </div>
@@ -134,14 +134,14 @@ export default function Home() {
               <button
                 onClick={() => setLang('ko')}
                 className={`relative text-[11px] tracking-wider2 uppercase transition-[filter] duration-500 ease-out ${
-                  lang === 'ko' ? 'text-ink' : 'text-muted hover:text-ink hover:[filter:blur(0.7px)] active:text-ink active:[filter:blur(0.7px)]'
+                  lang === 'ko' ? 'text-ink' : 'text-muted hover:[filter:blur(0.7px)] active:[filter:blur(0.7px)]'
                 }`}
               >KR</button>
               <span className="text-muted text-[10px]">/</span>
               <button
                 onClick={() => setLang('en')}
                 className={`relative text-[11px] tracking-wider2 uppercase transition-[filter] duration-500 ease-out ${
-                  lang === 'en' ? 'text-ink' : 'text-muted hover:text-ink hover:[filter:blur(0.7px)] active:text-ink active:[filter:blur(0.7px)]'
+                  lang === 'en' ? 'text-ink' : 'text-muted hover:[filter:blur(0.7px)] active:[filter:blur(0.7px)]'
                 }`}
               >EN</button>
             </div>
