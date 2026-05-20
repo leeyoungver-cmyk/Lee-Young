@@ -70,12 +70,12 @@ export default function Home() {
             <div className="flex items-center gap-1.5">
               <button
                 onClick={() => setLang('ko')}
-                className={`text-[10px] tracking-wider uppercase transition-all duration-500 ${lang === 'ko' ? 'text-ink font-medium [filter:blur(0.6px)]' : 'text-muted hover:text-ink hover:[filter:blur(0.6px)] active:text-ink active:[filter:blur(0.6px)]'}`}
+                className={`text-[10px] tracking-wider uppercase transition-[filter,color] duration-700 ease-out will-change-[filter] ${lang === 'ko' ? 'text-ink font-medium [filter:blur(0.6px)]' : 'text-muted hover:text-ink hover:[filter:blur(0.6px)] active:text-ink active:[filter:blur(0.6px)]'}`}
               >KR</button>
               <span className="text-muted text-[9px]">/</span>
               <button
                 onClick={() => setLang('en')}
-                className={`text-[10px] tracking-wider uppercase transition-all duration-500 ${lang === 'en' ? 'text-ink font-medium [filter:blur(0.6px)]' : 'text-muted hover:text-ink hover:[filter:blur(0.6px)] active:text-ink active:[filter:blur(0.6px)]'}`}
+                className={`text-[10px] tracking-wider uppercase transition-[filter,color] duration-700 ease-out will-change-[filter] ${lang === 'en' ? 'text-ink font-medium [filter:blur(0.6px)]' : 'text-muted hover:text-ink hover:[filter:blur(0.6px)] active:text-ink active:[filter:blur(0.6px)]'}`}
               >EN</button>
             </div>
           </div>
@@ -86,7 +86,7 @@ export default function Home() {
                 <button
                   key={n.key}
                   onClick={() => setActive(n.key)}
-                  className={`relative text-[10px] tracking-wider uppercase transition-all duration-500 pb-0.5 ${
+                  className={`relative text-[10px] tracking-wider uppercase transition-[filter,color] duration-700 ease-out will-change-[filter] pb-0.5 ${
                     active === n.key ? 'text-ink [filter:blur(0.6px)]' : 'text-muted hover:text-ink hover:[filter:blur(0.6px)] active:text-ink active:[filter:blur(0.6px)]'
                   }`}
                 >
@@ -108,7 +108,7 @@ export default function Home() {
                 <button
                   key={year}
                   onClick={() => goToYear(year)}
-                  className="text-[10px] tracking-wider tabular-nums text-muted hover:text-ink hover:[filter:blur(0.9px)] active:text-ink active:[filter:blur(0.9px)] focus:text-ink focus:[filter:blur(0.9px)] transition-all duration-500"
+                  className="text-[10px] tracking-wider tabular-nums text-muted hover:text-ink hover:[filter:blur(0.9px)] active:text-ink active:[filter:blur(0.9px)] focus:text-ink focus:[filter:blur(0.9px)] transition-[filter,color] duration-700 ease-out will-change-[filter]"
                 >
                   {year}
                 </button>
@@ -129,14 +129,14 @@ export default function Home() {
             <div className="absolute left-1/2 -translate-x-1/2 flex items-center gap-1">
               <button
                 onClick={() => setLang('ko')}
-                className={`text-[11px] tracking-wider2 uppercase transition-all duration-500 ${
+                className={`text-[11px] tracking-wider2 uppercase transition-[filter,color] duration-700 ease-out will-change-[filter] ${
                   lang === 'ko' ? 'text-ink font-medium [filter:blur(0.7px)]' : 'text-muted hover:text-ink hover:[filter:blur(0.7px)] active:text-ink active:[filter:blur(0.7px)]'
                 }`}
               >KR</button>
               <span className="text-muted text-[10px]">/</span>
               <button
                 onClick={() => setLang('en')}
-                className={`text-[11px] tracking-wider2 uppercase transition-all duration-500 ${
+                className={`text-[11px] tracking-wider2 uppercase transition-[filter,color] duration-700 ease-out will-change-[filter] ${
                   lang === 'en' ? 'text-ink font-medium [filter:blur(0.7px)]' : 'text-muted hover:text-ink hover:[filter:blur(0.7px)] active:text-ink active:[filter:blur(0.7px)]'
                 }`}
               >EN</button>
@@ -147,7 +147,7 @@ export default function Home() {
                 <div key={n.key} className={`relative flex justify-center w-20 ${n.key === 'works' ? 'group/works' : ''}`}>
                   <button
                     onClick={() => setActive(n.key)}
-                    className={`relative text-[11px] tracking-wider uppercase transition-all duration-500 pb-1 ${
+                    className={`relative text-[11px] tracking-wider uppercase transition-[filter,color] duration-700 ease-out will-change-[filter] pb-1 ${
                       active === n.key ? 'text-ink [filter:blur(0.7px)]' : 'text-muted hover:text-ink hover:[filter:blur(0.7px)] active:text-ink active:[filter:blur(0.7px)]'
                     }`}
                   >
@@ -157,13 +157,13 @@ export default function Home() {
                     }`} />
                   </button>
                   {n.key === 'works' && years.length > 0 && (
-                    <div className="absolute top-full left-1/2 -translate-x-1/2 pt-8 opacity-0 group-hover/works:opacity-100 pointer-events-none group-hover/works:pointer-events-auto transition-all duration-500 translate-y-1 group-hover/works:translate-y-0">
+                    <div className="absolute top-full left-1/2 -translate-x-1/2 pt-8 opacity-0 group-hover/works:opacity-100 pointer-events-none group-hover/works:pointer-events-auto transition-[filter,color] duration-700 ease-out will-change-[filter] translate-y-1 group-hover/works:translate-y-0">
                       <div className="flex flex-col items-center gap-2.5">
                         {years.map((year) => (
                           <button
                             key={year}
                             onClick={() => goToYear(year)}
-                            className="text-[10px] tracking-wider tabular-nums text-muted hover:text-ink hover:[filter:blur(0.9px)] active:text-ink active:[filter:blur(0.9px)] focus:text-ink focus:[filter:blur(0.9px)] transition-all duration-500 whitespace-nowrap"
+                            className="text-[10px] tracking-wider tabular-nums text-muted hover:text-ink hover:[filter:blur(0.9px)] active:text-ink active:[filter:blur(0.9px)] focus:text-ink focus:[filter:blur(0.9px)] transition-[filter,color] duration-700 ease-out will-change-[filter] whitespace-nowrap"
                           >{year}</button>
                         ))}
                       </div>
