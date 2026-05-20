@@ -201,6 +201,25 @@
     "url": "https://youtube.com/shorts/R_mr_wXLveg"
   },
   {
+    "title": "렌더링 (Rendering)",
+    "year": "2024",
+    "medium": "비디오 설치, 컬러, 천사점토, 알루미늄, 철망, 가변설치",
+    "description": "『렌더링 (Rendering)』은 디지털 이미지가 어떻게 실제처럼 보이도록 만들어지는지를 다루는 비디오 설치 작품이다. '렌더링'이라는 기술적 개념을 출발점으로 삼아, 기술이 현실을 재현하는 방식과 그 과정에서 발생하는 허상적 경험을 환기시킨다.\n\n오늘날 우리는 화면 속 이미지가 어떻게 만들어졌는지보다, 그것이 얼마나 그럴듯해 보이는가에 더 집중하게 된다. 기술이 점점 스스로 판단하고 작동하는 만큼, 우리는 그것이 보여주는 장면을 쉽게 믿어버리게 된다. 이 작업은 그러한 기술 중심의 감각과 태도를 관찰하는 데서 출발한다.\n\n작품에 사용된 영상은 작가가 흰색 클레이로 만든 조형물을 직접 촬영한 뒤, 생성형 AI 기술(image-to-video)을 거쳐 변환한 것이다. 영상은 실제를 기반으로 하지만 기술을 통과하면서 원본과는 다른 이미지로 바뀐다. 조형물은 아날로그 TV 속 영상과 함께 설치되어, 우리가 보는 것이 진실인지 혹은 기술이 만들어낸 환상인지 묻는다.",
+    "url": "https://youtube.com/shorts/OxhCq4ZW5V4",
+    "images": [
+      {
+        "src": "/uploads/mpdlqqp7-zkm1lw-_DSC2717.jpg"
+      },
+      {
+        "src": "/uploads/mpdltppa-jph3t2-____.jpg"
+      }
+    ],
+    "id": "mpdlwtosmwicp6",
+    "order": 9,
+    "createdAt": "2026-05-20T05:13:52.203Z",
+    "updatedAt": "2026-05-20T06:20:06.788Z"
+  },
+  {
     "title": "비행기는 난다",
     "year": "2024",
     "medium": "모형 글라이더, 방수천, 쿨링팬, 알루미늄, 바퀴, 각목 60cm x 80cm x 60cm",
@@ -214,7 +233,7 @@
       }
     ],
     "id": "mp8189citspkmm",
-    "order": 9,
+    "order": 10,
     "createdAt": "2026-05-16T07:36:02.898Z",
     "updatedAt": "2026-05-16T07:36:29.604Z",
     "titleEn": "The Airplane Always Flies",
@@ -231,7 +250,7 @@
       }
     ],
     "id": "mp81hzsgaondun",
-    "order": 10,
+    "order": 11,
     "createdAt": "2026-05-16T07:43:37.071Z",
     "updatedAt": "2026-05-16T07:43:37.071Z",
     "titleEn": "Genesis Object",
@@ -247,7 +266,7 @@
       }
     ],
     "id": "mp81lfehw4lb3x",
-    "order": 11,
+    "order": 12,
     "createdAt": "2026-05-16T07:46:17.273Z",
     "updatedAt": "2026-05-16T07:51:38.679Z",
     "description": "",
@@ -264,7 +283,7 @@
       }
     ],
     "id": "mp81m242wcv39n",
-    "order": 12,
+    "order": 13,
     "createdAt": "2026-05-16T07:46:46.706Z",
     "updatedAt": "2026-05-16T07:52:24.686Z",
     "description": "",
@@ -290,7 +309,7 @@
       }
     ],
     "id": "mp81nshq141v4e",
-    "order": 13,
+    "order": 14,
     "createdAt": "2026-05-16T07:48:07.550Z",
     "updatedAt": "2026-05-16T07:48:07.550Z",
     "titleEn": "X, Y, Z",
@@ -306,7 +325,7 @@
       }
     ],
     "id": "mp81zz5wkfm9l8",
-    "order": 14,
+    "order": 15,
     "createdAt": "2026-05-16T07:57:36.066Z",
     "updatedAt": "2026-05-16T07:57:36.066Z",
     "titleEn": "Black Dog Sequence",
@@ -328,7 +347,7 @@
       }
     ],
     "id": "mp821mke6wa2mj",
-    "order": 15,
+    "order": 16,
     "createdAt": "2026-05-16T07:58:53.054Z",
     "updatedAt": "2026-05-16T08:23:47.524Z",
     "description": "",
@@ -345,7 +364,7 @@
       }
     ],
     "id": "mp83h6e1wq0b5a",
-    "order": 16,
+    "order": 17,
     "createdAt": "2026-05-16T08:38:58.201Z",
     "updatedAt": "2026-05-16T08:38:58.201Z",
     "titleEn": "Garden of Fragments",
@@ -361,7 +380,7 @@
       }
     ],
     "id": "mp83ip76niheqa",
-    "order": 17,
+    "order": 18,
     "createdAt": "2026-05-16T08:40:09.234Z",
     "updatedAt": "2026-05-16T08:40:50.558Z",
     "description": "",
@@ -378,7 +397,7 @@
       }
     ],
     "id": "mp83qd3xx3grrd",
-    "order": 18,
+    "order": 19,
     "createdAt": "2026-05-16T08:46:06.813Z",
     "updatedAt": "2026-05-16T08:46:06.813Z",
     "titleEn": "Fireworks",
@@ -397,7 +416,7 @@
       }
     ],
     "id": "mp83s204tqvxm4",
-    "order": 19,
+    "order": 20,
     "createdAt": "2026-05-16T08:47:25.732Z",
     "updatedAt": "2026-05-16T08:47:25.732Z",
     "titleEn": "Genesis Objects",
@@ -413,30 +432,11 @@
       }
     ],
     "id": "mp845fhjsb6ye5",
-    "order": 20,
+    "order": 21,
     "createdAt": "2026-05-16T08:57:49.735Z",
     "updatedAt": "2026-05-16T08:57:49.735Z",
     "titleEn": "Division",
     "mediumEn": "Modeling putty, aluminum mesh, air-dry clay, variable dimensions"
-  },
-  {
-    "title": "이데아",
-    "year": "2023",
-    "medium": "혼합매체, 가변설치",
-    "images": [
-      {
-        "src": "/uploads/mp8471qx-c8khp5-______.jpg"
-      },
-      {
-        "src": "/uploads/mp84d5pc-pbfjaq-______1.jpg"
-      }
-    ],
-    "id": "mp84dbh40sq1rl",
-    "order": 21,
-    "createdAt": "2026-05-16T09:03:57.782Z",
-    "updatedAt": "2026-05-16T09:03:57.782Z",
-    "titleEn": "Idea",
-    "mediumEn": "Mixed media, variable installation"
   },
   {
     "title": "겨울정원",
@@ -455,6 +455,25 @@
     "mediumEn": "Oil on canvas, 60 x 30 cm"
   },
   {
+    "title": "이데아",
+    "year": "2023",
+    "medium": "혼합매체, 가변설치",
+    "images": [
+      {
+        "src": "/uploads/mp8471qx-c8khp5-______.jpg"
+      },
+      {
+        "src": "/uploads/mp84d5pc-pbfjaq-______1.jpg"
+      }
+    ],
+    "id": "mp84dbh40sq1rl",
+    "order": 23,
+    "createdAt": "2026-05-16T09:03:57.782Z",
+    "updatedAt": "2026-05-16T09:03:57.782Z",
+    "titleEn": "Idea",
+    "mediumEn": "Mixed media, variable installation"
+  },
+  {
     "title": "Plastic heart",
     "year": "2022",
     "medium": "천사점토, 10 x 15 cm",
@@ -464,7 +483,7 @@
       }
     ],
     "id": "mp84jyyudm2wy7",
-    "order": 23,
+    "order": 24,
     "createdAt": "2026-05-16T09:09:08.166Z",
     "updatedAt": "2026-05-16T09:09:08.166Z",
     "titleEn": "Plastic Heart",
@@ -480,7 +499,7 @@
       }
     ],
     "id": "mp84kw9ovskdj0",
-    "order": 24,
+    "order": 25,
     "createdAt": "2026-05-16T09:09:51.324Z",
     "updatedAt": "2026-05-16T09:09:51.324Z",
     "titleEn": "Flower Heart",
@@ -496,7 +515,7 @@
       }
     ],
     "id": "mp84rjnfqrkjaa",
-    "order": 25,
+    "order": 26,
     "createdAt": "2026-05-16T09:15:01.563Z",
     "updatedAt": "2026-05-16T09:15:01.563Z",
     "titleEn": "Ilwol Obongdo (Sun, Moon and Five Peaks)",
@@ -512,29 +531,10 @@
       }
     ],
     "id": "mp84yorcia6by4",
-    "order": 26,
+    "order": 27,
     "createdAt": "2026-05-16T09:20:34.776Z",
     "updatedAt": "2026-05-16T09:20:34.776Z",
     "titleEn": "Wind Flower",
     "mediumEn": "Mixed media on canvas, 53 x 72.7 cm"
-  },
-  {
-    "title": "렌더링 (Rendering)",
-    "year": "2024",
-    "medium": "비디오 설치, 컬러, 천사점토, 알루미늄, 철망, 가변설치",
-    "description": "『렌더링 (Rendering)』은 디지털 이미지가 어떻게 실제처럼 보이도록 만들어지는지를 다루는 비디오 설치 작품이다. '렌더링'이라는 기술적 개념을 출발점으로 삼아, 기술이 현실을 재현하는 방식과 그 과정에서 발생하는 허상적 경험을 환기시킨다.\n\n오늘날 우리는 화면 속 이미지가 어떻게 만들어졌는지보다, 그것이 얼마나 그럴듯해 보이는가에 더 집중하게 된다. 기술이 점점 스스로 판단하고 작동하는 만큼, 우리는 그것이 보여주는 장면을 쉽게 믿어버리게 된다. 이 작업은 그러한 기술 중심의 감각과 태도를 관찰하는 데서 출발한다.\n\n작품에 사용된 영상은 작가가 흰색 클레이로 만든 조형물을 직접 촬영한 뒤, 생성형 AI 기술(image-to-video)을 거쳐 변환한 것이다. 영상은 실제를 기반으로 하지만 기술을 통과하면서 원본과는 다른 이미지로 바뀐다. 조형물은 아날로그 TV 속 영상과 함께 설치되어, 우리가 보는 것이 진실인지 혹은 기술이 만들어낸 환상인지 묻는다.",
-    "url": "https://youtube.com/shorts/OxhCq4ZW5V4",
-    "images": [
-      {
-        "src": "/uploads/mpdltppa-jph3t2-____.jpg"
-      },
-      {
-        "src": "/uploads/mpdlqqp7-zkm1lw-_DSC2717.jpg"
-      }
-    ],
-    "id": "mpdlwtosmwicp6",
-    "order": 27,
-    "createdAt": "2026-05-20T05:13:52.203Z",
-    "updatedAt": "2026-05-20T05:14:49.284Z"
   }
 ]
