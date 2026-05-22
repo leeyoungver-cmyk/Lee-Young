@@ -70,14 +70,14 @@ export default function Home() {
             <div className="flex items-center gap-1.5">
               <button
                 onClick={() => setLang('ko')}
-                className={`relative text-[10px] tracking-wider uppercase transition-[filter] duration-500 ease-out ${
+                className={`relative isolate text-[10px] tracking-wider uppercase transition-[filter] duration-300 ease-out ${
                   lang === 'ko' ? 'text-ink' : 'text-muted hover:[filter:blur(0.6px)] active:[filter:blur(0.6px)]'
                 }`}
               >KR</button>
               <span className="text-muted text-[9px]">/</span>
               <button
                 onClick={() => setLang('en')}
-                className={`relative text-[10px] tracking-wider uppercase transition-[filter] duration-500 ease-out ${
+                className={`relative isolate text-[10px] tracking-wider uppercase transition-[filter] duration-300 ease-out ${
                   lang === 'en' ? 'text-ink' : 'text-muted hover:[filter:blur(0.6px)] active:[filter:blur(0.6px)]'
                 }`}
               >EN</button>

@@ -140,6 +140,12 @@ export default function HomeSection() {
       {/* Soft field-blur ambient orbs */}
       <div className="field-blur w-[55vw] h-[55vw] left-[-10vw] top-[10vh]" style={{ background: 'radial-gradient(circle, rgba(195,205,215,0.55), transparent 70%)' }} />
       <div className="field-blur w-[45vw] h-[45vw] right-[-8vw] bottom-[5vh]" style={{ background: 'radial-gradient(circle, rgba(200,210,215,0.5), transparent 70%)' }} />
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="/images/home-hero.jpg"
+        alt=""
+        className="absolute inset-0 w-full h-full object-cover opacity-70 pointer-events-none"
+      />
       <canvas ref={canvasRef} className="absolute inset-0 w-full h-full touch-none" />
     </div>
   );
