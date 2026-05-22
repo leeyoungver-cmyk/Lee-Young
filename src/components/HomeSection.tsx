@@ -24,9 +24,7 @@ type ImageDef = {
   initial: { x: number; y: number };
 };
 
-const IMAGES: ImageDef[] = [
-  { src: '/images/home-hero.jpg', widthPct: 70, mdWidthPct: 45, maxPx: 720, initial: { x: 50, y: 50 } },
-];
+const IMAGES: ImageDef[] = [];
 
 function DraggableImage({ def }: { def: ImageDef }) {
   const [pos, setPos] = useState(def.initial);
@@ -217,6 +215,13 @@ export default function HomeSection() {
 
   return (
     <div className="relative w-full h-[calc(100vh-88px)] md:h-[calc(100vh-64px)] select-none overflow-hidden">
+      {/* Fullscreen background image */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="/images/home-bg.jpg"
+        alt=""
+        className="absolute inset-0 w-full h-full object-cover opacity-80 pointer-events-none"
+      />
       {/* Soft field-blur ambient orbs */}
       <div className="field-blur w-[55vw] h-[55vw] left-[-10vw] top-[10vh]" style={{ background: 'radial-gradient(circle, rgba(195,205,215,0.55), transparent 70%)' }} />
       <div className="field-blur w-[45vw] h-[45vw] right-[-8vw] bottom-[5vh]" style={{ background: 'radial-gradient(circle, rgba(200,210,215,0.5), transparent 70%)' }} />
