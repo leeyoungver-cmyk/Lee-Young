@@ -25,9 +25,16 @@ type ImageDef = {
 };
 
 const IMAGES: ImageDef[] = [
-  { src: '/images/home-hero.jpg',  widthPct: 50, mdWidthPct: 30, maxPx: 480, initial: { x: 50, y: 50 } },
-  { src: '/images/home-snow1.jpg', widthPct: 35, mdWidthPct: 18, maxPx: 280, initial: { x: 22, y: 28 } },
-  { src: '/images/home-snow2.jpg', widthPct: 38, mdWidthPct: 22, maxPx: 340, initial: { x: 78, y: 72 } },
+  // hero sculpture — largest, slightly off-center
+  { src: '/images/home-hero.jpg',  widthPct: 55, mdWidthPct: 32, maxPx: 520, initial: { x: 52, y: 55 } },
+  // city distant — medium, top-right
+  { src: '/images/home-city.jpg',  widthPct: 36, mdWidthPct: 22, maxPx: 320, initial: { x: 78, y: 22 } },
+  // snow trees — vertical, mid-left, overlaps with hero
+  { src: '/images/home-snow.jpg',  widthPct: 26, mdWidthPct: 14, maxPx: 220, initial: { x: 18, y: 48 } },
+  // snow bokeh — medium, bottom-right
+  { src: '/images/home-bokeh.jpg', widthPct: 32, mdWidthPct: 20, maxPx: 280, initial: { x: 72, y: 78 } },
+  // wild grass — smallest accent, bottom-left
+  { src: '/images/home-grass.jpg', widthPct: 18, mdWidthPct: 11, maxPx: 160, initial: { x: 28, y: 82 } },
 ];
 
 function DraggableImage({ def }: { def: ImageDef }) {
