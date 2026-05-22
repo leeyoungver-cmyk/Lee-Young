@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 type Particle = {
   x: number; y: number;
@@ -13,6 +13,88 @@ type Particle = {
   pulsePhase: number;
   pulseSpeed: number;
 };
+
+type ImageDef = {
+  src: string;
+  // size as % of container width
+  widthPct: number;
+  mdWidthPct: number;
+  maxPx: number;
+  // initial position (% of container, center anchor)
+  initial: { x: number; y: number };
+};
+
+const IMAGES: ImageDef[] = [
+  { src: '/images/home-hero.jpg',  widthPct: 50, mdWidthPct: 30, maxPx: 480, initial: { x: 50, y: 50 } },
+  { src: '/images/home-snow1.jpg', widthPct: 35, mdWidthPct: 18, maxPx: 280, initial: { x: 22, y: 28 } },
+  { src: '/images/home-snow2.jpg', widthPct: 38, mdWidthPct: 22, maxPx: 340, initial: { x: 78, y: 72 } },
+];
+
+function DraggableImage({ def }: { def: ImageDef }) {
+  const [pos, setPos] = useState(def.initial);
+  const [z, setZ] = useState(10);
+  const ref = useRef<HTMLDivElement>(null);
+  const drag = useRef({ active: false, startX: 0, startY: 0, posX: 0, posY: 0 });
+  const [isMd, setIsMd] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMd(window.innerWidth >= 768);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
+
+  const onPointerDown = (e: React.PointerEvent) => {
+    drag.current = { active: true, startX: e.clientX, startY: e.clientY, posX: pos.x, posY: pos.y };
+    setZ(50);
+    (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
+  };
+  const onPointerMove = (e: React.PointerEvent) => {
+    if (!drag.current.active) return;
+    const parent = ref.current?.parentElement;
+    if (!parent) return;
+    const rect = parent.getBoundingClientRect();
+    const dx = e.clientX - drag.current.startX;
+    const dy = e.clientY - drag.current.startY;
+    setPos({
+      x: drag.current.posX + (dx / rect.width) * 100,
+      y: drag.current.posY + (dy / rect.height) * 100,
+    });
+  };
+  const onPointerUp = (e: React.PointerEvent) => {
+    drag.current.active = false;
+    setZ(20);
+    try { (e.currentTarget as HTMLElement).releasePointerCapture(e.pointerId); } catch {}
+  };
+
+  const widthValue = isMd ? `min(${def.mdWidthPct}vw, ${def.maxPx}px)` : `${def.widthPct}vw`;
+
+  return (
+    <div
+      ref={ref}
+      onPointerDown={onPointerDown}
+      onPointerMove={onPointerMove}
+      onPointerUp={onPointerUp}
+      onPointerCancel={onPointerUp}
+      className="absolute touch-none cursor-grab active:cursor-grabbing"
+      style={{
+        left: `${pos.x}%`,
+        top: `${pos.y}%`,
+        transform: 'translate(-50%, -50%)',
+        width: widthValue,
+        zIndex: z,
+      }}
+    >
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={def.src}
+        alt=""
+        draggable={false}
+        className="block w-full h-auto opacity-70 select-none pointer-events-none"
+      />
+    </div>
+  );
+}
 
 export default function HomeSection() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -140,15 +222,10 @@ export default function HomeSection() {
       {/* Soft field-blur ambient orbs */}
       <div className="field-blur w-[55vw] h-[55vw] left-[-10vw] top-[10vh]" style={{ background: 'radial-gradient(circle, rgba(195,205,215,0.55), transparent 70%)' }} />
       <div className="field-blur w-[45vw] h-[45vw] right-[-8vw] bottom-[5vh]" style={{ background: 'radial-gradient(circle, rgba(200,210,215,0.5), transparent 70%)' }} />
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/images/home-hero.jpg"
-          alt=""
-          className="w-[60vw] md:w-[40vw] max-w-[640px] h-auto object-contain opacity-70"
-        />
-      </div>
       <canvas ref={canvasRef} className="absolute inset-0 w-full h-full touch-none" />
+      {IMAGES.map((def) => (
+        <DraggableImage key={def.src} def={def} />
+      ))}
     </div>
   );
 }
