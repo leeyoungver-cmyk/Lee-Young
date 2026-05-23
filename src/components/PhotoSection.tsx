@@ -128,14 +128,7 @@ export default function PhotoSection({ lang = 'ko' }: { lang?: Lang }) {
       ) : (
         // ── EXPANDED — album list ──
         <div className="mt-12 md:mt-16 expand-root">
-          <div className="flex items-center justify-end mb-8 md:mb-12">
-            <button
-              onClick={closeToStack}
-              className="text-[11px] tracking-wider2 uppercase text-muted hover:text-ink hover:[filter:blur(0.7px)] transition-all duration-500"
-            >
-              {isEn ? '↑ Collapse all' : '↑ 닫기'}
-            </button>
-          </div>
+          <div className="mb-8 md:mb-12" />
 
           <ul className="divide-y divide-line/60 border-t border-line/60">
             {photos.map((album, ai) => {
@@ -186,10 +179,7 @@ export default function PhotoSection({ lang = 'ko' }: { lang?: Lang }) {
                         {(isEn ? (album.captionEn || album.caption) : album.caption) || (isEn ? 'Untitled' : '제목 없음')}
                       </h3>
                     </div>
-                    <div className="flex items-center gap-3 shrink-0">
-                      <span className="text-[10px] tracking-wider2 uppercase text-muted tabular-nums">
-                        {album.images.length}
-                      </span>
+                    <div className="flex items-center shrink-0">
                       <span
                         className="text-[12px] text-muted transition-transform duration-500"
                         style={{ transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}
