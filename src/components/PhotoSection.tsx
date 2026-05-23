@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import type { Lang } from '@/app/page';
 import type { Photo } from '@/types/photo';
 
@@ -13,6 +13,7 @@ export default function PhotoSection({ lang = 'ko' }: { lang?: Lang }) {
   const [openAlbums, setOpenAlbums] = useState<Set<string>>(new Set());
   const [open, setOpen] = useState<OpenState | null>(null);
   const [slideIdx, setSlideIdx] = useState(0);
+  const [stackHover, setStackHover] = useState(false);
 
   useEffect(() => {
     fetch('/api/photos')
@@ -26,20 +27,6 @@ export default function PhotoSection({ lang = 'ko' }: { lang?: Lang }) {
     const intv = setInterval(() => setSlideIdx((i) => (i + 1) % photos.length), 3000);
     return () => clearInterval(intv);
   }, [photos.length]);
-
-  // Stable random tilts per photo (deterministic by id+index)
-  const tilts = useMemo(() => {
-    const map: Record<string, number[]> = {};
-    photos.forEach((p) => {
-      const arr: number[] = [];
-      for (let i = 0; i < p.images.length; i++) {
-        const seed = (p.id.charCodeAt((i * 3) % p.id.length) + i * 13) % 100;
-        arr.push(((seed - 50) / 50) * 1.5); // -1.5° ~ +1.5°
-      }
-      map[p.id] = arr;
-    });
-    return map;
-  }, [photos]);
 
   const isEn = lang === 'en';
   const openAlbum = open ? photos.find((p) => p.id === open.albumId) : null;
@@ -63,6 +50,15 @@ export default function PhotoSection({ lang = 'ko' }: { lang?: Lang }) {
     setOpenAlbums(new Set());
   };
 
+  // Stack card layouts: idle vs hovered (subtle spread)
+  const stackLayouts = [
+    // [depth 0 (top), 1, 2, 3]
+    { idle: { tx: 0, ty: 0,  rot: 0,    sx: 1 },     hov: { tx: 0, ty: -3,  rot: 0,    sx: 1 } },
+    { idle: { tx: -7, ty: 4, rot: -4.5, sx: 0.97 },  hov: { tx: -13, ty: 5, rot: -8,   sx: 0.97 } },
+    { idle: { tx: 6, ty: 6,  rot: 4.5,  sx: 0.95 },  hov: { tx: 12, ty: 8,  rot: 8,    sx: 0.95 } },
+    { idle: { tx: -2, ty: 9, rot: -1.5, sx: 0.93 },  hov: { tx: -4, ty: 13, rot: -3,   sx: 0.93 } },
+  ];
+
   return (
     <div className="w-full px-8 md:px-14 lg:px-20 py-16 md:py-24 max-w-6xl mx-auto">
       <h2 className="text-[11px] tracking-wider3 uppercase text-muted">Photo</h2>
@@ -80,6 +76,8 @@ export default function PhotoSection({ lang = 'ko' }: { lang?: Lang }) {
           <button
             onClick={openStack}
             disabled={phase === 'opening'}
+            onMouseEnter={() => setStackHover(true)}
+            onMouseLeave={() => setStackHover(false)}
             className="group relative w-[50vw] md:w-[26vw] max-w-[300px] aspect-[3/4] cursor-pointer"
             aria-label="Open photo archive"
           >
@@ -88,21 +86,15 @@ export default function PhotoSection({ lang = 'ko' }: { lang?: Lang }) {
               const slidePhoto = photos[(slideIdx + depth) % photos.length];
               const photo = isTop ? slidePhoto : (photos[depth] ?? slidePhoto);
               if (!photo?.images[0]) return null;
-              const layouts = [
-                { tx: 0, ty: 0, rot: 0,    sx: 1 },
-                { tx: -7, ty: 4, rot: -4.5, sx: 0.97 },
-                { tx: 6, ty: 6, rot: 4.5,   sx: 0.95 },
-                { tx: -2, ty: 9, rot: -1.5, sx: 0.93 },
-              ];
+              const l = stackHover && phase === 'stack' ? stackLayouts[depth].hov : stackLayouts[depth].idle;
               const fanClasses = ['fan-0', 'fan-1', 'fan-2', 'fan-3'];
-              const l = layouts[depth];
               return (
                 <div
                   key={depth}
                   className={`absolute inset-0 bg-subtle overflow-hidden ${phase === 'opening' ? fanClasses[depth] : ''}`}
                   style={{
                     transform: phase === 'opening' ? undefined : `translate(${l.tx}%, ${l.ty}%) rotate(${l.rot}deg) scale(${l.sx})`,
-                    transition: phase === 'opening' ? undefined : 'transform 700ms cubic-bezier(0.22,1,0.36,1)',
+                    transition: phase === 'opening' ? undefined : 'transform 600ms cubic-bezier(0.22,1,0.36,1)',
                     transformOrigin: 'bottom center',
                     zIndex: 10 - depth,
                     boxShadow: `0 ${10 + depth * 6}px ${24 + depth * 4}px -10px rgba(0,0,0,${0.32 - depth * 0.05})`,
@@ -132,7 +124,7 @@ export default function PhotoSection({ lang = 'ko' }: { lang?: Lang }) {
           </button>
         </div>
       ) : (
-        // ── EXPANDED — album list with mini stacks ──
+        // ── EXPANDED — album list ──
         <div className="mt-12 md:mt-16 expand-root">
           <div className="flex items-center justify-end mb-8 md:mb-12">
             <button
@@ -146,7 +138,6 @@ export default function PhotoSection({ lang = 'ko' }: { lang?: Lang }) {
           <ul className="divide-y divide-line/60 border-t border-line/60">
             {photos.map((album, ai) => {
               const isOpen = openAlbums.has(album.id);
-              const albumTilts = tilts[album.id] ?? [];
               return (
                 <li
                   key={album.id}
@@ -158,7 +149,7 @@ export default function PhotoSection({ lang = 'ko' }: { lang?: Lang }) {
                     className="w-full flex items-center justify-between gap-5 py-6 md:py-8 text-left group"
                   >
                     <div className="flex items-center gap-5 md:gap-7 min-w-0">
-                      {/* mini stack thumbnail */}
+                      {/* mini stack thumbnail — color */}
                       <div className="relative w-[68px] md:w-[80px] aspect-[3/4] shrink-0">
                         {[2, 1, 0].map((d) => {
                           const img = album.images[d]?.src ?? album.images[0]?.src;
@@ -172,7 +163,7 @@ export default function PhotoSection({ lang = 'ko' }: { lang?: Lang }) {
                           return (
                             <div
                               key={d}
-                              className="absolute inset-0 bg-subtle overflow-hidden transition-transform duration-500 group-hover:[--hov:1]"
+                              className="absolute inset-0 bg-subtle overflow-hidden"
                               style={{
                                 transform: `translate(${l.tx}%, ${l.ty}%) rotate(${l.rot}deg)`,
                                 zIndex: 10 - d,
@@ -184,7 +175,6 @@ export default function PhotoSection({ lang = 'ko' }: { lang?: Lang }) {
                                 src={img}
                                 alt=""
                                 className="block w-full h-full object-cover"
-                                style={{ filter: 'grayscale(1) contrast(0.95)' }}
                               />
                             </div>
                           );
@@ -205,43 +195,35 @@ export default function PhotoSection({ lang = 'ko' }: { lang?: Lang }) {
                     </div>
                   </button>
 
-                  {/* Album photos — 촤라락 cascade open */}
+                  {/* Album photos — 1 column, no frame, cascade open */}
                   <div
                     className="overflow-hidden transition-[max-height,opacity] duration-700"
                     style={{
-                      maxHeight: isOpen ? '12000px' : '0px',
+                      maxHeight: isOpen ? '20000px' : '0px',
                       opacity: isOpen ? 1 : 0,
                       transitionTimingFunction: 'cubic-bezier(0.22, 1, 0.36, 1)',
                     }}
                   >
-                    <div className="pb-12 md:pb-16 pt-2">
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 md:gap-x-10 gap-y-8 md:gap-y-12">
-                        {album.images.map((img, j) => (
-                          <button
-                            key={j}
-                            onClick={() => setOpen({ albumId: album.id, index: j })}
-                            className={`group block ${isOpen ? 'polaroid-pop' : ''}`}
-                            style={{
-                              transform: `rotate(${albumTilts[j] ?? 0}deg)`,
-                              animationDelay: `${j * 70}ms`,
-                            }}
-                            aria-label={`${album.caption ?? 'Photo'} ${j + 1}`}
-                          >
-                            <div className="bg-white p-2.5 md:p-3 pb-7 md:pb-10 shadow-[0_10px_22px_-10px_rgba(0,0,0,0.4)] transition-transform duration-500 group-hover:-translate-y-1">
-                              <div className="aspect-[3/4] bg-subtle overflow-hidden">
-                                {/* eslint-disable-next-line @next/next/no-img-element */}
-                                <img
-                                  src={img.src}
-                                  alt=""
-                                  className="w-full h-full object-cover transition-[opacity,transform,filter] duration-700 group-hover:scale-[1.02] group-hover:brightness-[0.96]"
-                                  style={{ opacity: 0 }}
-                                  onLoad={(e) => { (e.currentTarget as HTMLImageElement).style.opacity = '1'; }}
-                                />
-                              </div>
-                            </div>
-                          </button>
-                        ))}
-                      </div>
+                    <div className="pb-12 md:pb-16 pt-2 space-y-6 md:space-y-10">
+                      {album.images.map((img, j) => (
+                        <button
+                          key={j}
+                          onClick={() => setOpen({ albumId: album.id, index: j })}
+                          className={`group block w-full bg-subtle overflow-hidden ${isOpen ? 'photo-rise' : ''}`}
+                          style={{ animationDelay: `${j * 90}ms` }}
+                          aria-label={`${album.caption ?? 'Photo'} ${j + 1}`}
+                        >
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img
+                            src={img.src}
+                            alt=""
+                            loading="lazy"
+                            className="block w-full h-auto transition-[opacity,transform,filter] duration-700 group-hover:scale-[1.01] group-hover:brightness-[0.96]"
+                            style={{ opacity: 0 }}
+                            onLoad={(e) => { (e.currentTarget as HTMLImageElement).style.opacity = '1'; }}
+                          />
+                        </button>
+                      ))}
                     </div>
                   </div>
                 </li>
@@ -261,14 +243,12 @@ export default function PhotoSection({ lang = 'ko' }: { lang?: Lang }) {
       )}
 
       <style jsx>{`
-        /* Top card slide cross-fade */
         .slide-fade { animation: slideFade 800ms cubic-bezier(0.22, 1, 0.36, 1); }
         @keyframes slideFade {
           from { opacity: 0; transform: scale(1.03); }
           to { opacity: 1; transform: scale(1); }
         }
 
-        /* 촤라락 fan-up open: cards sweep up sequentially */
         .fan-0 { animation: fanUp 700ms cubic-bezier(0.5, 0, 0.6, 1) 0ms forwards; }
         .fan-1 { animation: fanUp 700ms cubic-bezier(0.5, 0, 0.6, 1) 70ms forwards; }
         .fan-2 { animation: fanUp 700ms cubic-bezier(0.5, 0, 0.6, 1) 140ms forwards; }
@@ -280,7 +260,6 @@ export default function PhotoSection({ lang = 'ko' }: { lang?: Lang }) {
           }
         }
 
-        /* Expanded root */
         .expand-root {
           animation: expandRoot 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
         }
@@ -295,13 +274,12 @@ export default function PhotoSection({ lang = 'ko' }: { lang?: Lang }) {
           from { opacity: 0; transform: translateY(14px); filter: blur(4px); }
           to { opacity: 1; transform: translateY(0); filter: blur(0); }
         }
-        /* 촤라락 polaroid wave in */
-        .polaroid-pop {
-          animation: polaroidPop 800ms cubic-bezier(0.22, 1, 0.36, 1) both;
+        .photo-rise {
+          animation: photoRise 900ms cubic-bezier(0.22, 1, 0.36, 1) both;
         }
-        @keyframes polaroidPop {
-          from { opacity: 0; transform: translateY(28px) rotate(0deg) scale(0.94); filter: blur(8px); }
-          to { opacity: 1; filter: blur(0); }
+        @keyframes photoRise {
+          from { opacity: 0; transform: translateY(40px); filter: blur(8px); }
+          to { opacity: 1; transform: translateY(0); filter: blur(0); }
         }
       `}</style>
     </div>
@@ -318,20 +296,48 @@ function PhotoLightbox({
 }) {
   const total = album.images.length;
   const img = album.images[index];
+  const [autoPlay, setAutoPlay] = useState(true);
+  const resumeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Auto-slideshow
+  useEffect(() => {
+    if (!autoPlay) return;
+    const intv = setInterval(() => {
+      onChange(index < total - 1 ? index + 1 : 0);
+    }, 4000);
+    return () => clearInterval(intv);
+  }, [autoPlay, index, total, onChange]);
+
+  const pauseAndResume = () => {
+    setAutoPlay(false);
+    if (resumeTimer.current) clearTimeout(resumeTimer.current);
+    resumeTimer.current = setTimeout(() => setAutoPlay(true), 8000);
+  };
+
+  const goPrev = () => {
+    pauseAndResume();
+    if (index > 0) onChange(index - 1);
+  };
+  const goNext = () => {
+    pauseAndResume();
+    if (index < total - 1) onChange(index + 1);
+  };
 
   useEffect(() => {
     document.body.style.overflow = 'hidden';
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
-      else if (e.key === 'ArrowLeft' && index > 0) onChange(index - 1);
-      else if (e.key === 'ArrowRight' && index < total - 1) onChange(index + 1);
+      else if (e.key === 'ArrowLeft') goPrev();
+      else if (e.key === 'ArrowRight') goNext();
     };
     window.addEventListener('keydown', onKey);
     return () => {
       document.body.style.overflow = '';
       window.removeEventListener('keydown', onKey);
+      if (resumeTimer.current) clearTimeout(resumeTimer.current);
     };
-  }, [index, total, onClose, onChange]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [index, total]);
 
   return (
     <div
@@ -340,7 +346,7 @@ function PhotoLightbox({
       className="fixed inset-0 z-50 bg-bg overflow-y-auto lightbox-enter"
       onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
     >
-      <div className="max-w-7xl mx-auto px-4 md:px-10 py-6 md:py-8">
+      <div className="w-full px-4 md:px-8 py-5 md:py-6">
         <div className="flex items-center justify-between">
           <div className="text-[10px] tracking-wider2 uppercase text-muted">
             Lee Young — Photo {album.caption ? `/ ${album.caption}` : ''}
@@ -352,24 +358,32 @@ function PhotoLightbox({
           >Close ✕</button>
         </div>
 
-        <div className="mt-6 md:mt-8 flex items-center justify-center">
+        {/* Bigger image area */}
+        <div className="mt-4 md:mt-6 flex items-center justify-center">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             key={img.src}
             src={img.src}
             alt={album.caption ?? ''}
-            className="block max-w-full md:max-w-[88vw] lg:max-w-[78vw] max-h-[82vh] w-auto h-auto object-contain opacity-0 transition-opacity duration-700"
+            className="block max-w-full max-h-[88vh] w-auto h-auto object-contain opacity-0 transition-opacity duration-700"
             onLoad={(e) => { (e.currentTarget as HTMLImageElement).style.opacity = '1'; }}
           />
         </div>
 
-        <div className="mt-6 md:mt-8 flex flex-col gap-4 items-center">
-          <div className="text-[10px] tracking-wider2 uppercase text-muted tabular-nums">
-            {index + 1} / {total}
+        <div className="mt-5 md:mt-6 flex flex-col gap-3 items-center">
+          <div className="flex items-center gap-4 text-[10px] tracking-wider2 uppercase text-muted">
+            <span className="tabular-nums">{index + 1} / {total}</span>
+            <span>·</span>
+            <button
+              onClick={() => setAutoPlay((v) => !v)}
+              className="hover:text-ink transition-colors"
+            >
+              {autoPlay ? '❚❚ Pause' : '▶ Play'}
+            </button>
           </div>
           <div className="flex items-center gap-10">
             <button
-              onClick={() => index > 0 && onChange(index - 1)}
+              onClick={goPrev}
               disabled={index === 0}
               className="text-[11px] tracking-wider2 uppercase text-muted hover:text-ink hover:[filter:blur(0.7px)] disabled:opacity-30 disabled:cursor-not-allowed transition-all duration-500"
             >← Prev</button>
@@ -378,7 +392,7 @@ function PhotoLightbox({
               className="text-[11px] tracking-wider2 uppercase text-muted hover:text-ink hover:[filter:blur(0.7px)] transition-all duration-500"
             >Back</button>
             <button
-              onClick={() => index < total - 1 && onChange(index + 1)}
+              onClick={goNext}
               disabled={index === total - 1}
               className="text-[11px] tracking-wider2 uppercase text-muted hover:text-ink hover:[filter:blur(0.7px)] disabled:opacity-30 disabled:cursor-not-allowed transition-all duration-500"
             >Next →</button>
