@@ -21,23 +21,20 @@ export default function PhotoSection({ lang = 'ko' }: { lang?: Lang }) {
       .catch(() => setPhotos([]));
   }, []);
 
-  // Slideshow for top card — cycles every 3s through first images of each album
   useEffect(() => {
     if (photos.length < 2) return;
     const intv = setInterval(() => setSlideIdx((i) => (i + 1) % photos.length), 3000);
     return () => clearInterval(intv);
   }, [photos.length]);
 
-  // Stable random tilts per photo for polaroid feel (deterministic by id+index)
+  // Stable random tilts per photo (deterministic by id+index)
   const tilts = useMemo(() => {
     const map: Record<string, number[]> = {};
     photos.forEach((p) => {
       const arr: number[] = [];
       for (let i = 0; i < p.images.length; i++) {
-        // pseudo-random based on id and index
         const seed = (p.id.charCodeAt((i * 3) % p.id.length) + i * 13) % 100;
-        const angle = ((seed - 50) / 50) * 1.8; // -1.8° ~ +1.8°
-        arr.push(angle);
+        arr.push(((seed - 50) / 50) * 1.5); // -1.5° ~ +1.5°
       }
       map[p.id] = arr;
     });
@@ -58,7 +55,7 @@ export default function PhotoSection({ lang = 'ko' }: { lang?: Lang }) {
   const openStack = () => {
     if (phase !== 'stack') return;
     setPhase('opening');
-    setTimeout(() => setPhase('expanded'), 600);
+    setTimeout(() => setPhase('expanded'), 700);
   };
 
   const closeToStack = () => {
@@ -92,22 +89,21 @@ export default function PhotoSection({ lang = 'ko' }: { lang?: Lang }) {
               const photo = isTop ? slidePhoto : (photos[depth] ?? slidePhoto);
               if (!photo?.images[0]) return null;
               const layouts = [
-                { tx: 0, ty: 0, rot: 0,    sx: 1 },     // top
+                { tx: 0, ty: 0, rot: 0,    sx: 1 },
                 { tx: -7, ty: 4, rot: -4.5, sx: 0.97 },
                 { tx: 6, ty: 6, rot: 4.5,   sx: 0.95 },
                 { tx: -2, ty: 9, rot: -1.5, sx: 0.93 },
               ];
-              const scatters = [
-                'scatter-0', 'scatter-1', 'scatter-2', 'scatter-3',
-              ];
+              const fanClasses = ['fan-0', 'fan-1', 'fan-2', 'fan-3'];
               const l = layouts[depth];
               return (
                 <div
                   key={depth}
-                  className={`absolute inset-0 bg-subtle overflow-hidden ${phase === 'opening' ? scatters[depth] : ''}`}
+                  className={`absolute inset-0 bg-subtle overflow-hidden ${phase === 'opening' ? fanClasses[depth] : ''}`}
                   style={{
                     transform: phase === 'opening' ? undefined : `translate(${l.tx}%, ${l.ty}%) rotate(${l.rot}deg) scale(${l.sx})`,
                     transition: phase === 'opening' ? undefined : 'transform 700ms cubic-bezier(0.22,1,0.36,1)',
+                    transformOrigin: 'bottom center',
                     zIndex: 10 - depth,
                     boxShadow: `0 ${10 + depth * 6}px ${24 + depth * 4}px -10px rgba(0,0,0,${0.32 - depth * 0.05})`,
                   }}
@@ -136,9 +132,9 @@ export default function PhotoSection({ lang = 'ko' }: { lang?: Lang }) {
           </button>
         </div>
       ) : (
-        // ── EXPANDED STATE (albums collapsed by default) ──
+        // ── EXPANDED — album list with mini stacks ──
         <div className="mt-12 md:mt-16 expand-root">
-          <div className="flex items-center justify-end mb-10 md:mb-14">
+          <div className="flex items-center justify-end mb-8 md:mb-12">
             <button
               onClick={closeToStack}
               className="text-[11px] tracking-wider2 uppercase text-muted hover:text-ink hover:[filter:blur(0.7px)] transition-all duration-500"
@@ -155,17 +151,46 @@ export default function PhotoSection({ lang = 'ko' }: { lang?: Lang }) {
                 <li
                   key={album.id}
                   className="album-entry"
-                  style={{ animationDelay: `${ai * 90 + 100}ms` }}
+                  style={{ animationDelay: `${ai * 90 + 80}ms` }}
                 >
                   <button
                     onClick={() => toggleAlbum(album.id)}
-                    className="w-full flex items-baseline justify-between gap-6 py-6 md:py-8 text-left group"
+                    className="w-full flex items-center justify-between gap-5 py-6 md:py-8 text-left group"
                   >
-                    <div className="flex items-baseline gap-4 md:gap-6">
-                      <span className="text-[11px] tracking-wider2 uppercase text-muted tabular-nums">
-                        {String(ai + 1).padStart(2, '0')}
-                      </span>
-                      <h3 className="text-[17px] md:text-[22px] font-light tracking-tight break-keep group-hover:[filter:blur(0.4px)] transition-[filter] duration-500">
+                    <div className="flex items-center gap-5 md:gap-7 min-w-0">
+                      {/* mini stack thumbnail */}
+                      <div className="relative w-[68px] md:w-[80px] aspect-[3/4] shrink-0">
+                        {[2, 1, 0].map((d) => {
+                          const img = album.images[d]?.src ?? album.images[0]?.src;
+                          if (!img) return null;
+                          const layouts = [
+                            { tx: 0, ty: 0, rot: 0 },
+                            { tx: -10, ty: 4, rot: -5 },
+                            { tx: 10, ty: 7, rot: 5 },
+                          ];
+                          const l = layouts[d];
+                          return (
+                            <div
+                              key={d}
+                              className="absolute inset-0 bg-subtle overflow-hidden transition-transform duration-500 group-hover:[--hov:1]"
+                              style={{
+                                transform: `translate(${l.tx}%, ${l.ty}%) rotate(${l.rot}deg)`,
+                                zIndex: 10 - d,
+                                boxShadow: `0 ${4 + d * 3}px ${8 + d * 2}px -4px rgba(0,0,0,${0.3 - d * 0.06})`,
+                              }}
+                            >
+                              {/* eslint-disable-next-line @next/next/no-img-element */}
+                              <img
+                                src={img}
+                                alt=""
+                                className="block w-full h-full object-cover"
+                                style={{ filter: 'grayscale(1) contrast(0.95)' }}
+                              />
+                            </div>
+                          );
+                        })}
+                      </div>
+                      <h3 className="text-[13px] md:text-[15px] font-light tracking-tight break-keep group-hover:[filter:blur(0.4px)] transition-[filter] duration-500">
                         {album.caption || (isEn ? 'Untitled' : '제목 없음')}
                       </h3>
                     </div>
@@ -180,17 +205,17 @@ export default function PhotoSection({ lang = 'ko' }: { lang?: Lang }) {
                     </div>
                   </button>
 
-                  {/* Album photos — polaroid stack feel */}
+                  {/* Album photos — 촤라락 cascade open */}
                   <div
                     className="overflow-hidden transition-[max-height,opacity] duration-700"
                     style={{
-                      maxHeight: isOpen ? '8000px' : '0px',
+                      maxHeight: isOpen ? '12000px' : '0px',
                       opacity: isOpen ? 1 : 0,
                       transitionTimingFunction: 'cubic-bezier(0.22, 1, 0.36, 1)',
                     }}
                   >
-                    <div className="pb-10 md:pb-14 pt-2">
-                      <div className="grid grid-cols-2 md:grid-cols-3 gap-x-4 md:gap-x-6 gap-y-6 md:gap-y-10">
+                    <div className="pb-12 md:pb-16 pt-2">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 md:gap-x-10 gap-y-8 md:gap-y-12">
                         {album.images.map((img, j) => (
                           <button
                             key={j}
@@ -198,11 +223,11 @@ export default function PhotoSection({ lang = 'ko' }: { lang?: Lang }) {
                             className={`group block ${isOpen ? 'polaroid-pop' : ''}`}
                             style={{
                               transform: `rotate(${albumTilts[j] ?? 0}deg)`,
-                              animationDelay: `${j * 50}ms`,
+                              animationDelay: `${j * 70}ms`,
                             }}
                             aria-label={`${album.caption ?? 'Photo'} ${j + 1}`}
                           >
-                            <div className="bg-white p-2 md:p-2.5 pb-6 md:pb-8 shadow-[0_8px_18px_-8px_rgba(0,0,0,0.35)] transition-transform duration-500 group-hover:-translate-y-0.5">
+                            <div className="bg-white p-2.5 md:p-3 pb-7 md:pb-10 shadow-[0_10px_22px_-10px_rgba(0,0,0,0.4)] transition-transform duration-500 group-hover:-translate-y-1">
                               <div className="aspect-[3/4] bg-subtle overflow-hidden">
                                 {/* eslint-disable-next-line @next/next/no-img-element */}
                                 <img
@@ -236,40 +261,28 @@ export default function PhotoSection({ lang = 'ko' }: { lang?: Lang }) {
       )}
 
       <style jsx>{`
-        /* Slide cross-fade on top stack card */
-        .slide-fade {
-          animation: slideFade 800ms cubic-bezier(0.22, 1, 0.36, 1);
-        }
+        /* Top card slide cross-fade */
+        .slide-fade { animation: slideFade 800ms cubic-bezier(0.22, 1, 0.36, 1); }
         @keyframes slideFade {
           from { opacity: 0; transform: scale(1.03); }
           to { opacity: 1; transform: scale(1); }
         }
 
-        /* Cascade open: cards scatter outward */
-        .scatter-0 { animation: scatter0 620ms cubic-bezier(0.5, 0, 0.75, 0) forwards; }
-        .scatter-1 { animation: scatter1 620ms cubic-bezier(0.5, 0, 0.75, 0) forwards; }
-        .scatter-2 { animation: scatter2 620ms cubic-bezier(0.5, 0, 0.75, 0) forwards; }
-        .scatter-3 { animation: scatter3 620ms cubic-bezier(0.5, 0, 0.75, 0) forwards; }
-        @keyframes scatter0 {
-          from { transform: translate(0,0) rotate(0deg) scale(1); opacity: 1; }
-          to   { transform: translate(0,-160%) rotate(-14deg) scale(0.85); opacity: 0; }
-        }
-        @keyframes scatter1 {
-          from { transform: translate(-7%,4%) rotate(-4.5deg) scale(0.97); opacity: 1; }
-          to   { transform: translate(-140%,40%) rotate(-26deg) scale(0.78); opacity: 0; }
-        }
-        @keyframes scatter2 {
-          from { transform: translate(6%,6%) rotate(4.5deg) scale(0.95); opacity: 1; }
-          to   { transform: translate(140%,50%) rotate(28deg) scale(0.78); opacity: 0; }
-        }
-        @keyframes scatter3 {
-          from { transform: translate(-2%,9%) rotate(-1.5deg) scale(0.93); opacity: 1; }
-          to   { transform: translate(0,160%) rotate(8deg) scale(0.76); opacity: 0; }
+        /* 촤라락 fan-up open: cards sweep up sequentially */
+        .fan-0 { animation: fanUp 700ms cubic-bezier(0.5, 0, 0.6, 1) 0ms forwards; }
+        .fan-1 { animation: fanUp 700ms cubic-bezier(0.5, 0, 0.6, 1) 70ms forwards; }
+        .fan-2 { animation: fanUp 700ms cubic-bezier(0.5, 0, 0.6, 1) 140ms forwards; }
+        .fan-3 { animation: fanUp 700ms cubic-bezier(0.5, 0, 0.6, 1) 210ms forwards; }
+        @keyframes fanUp {
+          to {
+            transform: translateY(-220%) rotate(18deg) scale(0.82);
+            opacity: 0;
+          }
         }
 
         /* Expanded root */
         .expand-root {
-          animation: expandRoot 720ms cubic-bezier(0.22, 1, 0.36, 1) both;
+          animation: expandRoot 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
         }
         @keyframes expandRoot {
           from { opacity: 0; transform: translateY(-6px); }
@@ -282,12 +295,12 @@ export default function PhotoSection({ lang = 'ko' }: { lang?: Lang }) {
           from { opacity: 0; transform: translateY(14px); filter: blur(4px); }
           to { opacity: 1; transform: translateY(0); filter: blur(0); }
         }
-        /* Polaroid pop in when album opens */
+        /* 촤라락 polaroid wave in */
         .polaroid-pop {
-          animation: polaroidPop 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
+          animation: polaroidPop 800ms cubic-bezier(0.22, 1, 0.36, 1) both;
         }
         @keyframes polaroidPop {
-          from { opacity: 0; transform: translateY(20px) rotate(0deg) scale(0.96); filter: blur(6px); }
+          from { opacity: 0; transform: translateY(28px) rotate(0deg) scale(0.94); filter: blur(8px); }
           to { opacity: 1; filter: blur(0); }
         }
       `}</style>
