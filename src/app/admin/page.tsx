@@ -288,7 +288,7 @@ function PhotosManager({ token }: { token: string }) {
                 </div>
                 <div>
                   <div className="text-[14px]">{p.caption || <span className="text-muted">No caption</span>}</div>
-                  {p.captionEn && <div className="mt-1 text-[12px] text-muted">{p.captionEn}</div>}
+                  {p.srcRight && <div className="mt-1 text-[11px] tracking-wider2 uppercase text-muted">Paired</div>}
                 </div>
                 <div className="flex items-center gap-4 text-[11px] tracking-wider2 uppercase">
                   <button onClick={() => setEditing(p)} className="text-muted hover:text-ink">Edit</button>
@@ -324,18 +324,18 @@ function PhotoEditor({
 }) {
   const isNew = !photo;
   const [src, setSrc] = useState(photo?.src ?? '');
+  const [srcRight, setSrcRight] = useState(photo?.srcRight ?? '');
   const [caption, setCaption] = useState(photo?.caption ?? '');
-  const [captionEn, setCaptionEn] = useState(photo?.captionEn ?? '');
-  const [uploading, setUploading] = useState(false);
+  const [uploading, setUploading] = useState<'left' | 'right' | null>(null);
   const [saving, setSaving] = useState(false);
   const [err, setErr] = useState<string | null>(null);
 
-  async function handleUpload(fileList: FileList | null) {
+  async function handleUpload(fileList: FileList | null, side: 'left' | 'right') {
     if (!fileList || fileList.length === 0) return;
-    setUploading(true); setErr(null);
+    setUploading(side); setErr(null);
     try {
       const fd = new FormData();
-      Array.from(fileList).forEach((f) => fd.append('files', f));
+      Array.from(fileList).slice(0, 1).forEach((f) => fd.append('files', f));
       const r = await fetch('/api/upload', { method: 'POST', headers: { 'x-admin-token': token }, body: fd });
       if (!r.ok) {
         const d = await r.json().catch(() => ({}));
@@ -343,11 +343,14 @@ function PhotoEditor({
       }
       const d = await r.json();
       const first = d.files?.[0];
-      if (first?.src) setSrc(first.src);
+      if (first?.src) {
+        if (side === 'left') setSrc(first.src);
+        else setSrcRight(first.src);
+      }
     } catch (e: any) {
       setErr(e.message);
     } finally {
-      setUploading(false);
+      setUploading(null);
     }
   }
 
@@ -355,7 +358,7 @@ function PhotoEditor({
     if (!src.trim()) { setErr('Photo image is required.'); return; }
     setSaving(true); setErr(null);
     try {
-      const payload = { src, caption, captionEn };
+      const payload = { src, srcRight: srcRight || undefined, caption };
       const r = await fetch(isNew ? '/api/photos' : `/api/photos/${photo!.id}`, {
         method: isNew ? 'POST' : 'PUT',
         headers: { 'content-type': 'application/json', 'x-admin-token': token },
@@ -384,49 +387,53 @@ function PhotoEditor({
         </div>
 
         <div className="mt-10 space-y-8">
-          <Field label="Image">
-            <div className="flex items-start gap-5">
-              <div className="w-32 h-32 bg-subtle overflow-hidden shrink-0">
-                {src ? (
-                  /* eslint-disable-next-line @next/next/no-img-element */
-                  <img src={src} alt="" className="w-full h-full object-cover" />
-                ) : (
-                  <div className="w-full h-full flex items-center justify-center text-[10px] text-muted uppercase tracking-wider2">empty</div>
-                )}
-              </div>
-              <div className="flex-1">
-                <label className="inline-flex items-center gap-3 text-[12px] tracking-wider2 uppercase border border-ink px-4 py-2 cursor-pointer hover:bg-ink hover:text-bg transition-colors">
-                  {uploading ? 'Uploading…' : src ? '↻ Replace image' : '+ Add image'}
-                  <input
-                    type="file"
-                    accept="image/*"
-                    onChange={(e) => handleUpload(e.target.files)}
-                    className="hidden"
-                    disabled={uploading}
-                  />
+          <Field label="Images (left + optional right)">
+            <div className="grid grid-cols-2 gap-5">
+              {/* Left image */}
+              <div>
+                <div className="w-full aspect-square bg-subtle overflow-hidden">
+                  {src ? (
+                    /* eslint-disable-next-line @next/next/no-img-element */
+                    <img src={src} alt="" className="w-full h-full object-cover" />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center text-[10px] text-muted uppercase tracking-wider2">left (required)</div>
+                  )}
+                </div>
+                <label className="mt-3 inline-flex items-center gap-3 text-[11px] tracking-wider2 uppercase border border-ink px-3 py-1.5 cursor-pointer hover:bg-ink hover:text-bg transition-colors">
+                  {uploading === 'left' ? 'Uploading…' : src ? '↻ Replace' : '+ Add'}
+                  <input type="file" accept="image/*" onChange={(e) => handleUpload(e.target.files, 'left')} className="hidden" disabled={uploading !== null} />
                 </label>
-                {src && <div className="mt-2 text-[10px] text-muted truncate">{src}</div>}
+              </div>
+              {/* Right image */}
+              <div>
+                <div className="w-full aspect-square bg-subtle overflow-hidden">
+                  {srcRight ? (
+                    /* eslint-disable-next-line @next/next/no-img-element */
+                    <img src={srcRight} alt="" className="w-full h-full object-cover" />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center text-[10px] text-muted uppercase tracking-wider2">right (optional)</div>
+                  )}
+                </div>
+                <div className="mt-3 flex items-center gap-3">
+                  <label className="inline-flex items-center gap-3 text-[11px] tracking-wider2 uppercase border border-ink px-3 py-1.5 cursor-pointer hover:bg-ink hover:text-bg transition-colors">
+                    {uploading === 'right' ? 'Uploading…' : srcRight ? '↻ Replace' : '+ Add'}
+                    <input type="file" accept="image/*" onChange={(e) => handleUpload(e.target.files, 'right')} className="hidden" disabled={uploading !== null} />
+                  </label>
+                  {srcRight && (
+                    <button onClick={() => setSrcRight('')} className="text-[10px] tracking-wider2 uppercase text-muted hover:text-red-700">Remove</button>
+                  )}
+                </div>
               </div>
             </div>
           </Field>
 
-          <Field label="Caption (Korean)">
+          <Field label="Caption">
             <textarea
               value={caption}
               onChange={(e) => setCaption(e.target.value)}
               rows={3}
               className="w-full border-b border-ink/40 py-2 text-[15px] leading-relaxed focus:outline-none focus:border-ink resize-y"
               placeholder="사진 설명을 입력하세요. (선택사항)"
-            />
-          </Field>
-
-          <Field label="Caption (English)">
-            <textarea
-              value={captionEn}
-              onChange={(e) => setCaptionEn(e.target.value)}
-              rows={3}
-              className="w-full border-b border-ink/40 py-2 text-[15px] leading-relaxed focus:outline-none focus:border-ink resize-y"
-              placeholder="Caption in English (optional)"
             />
           </Field>
 

@@ -105,9 +105,9 @@ export default function PhotoSection({ lang = 'ko' }: { lang?: Lang }) {
                     onLoad={(e) => { (e.currentTarget as HTMLImageElement).style.opacity = '1'; }}
                   />
                 </div>
-                {(isEn ? (p.captionEn || p.caption) : p.caption) && (
+                {p.caption && (
                   <div className="mt-3 text-[12px] md:text-[13px] text-muted leading-relaxed">
-                    {isEn ? (p.captionEn || p.caption) : p.caption}
+                    {p.caption}
                   </div>
                 )}
               </button>
@@ -138,15 +138,14 @@ export default function PhotoSection({ lang = 'ko' }: { lang?: Lang }) {
 }
 
 function PhotoLightbox({
-  photo, onClose, onPrev, onNext, lang,
+  photo, onClose, onPrev, onNext,
 }: {
   photo: Photo;
   onClose: () => void;
   onPrev?: () => void;
   onNext?: () => void;
-  lang: Lang;
+  lang?: Lang;
 }) {
-  const isEn = lang === 'en';
   useEffect(() => {
     document.body.style.overflow = 'hidden';
     const onKey = (e: KeyboardEvent) => {
@@ -161,7 +160,8 @@ function PhotoLightbox({
     };
   }, [onClose, onPrev, onNext]);
 
-  const caption = isEn ? (photo.captionEn || photo.caption) : photo.caption;
+  const caption = photo.caption;
+  const hasPair = Boolean(photo.srcRight);
 
   return (
     <div
@@ -170,7 +170,7 @@ function PhotoLightbox({
       className="fixed inset-0 z-50 bg-bg overflow-y-auto lightbox-enter"
       onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
     >
-      <div className="max-w-4xl mx-auto px-5 md:px-14 py-8 md:py-10">
+      <div className={`${hasPair ? 'max-w-6xl' : 'max-w-4xl'} mx-auto px-5 md:px-14 py-8 md:py-10`}>
         <div className="flex items-center justify-between">
           <div className="text-[10px] tracking-wider2 uppercase text-muted">
             Lee Young — Photo
@@ -185,13 +185,32 @@ function PhotoLightbox({
         </div>
 
         <div className="mt-10 md:mt-14">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={photo.src}
-            alt={caption ?? ''}
-            className="w-full h-auto opacity-0 transition-opacity duration-700"
-            onLoad={(e) => { (e.currentTarget as HTMLImageElement).style.opacity = '1'; }}
-          />
+          {hasPair ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 items-start">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={photo.src}
+                alt={caption ?? ''}
+                className="w-full h-auto opacity-0 transition-opacity duration-700"
+                onLoad={(e) => { (e.currentTarget as HTMLImageElement).style.opacity = '1'; }}
+              />
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={photo.srcRight!}
+                alt={caption ?? ''}
+                className="w-full h-auto opacity-0 transition-opacity duration-700"
+                onLoad={(e) => { (e.currentTarget as HTMLImageElement).style.opacity = '1'; }}
+              />
+            </div>
+          ) : (
+            /* eslint-disable-next-line @next/next/no-img-element */
+            <img
+              src={photo.src}
+              alt={caption ?? ''}
+              className="w-full h-auto opacity-0 transition-opacity duration-700"
+              onLoad={(e) => { (e.currentTarget as HTMLImageElement).style.opacity = '1'; }}
+            />
+          )}
           {caption && (
             <p className="mt-5 text-[13px] md:text-[14px] text-muted leading-relaxed max-w-2xl break-keep">
               {caption}
