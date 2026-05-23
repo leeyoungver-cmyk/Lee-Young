@@ -2,19 +2,19 @@
 
 import { useEffect, useMemo, useState } from 'react';
 import type { Work } from '@/types/work';
-import CVSection from '@/components/CVSection';
-import TextSection from '@/components/TextSection';
+import AboutSection from '@/components/AboutSection';
 import WorksSection from '@/components/WorksSection';
+import PhotoSection, { COUNTRIES, type Country } from '@/components/PhotoSection';
 import ContactSection from '@/components/ContactSection';
 import HomeSection from '@/components/HomeSection';
 
-type SectionKey = 'home' | 'cv' | 'text' | 'works' | 'contact';
+type SectionKey = 'home' | 'about' | 'works' | 'photo' | 'contact';
 export type Lang = 'ko' | 'en';
 
 const NAV: { key: SectionKey; label: string }[] = [
-  { key: 'text', label: 'Text' },
+  { key: 'about', label: 'About' },
   { key: 'works', label: 'Works' },
-  { key: 'cv', label: 'CV' },
+  { key: 'photo', label: 'Photo' },
   { key: 'contact', label: 'Contact' },
 ];
 
@@ -22,6 +22,7 @@ export default function Home() {
   const [active, setActive] = useState<SectionKey>('home');
   const [works, setWorks] = useState<Work[]>([]);
   const [lang, setLang] = useState<Lang>('ko');
+  const [country, setCountry] = useState<Country>('KR');
 
   const years = useMemo(() =>
     [...new Set(works.map((w) => w.year))].sort((a, b) => b.localeCompare(a)),
@@ -33,6 +34,11 @@ export default function Home() {
     setTimeout(() => {
       document.getElementById(`year-${year}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }, 80);
+  };
+
+  const goToCountry = (c: Country) => {
+    setCountry(c);
+    setActive('photo');
   };
 
   useEffect(() => {
@@ -52,6 +58,9 @@ export default function Home() {
       window.history.replaceState(null, '', active === 'home' ? '/' : `#${active}`);
     }
   }, [active]);
+
+  // Sub-nav items shown below nav: years for works, countries for photo
+  const subNavOpen = (active === 'works' && years.length > 0) || active === 'photo';
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -103,18 +112,29 @@ export default function Home() {
             </nav>
           </div>
 
-          {/* Row 3: year nav — Works 활성 시만 표시 */}
+          {/* Row 3: sub-nav — years (Works) or countries (Photo) */}
           <div className={`overflow-hidden transition-[max-height,opacity] duration-500 ${
-            active === 'works' && years.length > 0 ? 'max-h-16 opacity-100' : 'max-h-0 opacity-0'
+            subNavOpen ? 'max-h-16 opacity-100' : 'max-h-0 opacity-0'
           }`} style={{ transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)' }}>
             <div className="px-5 pb-4 pt-2 flex items-center justify-between">
-              {years.map((year) => (
+              {active === 'works' && years.map((year) => (
                 <button
                   key={year}
                   onClick={() => goToYear(year)}
                   className="text-[10px] tracking-wider tabular-nums text-muted hover:text-ink hover:[filter:blur(0.9px)] active:text-ink active:[filter:blur(0.9px)] transition-all duration-500"
                 >
                   {year}
+                </button>
+              ))}
+              {active === 'photo' && COUNTRIES.map((c) => (
+                <button
+                  key={c.code}
+                  onClick={() => setCountry(c.code)}
+                  className={`text-[10px] tracking-wider2 uppercase transition-all duration-500 hover:text-ink hover:[filter:blur(0.9px)] active:text-ink active:[filter:blur(0.9px)] ${
+                    country === c.code ? 'text-ink' : 'text-muted'
+                  }`}
+                >
+                  {c.code}
                 </button>
               ))}
             </div>
@@ -148,7 +168,12 @@ export default function Home() {
 
             <nav className="flex items-center shrink-0">
               {NAV.map((n) => (
-                <div key={n.key} className={`relative flex justify-center w-20 ${n.key === 'works' ? 'group/works' : ''}`}>
+                <div
+                  key={n.key}
+                  className={`relative flex justify-center w-20 ${
+                    n.key === 'works' ? 'group/works' : n.key === 'photo' ? 'group/photo' : ''
+                  }`}
+                >
                   <button
                     onClick={() => setActive(n.key)}
                     className={`relative text-[11px] tracking-wider uppercase transition-[filter,color] duration-500 ease-out [will-change:filter] pb-1 ${
@@ -173,6 +198,23 @@ export default function Home() {
                       </div>
                     </div>
                   )}
+                  {n.key === 'photo' && (
+                    <div className="absolute top-full left-1/2 -translate-x-1/2 pt-8 opacity-0 group-hover/photo:opacity-100 pointer-events-none group-hover/photo:pointer-events-auto transition-all duration-500 translate-y-1 group-hover/photo:translate-y-0">
+                      <div className="flex flex-col items-center gap-2.5">
+                        {COUNTRIES.map((c) => (
+                          <button
+                            key={c.code}
+                            onClick={() => goToCountry(c.code)}
+                            className={`text-[10px] tracking-wider2 uppercase transition-all duration-500 hover:text-ink hover:[filter:blur(0.9px)] active:text-ink active:[filter:blur(0.9px)] whitespace-nowrap ${
+                              active === 'photo' && country === c.code ? 'text-ink' : 'text-muted'
+                            }`}
+                          >
+                            {c.code}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
               ))}
             </nav>
@@ -183,11 +225,11 @@ export default function Home() {
 
       {/* Main content */}
       <main className="flex-1">
-        <div key={active + lang} className="section-enter">
+        <div key={active + lang + (active === 'photo' ? country : '')} className="section-enter">
           {active === 'home' && <HomeSection />}
-          {active === 'text' && <TextSection lang={lang} />}
+          {active === 'about' && <AboutSection lang={lang} />}
           {active === 'works' && <WorksSection works={works} lang={lang} />}
-          {active === 'cv' && <CVSection lang={lang} />}
+          {active === 'photo' && <PhotoSection country={country} lang={lang} />}
           {active === 'contact' && <ContactSection />}
         </div>
       </main>
