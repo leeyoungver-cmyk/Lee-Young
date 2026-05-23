@@ -368,6 +368,14 @@ function PhotoLightbox({
       className="fixed inset-0 z-50 bg-bg overflow-y-auto lightbox-enter"
       onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
     >
+      {/* Preload all album images so transitions never wait for network */}
+      <div className="hidden" aria-hidden>
+        {album.images.map((p, i) => (
+          /* eslint-disable-next-line @next/next/no-img-element */
+          <img key={`pre-${i}`} src={p.src} alt="" />
+        ))}
+      </div>
+
       <div className="w-full px-4 md:px-8 py-5 md:py-6">
         <div className="flex items-center justify-between">
           <div className="text-[10px] tracking-wider2 uppercase text-muted">
