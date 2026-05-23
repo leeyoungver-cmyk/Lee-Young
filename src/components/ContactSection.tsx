@@ -9,15 +9,32 @@ export default function ContactSection() {
             leeyoung.ver@gmail.com
           </a>
         </Row>
+
         <Row label="Instagram">
-          <a
-            href="https://instagram.com/nomadizero"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:opacity-60 transition-opacity"
-          >
-            @nomadizero
-          </a>
+          <div className="flex flex-col gap-2">
+            <div className="flex items-baseline gap-3">
+              <a
+                href="https://instagram.com/nomadizero"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:opacity-60 transition-opacity"
+              >
+                @nomadizero
+              </a>
+              <span className="text-[10px] tracking-wider2 uppercase text-muted">Studio</span>
+            </div>
+            <div className="flex items-baseline gap-3">
+              <a
+                href="https://instagram.com/arkivzero"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:opacity-60 transition-opacity"
+              >
+                @arkivzero
+              </a>
+              <span className="text-[10px] tracking-wider2 uppercase text-muted">Personal</span>
+            </div>
+          </div>
         </Row>
       </dl>
     </div>
