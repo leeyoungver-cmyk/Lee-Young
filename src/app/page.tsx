@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from 'react';
 import type { Work } from '@/types/work';
-import AboutSection from '@/components/AboutSection';
+import AboutSection, { type AboutTab } from '@/components/AboutSection';
 import WorksSection from '@/components/WorksSection';
 import PhotoSection from '@/components/PhotoSection';
 import ContactSection from '@/components/ContactSection';
@@ -22,11 +22,17 @@ export default function Home() {
   const [active, setActive] = useState<SectionKey>('home');
   const [works, setWorks] = useState<Work[]>([]);
   const [lang, setLang] = useState<Lang>('ko');
+  const [aboutTab, setAboutTab] = useState<AboutTab>('text');
 
   const years = useMemo(() =>
     [...new Set(works.map((w) => w.year))].sort((a, b) => b.localeCompare(a)),
     [works]
   );
+
+  const ABOUT_TABS: { key: AboutTab; label: string }[] = [
+    { key: 'text', label: 'Text' },
+    { key: 'cv', label: 'CV' },
+  ];
 
   const goToYear = (year: string) => {
     setActive('works');
@@ -103,18 +109,29 @@ export default function Home() {
             </nav>
           </div>
 
-          {/* Row 3: year nav — Works active only */}
+          {/* Row 3: sub-nav — Works (years) or About (text/cv) */}
           <div className={`overflow-hidden transition-[max-height,opacity] duration-500 ${
-            active === 'works' && years.length > 0 ? 'max-h-16 opacity-100' : 'max-h-0 opacity-0'
+            (active === 'works' && years.length > 0) || active === 'about' ? 'max-h-16 opacity-100' : 'max-h-0 opacity-0'
           }`} style={{ transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)' }}>
             <div className="px-5 pb-4 pt-2 flex items-center justify-between">
-              {years.map((year) => (
+              {active === 'works' && years.map((year) => (
                 <button
                   key={year}
                   onClick={() => goToYear(year)}
                   className="text-[10px] tracking-wider tabular-nums text-muted hover:text-ink hover:[filter:blur(0.9px)] active:text-ink active:[filter:blur(0.9px)] transition-all duration-500"
                 >
                   {year}
+                </button>
+              ))}
+              {active === 'about' && ABOUT_TABS.map((t) => (
+                <button
+                  key={t.key}
+                  onClick={() => setAboutTab(t.key)}
+                  className={`text-[10px] tracking-wider2 uppercase transition-all duration-500 hover:text-ink hover:[filter:blur(0.9px)] ${
+                    aboutTab === t.key ? 'text-ink' : 'text-muted'
+                  }`}
+                >
+                  {t.label}
                 </button>
               ))}
             </div>
@@ -148,7 +165,12 @@ export default function Home() {
 
             <nav className="flex items-center shrink-0">
               {NAV.map((n) => (
-                <div key={n.key} className={`relative flex justify-center w-20 ${n.key === 'works' ? 'group/works' : ''}`}>
+                <div
+                  key={n.key}
+                  className={`relative flex justify-center w-20 ${
+                    n.key === 'works' ? 'group/works' : n.key === 'about' ? 'group/about' : ''
+                  }`}
+                >
                   <button
                     onClick={() => setActive(n.key)}
                     className={`relative text-[11px] tracking-wider uppercase transition-[filter,color] duration-500 ease-out [will-change:filter] pb-1 ${
@@ -173,6 +195,21 @@ export default function Home() {
                       </div>
                     </div>
                   )}
+                  {n.key === 'about' && (
+                    <div className="absolute top-full left-1/2 -translate-x-1/2 pt-8 opacity-0 group-hover/about:opacity-100 pointer-events-none group-hover/about:pointer-events-auto transition-all duration-500 translate-y-1 group-hover/about:translate-y-0">
+                      <div className="flex flex-col items-center gap-2.5">
+                        {ABOUT_TABS.map((t) => (
+                          <button
+                            key={t.key}
+                            onClick={() => { setActive('about'); setAboutTab(t.key); }}
+                            className={`text-[10px] tracking-wider2 uppercase transition-all duration-500 hover:text-ink hover:[filter:blur(0.9px)] whitespace-nowrap ${
+                              active === 'about' && aboutTab === t.key ? 'text-ink' : 'text-muted'
+                            }`}
+                          >{t.label}</button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
               ))}
             </nav>
@@ -183,9 +220,9 @@ export default function Home() {
 
       {/* Main content */}
       <main className="flex-1">
-        <div key={active + lang} className="section-enter">
+        <div key={active + lang + (active === 'about' ? aboutTab : '')} className="section-enter">
           {active === 'home' && <HomeSection />}
-          {active === 'about' && <AboutSection lang={lang} />}
+          {active === 'about' && <AboutSection lang={lang} tab={aboutTab} />}
           {active === 'works' && <WorksSection works={works} lang={lang} />}
           {active === 'photo' && <PhotoSection lang={lang} />}
           {active === 'contact' && <ContactSection />}

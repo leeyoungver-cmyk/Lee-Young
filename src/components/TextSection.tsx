@@ -69,10 +69,23 @@ const en = (
 
 export default function TextSection({ lang = 'ko' }: { lang?: Lang }) {
   return (
-    <div className="px-8 md:px-14 lg:px-20 py-16 md:py-24 max-w-3xl">
+    <div className="px-8 md:px-14 lg:px-20 py-16 md:py-24 max-w-5xl">
       <SectionHeader title="Text" />
-      <div className={`mt-14 text-[14px] md:text-[16px] leading-[1.88] text-ink/88 space-y-7 ${lang === 'en' ? 'text-pretty' : 'break-keep'}`}>
-        {lang === 'en' ? en : ko}
+      <div className="mt-12 md:mt-14 grid grid-cols-1 md:grid-cols-[160px_1fr] lg:grid-cols-[200px_1fr] gap-8 md:gap-12">
+        {/* Profile image */}
+        <div className="md:sticky md:top-24 self-start">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/images/profile.jpg"
+            alt="Lee Young"
+            className="w-[120px] md:w-full aspect-[3/4] object-cover bg-subtle"
+            onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = 'none'; }}
+          />
+        </div>
+        {/* Text body */}
+        <div className={`text-[14px] md:text-[16px] leading-[1.88] text-ink/88 space-y-7 max-w-prose2 ${lang === 'en' ? 'text-pretty' : 'break-keep'}`}>
+          {lang === 'en' ? en : ko}
+        </div>
       </div>
     </div>
   );
