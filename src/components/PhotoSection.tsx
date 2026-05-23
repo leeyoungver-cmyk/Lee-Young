@@ -302,9 +302,26 @@ function PhotoLightbox({
   onChange: (i: number) => void;
 }) {
   const total = album.images.length;
-  const img = album.images[index];
   const [autoPlay, setAutoPlay] = useState(true);
   const resumeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Cross-fade overlay: keep one image fully visible underneath while the next fades in over it
+  const [displayedIdx, setDisplayedIdx] = useState(index);
+  const [incomingIdx, setIncomingIdx] = useState<number | null>(null);
+  const transitionRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    if (index === displayedIdx) return;
+    if (transitionRef.current) clearTimeout(transitionRef.current);
+    setIncomingIdx(index);
+    transitionRef.current = setTimeout(() => {
+      setDisplayedIdx(index);
+      setIncomingIdx(null);
+    }, 1500);
+    return () => {
+      if (transitionRef.current) clearTimeout(transitionRef.current);
+    };
+  }, [index, displayedIdx]);
 
   // Stable refs so the auto-slide interval isn't reset on every parent render
   const indexRef = useRef(index);
@@ -314,14 +331,14 @@ function PhotoLightbox({
   useEffect(() => { totalRef.current = total; }, [total]);
   useEffect(() => { onChangeRef.current = onChange; }, [onChange]);
 
-  // Auto-slideshow — only re-creates when autoPlay toggles
+  // Auto-slideshow — 4s interval
   useEffect(() => {
     if (!autoPlay) return;
     const intv = setInterval(() => {
       const i = indexRef.current;
       const t = totalRef.current;
       onChangeRef.current(i < t - 1 ? i + 1 : 0);
-    }, 3000);
+    }, 4000);
     return () => clearInterval(intv);
   }, [autoPlay]);
 
@@ -375,18 +392,28 @@ function PhotoLightbox({
           >Close ✕</button>
         </div>
 
-        {/* Bigger image area — cross-fade all album images */}
+        {/* Image area — incoming overlays current with fade-in (no dim midpoint) */}
         <div className="mt-4 md:mt-6 relative w-full" style={{ height: '82vh' }}>
-          {album.images.map((image, i) => (
-            /* eslint-disable-next-line @next/next/no-img-element */
+          {/* Always-visible current image */}
+          <div className="absolute inset-0 flex items-center justify-center">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              key={i}
-              src={image.src}
+              src={album.images[displayedIdx]?.src}
               alt={album.caption ?? ''}
-              className="absolute inset-0 m-auto max-w-full max-h-full w-auto h-auto object-contain transition-opacity duration-[1200ms] ease-in-out"
-              style={{ opacity: i === index ? 1 : 0 }}
+              className="max-w-full max-h-full w-auto h-auto object-contain"
             />
-          ))}
+          </div>
+          {/* Incoming overlay fades in from 0 → 1 */}
+          {incomingIdx !== null && (
+            <div key={`in-${incomingIdx}`} className="absolute inset-0 flex items-center justify-center fade-in-overlay">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={album.images[incomingIdx]?.src}
+                alt={album.caption ?? ''}
+                className="max-w-full max-h-full w-auto h-auto object-contain"
+              />
+            </div>
+          )}
         </div>
 
         <div className="mt-5 md:mt-6 flex flex-col gap-3 items-center">
@@ -418,6 +445,16 @@ function PhotoLightbox({
           </div>
         </div>
       </div>
+
+      <style jsx>{`
+        .fade-in-overlay {
+          animation: fadeInOverlay 1500ms ease-in-out forwards;
+        }
+        @keyframes fadeInOverlay {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+      `}</style>
     </div>
   );
 }
