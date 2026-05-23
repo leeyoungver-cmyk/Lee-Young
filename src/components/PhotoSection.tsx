@@ -293,24 +293,6 @@ function PhotoLightbox({
   const [autoPlay, setAutoPlay] = useState(true);
   const resumeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Cross-fade overlay: keep one image fully visible underneath while the next fades in over it
-  const [displayedIdx, setDisplayedIdx] = useState(index);
-  const [incomingIdx, setIncomingIdx] = useState<number | null>(null);
-  const transitionRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  useEffect(() => {
-    if (index === displayedIdx) return;
-    if (transitionRef.current) clearTimeout(transitionRef.current);
-    setIncomingIdx(index);
-    transitionRef.current = setTimeout(() => {
-      setDisplayedIdx(index);
-      setIncomingIdx(null);
-    }, 1500);
-    return () => {
-      if (transitionRef.current) clearTimeout(transitionRef.current);
-    };
-  }, [index, displayedIdx]);
-
   // Stable refs so the auto-slide interval isn't reset on every parent render
   const indexRef = useRef(index);
   const totalRef = useRef(total);
@@ -368,14 +350,6 @@ function PhotoLightbox({
       className="fixed inset-0 z-50 bg-bg overflow-y-auto lightbox-enter"
       onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
     >
-      {/* Preload all album images so transitions never wait for network */}
-      <div className="hidden" aria-hidden>
-        {album.images.map((p, i) => (
-          /* eslint-disable-next-line @next/next/no-img-element */
-          <img key={`pre-${i}`} src={p.src} alt="" />
-        ))}
-      </div>
-
       <div className="w-full px-4 md:px-8 py-5 md:py-6">
         <div className="flex items-center justify-between">
           <div className="text-[10px] tracking-wider2 uppercase text-muted">
@@ -388,28 +362,26 @@ function PhotoLightbox({
           >Close ✕</button>
         </div>
 
-        {/* Image area — incoming overlays current with fade-in (no dim midpoint) */}
+        {/* Image area — all images mounted, opacity cross-fade */}
         <div className="mt-4 md:mt-6 relative w-full" style={{ height: '82vh' }}>
-          {/* Always-visible current image */}
-          <div className="absolute inset-0 flex items-center justify-center">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={album.images[displayedIdx]?.src}
-              alt={album.caption ?? ''}
-              className="max-w-full max-h-full w-auto h-auto object-contain"
-            />
-          </div>
-          {/* Incoming overlay fades in from 0 → 1 */}
-          {incomingIdx !== null && (
-            <div key={`in-${incomingIdx}`} className="absolute inset-0 flex items-center justify-center fade-in-overlay">
+          {album.images.map((p, i) => (
+            <div
+              key={i}
+              className="absolute inset-0 flex items-center justify-center"
+              style={{
+                opacity: i === index ? 1 : 0,
+                transition: 'opacity 1200ms ease-in-out',
+                pointerEvents: i === index ? 'auto' : 'none',
+              }}
+            >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src={album.images[incomingIdx]?.src}
+                src={p.src}
                 alt={album.caption ?? ''}
                 className="max-w-full max-h-full w-auto h-auto object-contain"
               />
             </div>
-          )}
+          ))}
         </div>
 
         <div className="mt-5 md:mt-6 flex flex-col gap-3 items-center">
