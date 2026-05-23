@@ -205,34 +205,6 @@
   {
     "images": [
       {
-        "src": "/uploads/mphzthap-ca991t-IMG_6421.jpg"
-      },
-      {
-        "src": "/uploads/mphzttfi-h6d4xz-IMG_6407.jpg"
-      },
-      {
-        "src": "/uploads/mphzu0r7-eihw7g-IMG_6411.jpg"
-      },
-      {
-        "src": "/uploads/mphzu3p5-pneuwu-IMG_6419.jpg"
-      },
-      {
-        "src": "/uploads/mphzu6xw-boea7h-IMG_6406.jpg"
-      },
-      {
-        "src": "/uploads/mphzuh0x-0zw78t-IMG_6502.jpg"
-      }
-    ],
-    "id": "mphzuitevcrsgs",
-    "order": 6,
-    "createdAt": "2026-05-23T06:55:04.130Z",
-    "updatedAt": "2026-05-23T06:55:25.793Z",
-    "caption": "체코, 프라하",
-    "captionEn": "Prague, Czech Republic"
-  },
-  {
-    "images": [
-      {
         "src": "/uploads/mpi007dq-her1au-IMG_6424.jpg"
       },
       {
@@ -257,8 +229,36 @@
     "caption": "독일, 뉘른베르크",
     "captionEn": "Nuremberg, Germany",
     "id": "mpi010csby09wu",
-    "order": 7,
+    "order": 6,
     "createdAt": "2026-05-23T07:00:06.796Z",
     "updatedAt": "2026-05-23T07:00:22.364Z"
+  },
+  {
+    "images": [
+      {
+        "src": "/uploads/mphzthap-ca991t-IMG_6421.jpg"
+      },
+      {
+        "src": "/uploads/mphzttfi-h6d4xz-IMG_6407.jpg"
+      },
+      {
+        "src": "/uploads/mphzu0r7-eihw7g-IMG_6411.jpg"
+      },
+      {
+        "src": "/uploads/mphzu3p5-pneuwu-IMG_6419.jpg"
+      },
+      {
+        "src": "/uploads/mphzu6xw-boea7h-IMG_6406.jpg"
+      },
+      {
+        "src": "/uploads/mphzuh0x-0zw78t-IMG_6502.jpg"
+      }
+    ],
+    "id": "mphzuitevcrsgs",
+    "order": 7,
+    "createdAt": "2026-05-23T06:55:04.130Z",
+    "updatedAt": "2026-05-23T06:55:25.793Z",
+    "caption": "체코, 프라하",
+    "captionEn": "Prague, Czech Republic"
   }
 ]
