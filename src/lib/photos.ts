@@ -17,8 +17,23 @@ export async function getPhotos(): Promise<Photo[]> {
   await ensureFile();
   const raw = await fs.readFile(DATA_FILE, 'utf-8');
   try {
-    const arr = JSON.parse(raw) as Photo[];
-    return arr.sort((a, b) => a.order - b.order);
+    const arr = JSON.parse(raw) as any[];
+    // Backwards-compat: legacy entries with `src` and optional `srcRight`
+    const normalized: Photo[] = arr.map((p) => {
+      if (Array.isArray(p.images)) return p as Photo;
+      const images: { src: string }[] = [];
+      if (p.src) images.push({ src: p.src });
+      if (p.srcRight) images.push({ src: p.srcRight });
+      return {
+        id: p.id,
+        images,
+        caption: p.caption,
+        order: p.order,
+        createdAt: p.createdAt,
+        updatedAt: p.updatedAt,
+      } as Photo;
+    });
+    return normalized.sort((a, b) => a.order - b.order);
   } catch {
     return [];
   }
