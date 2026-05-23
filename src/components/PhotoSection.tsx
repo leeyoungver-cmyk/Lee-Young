@@ -299,14 +299,24 @@ function PhotoLightbox({
   const [autoPlay, setAutoPlay] = useState(true);
   const resumeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Auto-slideshow
+  // Stable refs so the auto-slide interval isn't reset on every parent render
+  const indexRef = useRef(index);
+  const totalRef = useRef(total);
+  const onChangeRef = useRef(onChange);
+  useEffect(() => { indexRef.current = index; }, [index]);
+  useEffect(() => { totalRef.current = total; }, [total]);
+  useEffect(() => { onChangeRef.current = onChange; }, [onChange]);
+
+  // Auto-slideshow — only re-creates when autoPlay toggles
   useEffect(() => {
     if (!autoPlay) return;
     const intv = setInterval(() => {
-      onChange(index < total - 1 ? index + 1 : 0);
-    }, 4000);
+      const i = indexRef.current;
+      const t = totalRef.current;
+      onChangeRef.current(i < t - 1 ? i + 1 : 0);
+    }, 3000);
     return () => clearInterval(intv);
-  }, [autoPlay, index, total, onChange]);
+  }, [autoPlay]);
 
   const pauseAndResume = () => {
     setAutoPlay(false);
