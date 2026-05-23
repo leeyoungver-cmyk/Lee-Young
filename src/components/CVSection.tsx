@@ -76,12 +76,12 @@ const awards: Award[] = [
   },
 ];
 
-export default function CVSection({ lang = 'ko', onSwitchToText }: { lang?: Lang; onSwitchToText?: () => void }) {
+export default function CVSection({ lang = 'ko' }: { lang?: Lang }) {
   const isEn = lang === 'en';
 
   return (
     <div className="px-8 md:px-14 lg:px-20 py-16 md:py-24 max-w-4xl">
-      <SectionHeader title="CV" otherLabel={onSwitchToText ? 'Text' : undefined} onSwitchOther={onSwitchToText} />
+      <SectionHeader title="CV" />
 
       <div className="mt-14">
         <SubHead label="Exhibitions" ko={isEn ? undefined : '전시'} />
@@ -126,22 +126,9 @@ export default function CVSection({ lang = 'ko', onSwitchToText }: { lang?: Lang
   );
 }
 
-function SectionHeader({ title, otherLabel, onSwitchOther }: { title: string; otherLabel?: string; onSwitchOther?: () => void }) {
+function SectionHeader({ title }: { title: string }) {
   return (
-    <h2 className="text-[11px] tracking-wider3 uppercase text-muted flex items-baseline gap-3">
-      <span className="text-ink">{title}</span>
-      {otherLabel && onSwitchOther && (
-        <>
-          <span className="md:hidden text-muted/50">/</span>
-          <button
-            onClick={onSwitchOther}
-            className="md:hidden text-muted hover:text-ink hover:[filter:blur(0.4px)] transition-all duration-500"
-          >
-            {otherLabel}
-          </button>
-        </>
-      )}
-    </h2>
+    <h2 className="text-[11px] tracking-wider3 uppercase text-muted">{title}</h2>
   );
 }
 

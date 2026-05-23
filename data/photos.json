@@ -66,6 +66,7 @@
       }
     ],
     "caption": "눈 오는 날",
+    "captionEn": "A Snowy Day",
     "id": "mphzf8mgy6fcl4",
     "order": 1,
     "createdAt": "2026-05-23T06:43:11.080Z",
@@ -84,6 +85,7 @@
       }
     ],
     "caption": "내린천 계곡",
+    "captionEn": "Naerincheon Valley",
     "id": "mphzkavhq989yg",
     "order": 2,
     "createdAt": "2026-05-23T06:47:07.277Z",
@@ -123,7 +125,8 @@
     "order": 3,
     "createdAt": "2026-05-23T06:50:32.919Z",
     "updatedAt": "2026-05-23T07:53:38.542Z",
-    "caption": "겨울과 여름의 몽골"
+    "caption": "겨울과 여름의 몽골",
+    "captionEn": "Mongolia in Winter and Summer"
   },
   {
     "images": [
@@ -150,7 +153,8 @@
     "order": 4,
     "createdAt": "2026-05-23T06:55:04.130Z",
     "updatedAt": "2026-05-23T06:55:25.793Z",
-    "caption": "체코, 프라하"
+    "caption": "체코, 프라하",
+    "captionEn": "Prague, Czech Republic"
   },
   {
     "images": [
@@ -177,6 +181,7 @@
       }
     ],
     "caption": "독일, 뉘른베르크",
+    "captionEn": "Nuremberg, Germany",
     "id": "mpi010csby09wu",
     "order": 5,
     "createdAt": "2026-05-23T07:00:06.796Z",
@@ -213,6 +218,7 @@
       }
     ],
     "caption": "덴마크, 코펜하겐",
+    "captionEn": "Copenhagen, Denmark",
     "id": "mpi04k51gg5pgy",
     "order": 6,
     "createdAt": "2026-05-23T07:02:52.405Z",
@@ -249,6 +255,7 @@
       }
     ],
     "caption": "노르웨이에서",
+    "captionEn": "In Norway",
     "id": "mpi09koorx48il",
     "order": 7,
     "createdAt": "2026-05-23T07:06:46.391Z",

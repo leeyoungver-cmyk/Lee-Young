@@ -67,23 +67,23 @@ const en = (
   </>
 );
 
-export default function TextSection({ lang = 'ko', onSwitchToCv }: { lang?: Lang; onSwitchToCv?: () => void }) {
+export default function TextSection({ lang = 'ko' }: { lang?: Lang }) {
   return (
     <div className="px-8 md:px-14 lg:px-20 py-16 md:py-24 max-w-5xl">
-      <SectionHeader title="Text" otherLabel={onSwitchToCv ? 'CV' : undefined} onSwitchOther={onSwitchToCv} />
-      <div className="mt-10 md:mt-14 grid grid-cols-[100px_1fr] md:grid-cols-[160px_1fr] lg:grid-cols-[200px_1fr] gap-5 md:gap-12 items-start">
+      <SectionHeader title="Text" />
+      <div className="mt-12 md:mt-14 grid grid-cols-1 md:grid-cols-[160px_1fr] lg:grid-cols-[200px_1fr] gap-8 md:gap-12">
         {/* Profile image */}
         <div className="md:sticky md:top-24 self-start">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/images/profile.jpg"
             alt="Lee Young"
-            className="w-full aspect-[3/4] object-cover bg-subtle"
+            className="w-[120px] md:w-full aspect-[3/4] object-cover bg-subtle"
             onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = 'none'; }}
           />
         </div>
         {/* Text body */}
-        <div className={`text-[14px] md:text-[16px] leading-[1.88] text-ink/88 space-y-6 md:space-y-7 max-w-prose2 ${lang === 'en' ? 'text-pretty' : 'break-keep'}`}>
+        <div className={`text-[14px] md:text-[16px] leading-[1.88] text-ink/88 space-y-7 max-w-prose2 ${lang === 'en' ? 'text-pretty' : 'break-keep'}`}>
           {lang === 'en' ? en : ko}
         </div>
       </div>
@@ -91,21 +91,8 @@ export default function TextSection({ lang = 'ko', onSwitchToCv }: { lang?: Lang
   );
 }
 
-function SectionHeader({ title, otherLabel, onSwitchOther }: { title: string; otherLabel?: string; onSwitchOther?: () => void }) {
+function SectionHeader({ title }: { title: string }) {
   return (
-    <h2 className="text-[11px] tracking-wider3 uppercase text-muted flex items-baseline gap-3">
-      <span className="text-ink">{title}</span>
-      {otherLabel && onSwitchOther && (
-        <>
-          <span className="md:hidden text-muted/50">/</span>
-          <button
-            onClick={onSwitchOther}
-            className="md:hidden text-muted hover:text-ink hover:[filter:blur(0.4px)] transition-all duration-500"
-          >
-            {otherLabel}
-          </button>
-        </>
-      )}
-    </h2>
+    <h2 className="text-[11px] tracking-wider3 uppercase text-muted">{title}</h2>
   );
 }

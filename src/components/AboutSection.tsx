@@ -7,13 +7,10 @@ export type AboutTab = 'text' | 'cv';
 export default function AboutSection({
   lang = 'ko',
   tab = 'text',
-  onTabChange,
 }: {
   lang?: Lang;
   tab?: AboutTab;
   onTabChange?: (t: AboutTab) => void;
 }) {
-  return tab === 'text'
-    ? <TextSection lang={lang} onSwitchToCv={() => onTabChange?.('cv')} />
-    : <CVSection lang={lang} onSwitchToText={() => onTabChange?.('text')} />;
+  return tab === 'text' ? <TextSection lang={lang} /> : <CVSection lang={lang} />;
 }
