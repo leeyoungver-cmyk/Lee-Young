@@ -168,6 +168,43 @@
   {
     "images": [
       {
+        "src": "/uploads/mpi02idj-94s3cs-IMG_6398.jpg"
+      },
+      {
+        "src": "/uploads/mpi035m3-9b65so-IMG_6394.jpg"
+      },
+      {
+        "src": "/uploads/mpi03bqr-xqltt5-IMG_6391.jpg"
+      },
+      {
+        "src": "/uploads/mpi03fbx-nhp6zp-IMG_6372.jpg"
+      },
+      {
+        "src": "/uploads/mpi03s5a-400dyy-IMG_6378.jpg"
+      },
+      {
+        "src": "/uploads/mpi03wue-tcdktj-IMG_6377.jpg"
+      },
+      {
+        "src": "/uploads/mpi040ux-4d8n09-IMG_6376.jpg"
+      },
+      {
+        "src": "/uploads/mpi049hp-non5ew-IMG_6393.jpg"
+      },
+      {
+        "src": "/uploads/mpi04i8a-nl69oa-IMG_6384.jpg"
+      }
+    ],
+    "caption": "덴마크, 코펜하겐",
+    "captionEn": "Copenhagen, Denmark",
+    "id": "mpi04k51gg5pgy",
+    "order": 5,
+    "createdAt": "2026-05-23T07:02:52.405Z",
+    "updatedAt": "2026-05-23T07:02:52.405Z"
+  },
+  {
+    "images": [
+      {
         "src": "/uploads/mphzthap-ca991t-IMG_6421.jpg"
       },
       {
@@ -187,7 +224,7 @@
       }
     ],
     "id": "mphzuitevcrsgs",
-    "order": 5,
+    "order": 6,
     "createdAt": "2026-05-23T06:55:04.130Z",
     "updatedAt": "2026-05-23T06:55:25.793Z",
     "caption": "체코, 프라하",
@@ -220,45 +257,8 @@
     "caption": "독일, 뉘른베르크",
     "captionEn": "Nuremberg, Germany",
     "id": "mpi010csby09wu",
-    "order": 6,
+    "order": 7,
     "createdAt": "2026-05-23T07:00:06.796Z",
     "updatedAt": "2026-05-23T07:00:22.364Z"
-  },
-  {
-    "images": [
-      {
-        "src": "/uploads/mpi02idj-94s3cs-IMG_6398.jpg"
-      },
-      {
-        "src": "/uploads/mpi035m3-9b65so-IMG_6394.jpg"
-      },
-      {
-        "src": "/uploads/mpi03bqr-xqltt5-IMG_6391.jpg"
-      },
-      {
-        "src": "/uploads/mpi03fbx-nhp6zp-IMG_6372.jpg"
-      },
-      {
-        "src": "/uploads/mpi03s5a-400dyy-IMG_6378.jpg"
-      },
-      {
-        "src": "/uploads/mpi03wue-tcdktj-IMG_6377.jpg"
-      },
-      {
-        "src": "/uploads/mpi040ux-4d8n09-IMG_6376.jpg"
-      },
-      {
-        "src": "/uploads/mpi049hp-non5ew-IMG_6393.jpg"
-      },
-      {
-        "src": "/uploads/mpi04i8a-nl69oa-IMG_6384.jpg"
-      }
-    ],
-    "caption": "덴마크, 코펜하겐",
-    "captionEn": "Copenhagen, Denmark",
-    "id": "mpi04k51gg5pgy",
-    "order": 7,
-    "createdAt": "2026-05-23T07:02:52.405Z",
-    "updatedAt": "2026-05-23T07:02:52.405Z"
   }
 ]
