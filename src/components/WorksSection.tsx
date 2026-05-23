@@ -20,12 +20,7 @@ export default function WorksSection({ works, lang = 'ko' }: { works: Work[]; la
       <SectionHeader title="Works" />
 
       {works.length === 0 ? (
-        <div className="mt-14 text-[13px] text-muted leading-relaxed">
-          {lang === 'en'
-            ? 'Works will be added soon.'
-            : <>작품이 곧 업데이트될 예정입니다.<div className="mt-2 text-[11px] tracking-wider2 uppercase">Works will be added soon.</div></>
-          }
-        </div>
+        <div className="mt-14" aria-hidden />
       ) : (
         <div className="mt-16 md:mt-20 space-y-20 md:space-y-28">
           {years.map((year) => {

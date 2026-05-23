@@ -64,12 +64,7 @@ export default function PhotoSection({ lang = 'ko' }: { lang?: Lang }) {
       <h2 className="text-[11px] tracking-wider3 uppercase text-muted">Photo</h2>
 
       {photos.length === 0 ? (
-        <div className="mt-14 text-[13px] text-muted leading-relaxed">
-          {isEn
-            ? 'Photos will be added soon.'
-            : <>사진이 곧 업데이트될 예정입니다.<div className="mt-2 text-[11px] tracking-wider2 uppercase">Photos will be added soon.</div></>
-          }
-        </div>
+        <div className="mt-14" aria-hidden />
       ) : phase !== 'expanded' ? (
         // ── STACK STATE ──
         <div className="mt-16 md:mt-20 flex justify-center">
