@@ -331,6 +331,7 @@ function PhotoEditor({
   const isNew = !photo;
   const [images, setImages] = useState<PhotoImage[]>(photo?.images ?? []);
   const [caption, setCaption] = useState(photo?.caption ?? '');
+  const [captionEn, setCaptionEn] = useState(photo?.captionEn ?? '');
   const [uploading, setUploading] = useState(false);
   const [saving, setSaving] = useState(false);
   const [err, setErr] = useState<string | null>(null);
@@ -372,7 +373,7 @@ function PhotoEditor({
     if (images.length === 0) { setErr('At least one image is required.'); return; }
     setSaving(true); setErr(null);
     try {
-      const payload = { images, caption };
+      const payload = { images, caption, captionEn };
       const r = await fetch(isNew ? '/api/photos' : `/api/photos/${photo!.id}`, {
         method: isNew ? 'POST' : 'PUT',
         headers: { 'content-type': 'application/json', 'x-admin-token': token },
@@ -431,13 +432,23 @@ function PhotoEditor({
             </ul>
           </Field>
 
-          <Field label="Caption">
+          <Field label="Caption (Korean)">
             <textarea
               value={caption}
               onChange={(e) => setCaption(e.target.value)}
               rows={3}
               className="w-full border-b border-ink/40 py-2 text-[15px] leading-relaxed focus:outline-none focus:border-ink resize-y"
               placeholder="사진 설명을 입력하세요. (선택사항)"
+            />
+          </Field>
+
+          <Field label="Caption (English)">
+            <textarea
+              value={captionEn}
+              onChange={(e) => setCaptionEn(e.target.value)}
+              rows={3}
+              className="w-full border-b border-ink/40 py-2 text-[15px] leading-relaxed focus:outline-none focus:border-ink resize-y"
+              placeholder="Caption in English (optional)"
             />
           </Field>
 

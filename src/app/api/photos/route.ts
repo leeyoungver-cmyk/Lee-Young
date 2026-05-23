@@ -18,6 +18,7 @@ export async function POST(req: NextRequest) {
     const created = await addPhoto({
       images,
       caption: body.caption ? String(body.caption) : undefined,
+      captionEn: body.captionEn ? String(body.captionEn) : undefined,
     });
     return NextResponse.json({ photo: created }, { status: 201 });
   } catch {

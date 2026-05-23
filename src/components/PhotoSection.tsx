@@ -183,7 +183,7 @@ export default function PhotoSection({ lang = 'ko' }: { lang?: Lang }) {
                         })}
                       </div>
                       <h3 className="text-[13px] md:text-[15px] font-light tracking-tight break-keep group-hover:[filter:blur(0.4px)] transition-[filter] duration-500">
-                        {album.caption || (isEn ? 'Untitled' : '제목 없음')}
+                        {(isEn ? (album.captionEn || album.caption) : album.caption) || (isEn ? 'Untitled' : '제목 없음')}
                       </h3>
                     </div>
                     <div className="flex items-center gap-3 shrink-0">
@@ -239,6 +239,7 @@ export default function PhotoSection({ lang = 'ko' }: { lang?: Lang }) {
         <PhotoLightbox
           album={openAlbum}
           index={open.index}
+          lang={lang}
           onClose={() => setOpen(null)}
           onChange={(i) => setOpen({ albumId: openAlbum.id, index: i })}
         />
@@ -289,13 +290,15 @@ export default function PhotoSection({ lang = 'ko' }: { lang?: Lang }) {
 }
 
 function PhotoLightbox({
-  album, index, onClose, onChange,
+  album, index, lang, onClose, onChange,
 }: {
   album: Photo;
   index: number;
+  lang: Lang;
   onClose: () => void;
   onChange: (i: number) => void;
 }) {
+  const displayCaption = lang === 'en' ? (album.captionEn || album.caption) : album.caption;
   const total = album.images.length;
   const [autoPlay, setAutoPlay] = useState(true);
   const resumeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -378,7 +381,7 @@ function PhotoLightbox({
       <div className="w-full px-4 md:px-8 py-5 md:py-6">
         <div className="flex items-center justify-between">
           <div className="text-[10px] tracking-wider2 uppercase text-muted">
-            Lee Young — Photo {album.caption ? `/ ${album.caption}` : ''}
+            Lee Young — Photo {displayCaption ? `/ ${displayCaption}` : ''}
           </div>
           <button
             onClick={onClose}
