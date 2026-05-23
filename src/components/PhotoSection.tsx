@@ -83,8 +83,7 @@ export default function PhotoSection({ lang = 'ko' }: { lang?: Lang }) {
           >
             {[3, 2, 1, 0].map((depth) => {
               const isTop = depth === 0;
-              const slidePhoto = photos[(slideIdx + depth) % photos.length];
-              const photo = isTop ? slidePhoto : (photos[depth] ?? slidePhoto);
+              const photo = photos[depth] ?? photos[0];
               if (!photo?.images[0]) return null;
               const l = stackHover && phase === 'stack' ? stackLayouts[depth].hov : stackLayouts[depth].idle;
               const fanClasses = ['fan-0', 'fan-1', 'fan-2', 'fan-3'];
@@ -101,14 +100,22 @@ export default function PhotoSection({ lang = 'ko' }: { lang?: Lang }) {
                   }}
                 >
                   {isTop ? (
-                    /* eslint-disable-next-line @next/next/no-img-element */
-                    <img
-                      key={slidePhoto.id}
-                      src={slidePhoto.images[0].src}
-                      alt=""
-                      className="block w-full h-full object-cover slide-fade"
-                      style={{ filter: 'grayscale(1) contrast(0.95)' }}
-                    />
+                    // Cross-fade slideshow: all top photos pre-rendered, opacity-toggled
+                    <>
+                      {photos.map((p, i) => (
+                        /* eslint-disable-next-line @next/next/no-img-element */
+                        <img
+                          key={p.id}
+                          src={p.images[0]?.src}
+                          alt=""
+                          className="absolute inset-0 w-full h-full object-cover transition-opacity duration-[1200ms] ease-in-out"
+                          style={{
+                            opacity: i === slideIdx % photos.length ? 1 : 0,
+                            filter: 'grayscale(1) contrast(0.95)',
+                          }}
+                        />
+                      ))}
+                    </>
                   ) : (
                     /* eslint-disable-next-line @next/next/no-img-element */
                     <img
@@ -149,8 +156,8 @@ export default function PhotoSection({ lang = 'ko' }: { lang?: Lang }) {
                     className="w-full flex items-center justify-between gap-5 py-6 md:py-8 text-left group"
                   >
                     <div className="flex items-center gap-5 md:gap-7 min-w-0">
-                      {/* mini stack thumbnail — color */}
-                      <div className="relative w-[68px] md:w-[80px] aspect-[3/4] shrink-0">
+                      {/* mini stack thumbnail — color, compact */}
+                      <div className="relative w-[36px] md:w-[44px] aspect-[3/4] shrink-0">
                         {[2, 1, 0].map((d) => {
                           const img = album.images[d]?.src ?? album.images[0]?.src;
                           if (!img) return null;
