@@ -375,16 +375,18 @@ function PhotoLightbox({
           >Close ✕</button>
         </div>
 
-        {/* Bigger image area */}
-        <div className="mt-4 md:mt-6 flex items-center justify-center">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            key={img.src}
-            src={img.src}
-            alt={album.caption ?? ''}
-            className="block max-w-full max-h-[88vh] w-auto h-auto object-contain opacity-0 transition-opacity duration-700"
-            onLoad={(e) => { (e.currentTarget as HTMLImageElement).style.opacity = '1'; }}
-          />
+        {/* Bigger image area — cross-fade all album images */}
+        <div className="mt-4 md:mt-6 relative w-full" style={{ height: '82vh' }}>
+          {album.images.map((image, i) => (
+            /* eslint-disable-next-line @next/next/no-img-element */
+            <img
+              key={i}
+              src={image.src}
+              alt={album.caption ?? ''}
+              className="absolute inset-0 m-auto max-w-full max-h-full w-auto h-auto object-contain transition-opacity duration-[1200ms] ease-in-out"
+              style={{ opacity: i === index ? 1 : 0 }}
+            />
+          ))}
         </div>
 
         <div className="mt-5 md:mt-6 flex flex-col gap-3 items-center">
