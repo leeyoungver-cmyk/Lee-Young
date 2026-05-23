@@ -131,6 +131,43 @@
   {
     "images": [
       {
+        "src": "/uploads/mpi05gyv-m3hc8m-IMG_6452.jpg"
+      },
+      {
+        "src": "/uploads/mpi066r2-w98e7t-IMG_6454.jpg"
+      },
+      {
+        "src": "/uploads/mpi06agm-06raru-IMG_6451.jpg"
+      },
+      {
+        "src": "/uploads/mpi07ec4-6q0gk0-IMG_6401.jpg"
+      },
+      {
+        "src": "/uploads/mpi07qfi-xdxr4c-IMG_6458.jpg"
+      },
+      {
+        "src": "/uploads/mpi07uh1-48eaqh-IMG_6462.jpg"
+      },
+      {
+        "src": "/uploads/mpi07x6c-brnv07-IMG_6464.jpg"
+      },
+      {
+        "src": "/uploads/mpi086il-fcfgbr-IMG_6465.jpg"
+      },
+      {
+        "src": "/uploads/mpi08bnl-xclwbt-IMG_6471.jpg"
+      }
+    ],
+    "caption": "노르웨이에서",
+    "captionEn": "In Norway",
+    "id": "mpi09koorx48il",
+    "order": 4,
+    "createdAt": "2026-05-23T07:06:46.391Z",
+    "updatedAt": "2026-05-23T07:06:46.391Z"
+  },
+  {
+    "images": [
+      {
         "src": "/uploads/mphzthap-ca991t-IMG_6421.jpg"
       },
       {
@@ -150,7 +187,7 @@
       }
     ],
     "id": "mphzuitevcrsgs",
-    "order": 4,
+    "order": 5,
     "createdAt": "2026-05-23T06:55:04.130Z",
     "updatedAt": "2026-05-23T06:55:25.793Z",
     "caption": "체코, 프라하",
@@ -183,7 +220,7 @@
     "caption": "독일, 뉘른베르크",
     "captionEn": "Nuremberg, Germany",
     "id": "mpi010csby09wu",
-    "order": 5,
+    "order": 6,
     "createdAt": "2026-05-23T07:00:06.796Z",
     "updatedAt": "2026-05-23T07:00:22.364Z"
   },
@@ -220,45 +257,8 @@
     "caption": "덴마크, 코펜하겐",
     "captionEn": "Copenhagen, Denmark",
     "id": "mpi04k51gg5pgy",
-    "order": 6,
+    "order": 7,
     "createdAt": "2026-05-23T07:02:52.405Z",
     "updatedAt": "2026-05-23T07:02:52.405Z"
-  },
-  {
-    "images": [
-      {
-        "src": "/uploads/mpi05gyv-m3hc8m-IMG_6452.jpg"
-      },
-      {
-        "src": "/uploads/mpi066r2-w98e7t-IMG_6454.jpg"
-      },
-      {
-        "src": "/uploads/mpi06agm-06raru-IMG_6451.jpg"
-      },
-      {
-        "src": "/uploads/mpi07ec4-6q0gk0-IMG_6401.jpg"
-      },
-      {
-        "src": "/uploads/mpi07qfi-xdxr4c-IMG_6458.jpg"
-      },
-      {
-        "src": "/uploads/mpi07uh1-48eaqh-IMG_6462.jpg"
-      },
-      {
-        "src": "/uploads/mpi07x6c-brnv07-IMG_6464.jpg"
-      },
-      {
-        "src": "/uploads/mpi086il-fcfgbr-IMG_6465.jpg"
-      },
-      {
-        "src": "/uploads/mpi08bnl-xclwbt-IMG_6471.jpg"
-      }
-    ],
-    "caption": "노르웨이에서",
-    "captionEn": "In Norway",
-    "id": "mpi09koorx48il",
-    "order": 7,
-    "createdAt": "2026-05-23T07:06:46.391Z",
-    "updatedAt": "2026-05-23T07:06:46.391Z"
   }
 ]
