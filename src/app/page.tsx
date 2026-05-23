@@ -109,9 +109,9 @@ export default function Home() {
             </nav>
           </div>
 
-          {/* Row 3: sub-nav — Works (years) or About (text/cv) */}
+          {/* Row 3: year sub-nav — Works active only (About uses inline toggle in section) */}
           <div className={`overflow-hidden transition-[max-height,opacity] duration-500 ${
-            (active === 'works' && years.length > 0) || active === 'about' ? 'max-h-16 opacity-100' : 'max-h-0 opacity-0'
+            active === 'works' && years.length > 0 ? 'max-h-16 opacity-100' : 'max-h-0 opacity-0'
           }`} style={{ transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)' }}>
             <div className="px-5 pb-4 pt-2 flex items-center justify-between">
               {active === 'works' && years.map((year) => (
@@ -121,17 +121,6 @@ export default function Home() {
                   className="text-[10px] tracking-wider tabular-nums text-muted hover:text-ink hover:[filter:blur(0.9px)] active:text-ink active:[filter:blur(0.9px)] transition-all duration-500"
                 >
                   {year}
-                </button>
-              ))}
-              {active === 'about' && ABOUT_TABS.map((t) => (
-                <button
-                  key={t.key}
-                  onClick={() => setAboutTab(t.key)}
-                  className={`text-[10px] tracking-wider2 uppercase transition-all duration-500 hover:text-ink hover:[filter:blur(0.9px)] ${
-                    aboutTab === t.key ? 'text-ink' : 'text-muted'
-                  }`}
-                >
-                  {t.label}
                 </button>
               ))}
             </div>
@@ -222,7 +211,7 @@ export default function Home() {
       <main className="flex-1">
         <div key={active + lang + (active === 'about' ? aboutTab : '')} className="section-enter">
           {active === 'home' && <HomeSection />}
-          {active === 'about' && <AboutSection lang={lang} tab={aboutTab} />}
+          {active === 'about' && <AboutSection lang={lang} tab={aboutTab} onTabChange={setAboutTab} />}
           {active === 'works' && <WorksSection works={works} lang={lang} />}
           {active === 'photo' && <PhotoSection lang={lang} />}
           {active === 'contact' && <ContactSection />}
