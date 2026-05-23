@@ -11,12 +11,12 @@ export async function POST(req: NextRequest) {
   if (!isAuthorized(req)) return unauthorized();
   try {
     const body = await req.json();
-    if (!body?.src) {
-      return NextResponse.json({ error: 'src is required' }, { status: 400 });
+    const images = Array.isArray(body?.images) ? body.images.filter((i: any) => i?.src).map((i: any) => ({ src: String(i.src) })) : [];
+    if (images.length === 0) {
+      return NextResponse.json({ error: 'at least one image is required' }, { status: 400 });
     }
     const created = await addPhoto({
-      src: String(body.src),
-      srcRight: body.srcRight ? String(body.srcRight) : undefined,
+      images,
       caption: body.caption ? String(body.caption) : undefined,
     });
     return NextResponse.json({ photo: created }, { status: 201 });

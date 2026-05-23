@@ -1,7 +1,8 @@
+export type PhotoImage = { src: string };
+
 export type Photo = {
   id: string;
-  src: string;            // main / left image
-  srcRight?: string;      // optional right image for paired lightbox view
+  images: PhotoImage[];   // 1 or more images (no limit)
   caption?: string;
   order: number;
   createdAt: string;

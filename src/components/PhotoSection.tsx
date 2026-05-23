@@ -22,7 +22,6 @@ export default function PhotoSection({ lang = 'ko' }: { lang?: Lang }) {
     <div className="w-full px-8 md:px-14 lg:px-20 py-16 md:py-24 max-w-5xl mx-auto">
       <h2 className="text-[11px] tracking-wider3 uppercase text-muted">Photo</h2>
 
-      {/* Stacked → expanded flow */}
       {photos.length === 0 ? (
         <div className="mt-14 text-[13px] text-muted leading-relaxed">
           {isEn
@@ -43,9 +42,9 @@ export default function PhotoSection({ lang = 'ko' }: { lang?: Lang }) {
               className="absolute inset-0 bg-subtle overflow-hidden shadow-[0_10px_30px_-12px_rgba(0,0,0,0.3)] transition-transform duration-700 ease-out"
               style={{ transform: 'translate(8%, 6%) rotate(6deg)' }}
             >
-              {photos[2] && (
+              {photos[2]?.images[0] && (
                 /* eslint-disable-next-line @next/next/no-img-element */
-                <img src={photos[2].src} alt="" className="block w-full h-full object-cover opacity-90" />
+                <img src={photos[2].images[0].src} alt="" className="block w-full h-full object-cover opacity-90" />
               )}
             </div>
             {/* Middle card */}
@@ -53,16 +52,16 @@ export default function PhotoSection({ lang = 'ko' }: { lang?: Lang }) {
               className="absolute inset-0 bg-subtle overflow-hidden shadow-[0_12px_30px_-12px_rgba(0,0,0,0.35)] transition-transform duration-700 ease-out"
               style={{ transform: 'translate(-6%, 3%) rotate(-4deg)' }}
             >
-              {photos[1] && (
+              {photos[1]?.images[0] && (
                 /* eslint-disable-next-line @next/next/no-img-element */
-                <img src={photos[1].src} alt="" className="block w-full h-full object-cover opacity-95" />
+                <img src={photos[1].images[0].src} alt="" className="block w-full h-full object-cover opacity-95" />
               )}
             </div>
             {/* Top card (representative) */}
             <div className="absolute inset-0 bg-subtle overflow-hidden shadow-[0_18px_36px_-12px_rgba(0,0,0,0.45)] transition-transform duration-700 ease-out group-hover:-translate-y-2">
-              {photos[0] && (
+              {photos[0]?.images[0] && (
                 /* eslint-disable-next-line @next/next/no-img-element */
-                <img src={photos[0].src} alt="" className="block w-full h-full object-cover" />
+                <img src={photos[0].images[0].src} alt="" className="block w-full h-full object-cover" />
               )}
             </div>
             {/* Hint */}
@@ -96,14 +95,21 @@ export default function PhotoSection({ lang = 'ko' }: { lang?: Lang }) {
                 className="group text-left photo-card"
                 style={{ animationDelay: `${i * 60}ms` }}
               >
-                <div className="bg-subtle overflow-hidden">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={p.src}
-                    alt={p.caption ?? ''}
-                    className="block w-full h-auto transition-[opacity,transform,filter] duration-700 group-hover:scale-[1.03] group-hover:brightness-[0.95] opacity-0"
-                    onLoad={(e) => { (e.currentTarget as HTMLImageElement).style.opacity = '1'; }}
-                  />
+                <div className="bg-subtle overflow-hidden relative">
+                  {p.images[0] && (
+                    /* eslint-disable-next-line @next/next/no-img-element */
+                    <img
+                      src={p.images[0].src}
+                      alt={p.caption ?? ''}
+                      className="block w-full h-auto transition-[opacity,transform,filter] duration-700 group-hover:scale-[1.03] group-hover:brightness-[0.95] opacity-0"
+                      onLoad={(e) => { (e.currentTarget as HTMLImageElement).style.opacity = '1'; }}
+                    />
+                  )}
+                  {p.images.length > 1 && (
+                    <span className="absolute top-2 right-2 text-[9px] tracking-wider2 uppercase text-bg bg-ink/60 px-1.5 py-0.5">
+                      +{p.images.length - 1}
+                    </span>
+                  )}
                 </div>
                 {p.caption && (
                   <div className="mt-3 text-[12px] md:text-[13px] text-muted leading-relaxed">
@@ -122,7 +128,6 @@ export default function PhotoSection({ lang = 'ko' }: { lang?: Lang }) {
           onClose={() => setOpenIdx(null)}
           onPrev={openIdx > 0 ? () => setOpenIdx(openIdx - 1) : undefined}
           onNext={openIdx < photos.length - 1 ? () => setOpenIdx(openIdx + 1) : undefined}
-          lang={lang}
         />
       )}
 
@@ -144,7 +149,6 @@ function PhotoLightbox({
   onClose: () => void;
   onPrev?: () => void;
   onNext?: () => void;
-  lang?: Lang;
 }) {
   useEffect(() => {
     document.body.style.overflow = 'hidden';
@@ -161,7 +165,7 @@ function PhotoLightbox({
   }, [onClose, onPrev, onNext]);
 
   const caption = photo.caption;
-  const hasPair = Boolean(photo.srcRight);
+  const isPair = photo.images.length === 2;
 
   return (
     <div
@@ -170,46 +174,43 @@ function PhotoLightbox({
       className="fixed inset-0 z-50 bg-bg overflow-y-auto lightbox-enter"
       onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
     >
-      <div className={`${hasPair ? 'max-w-6xl' : 'max-w-4xl'} mx-auto px-5 md:px-14 py-8 md:py-10`}>
+      <div className={`${isPair ? 'max-w-6xl' : 'max-w-4xl'} mx-auto px-5 md:px-14 py-8 md:py-10`}>
         <div className="flex items-center justify-between">
-          <div className="text-[10px] tracking-wider2 uppercase text-muted">
-            Lee Young — Photo
-          </div>
+          <div className="text-[10px] tracking-wider2 uppercase text-muted">Lee Young — Photo</div>
           <button
             onClick={onClose}
             className="text-[11px] tracking-wider2 uppercase hover:[filter:blur(0.7px)] transition-all duration-500"
             aria-label="Close"
-          >
-            Close ✕
-          </button>
+          >Close ✕</button>
         </div>
 
         <div className="mt-10 md:mt-14">
-          {hasPair ? (
+          {isPair ? (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 items-start">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={photo.src}
-                alt={caption ?? ''}
-                className="w-full h-auto opacity-0 transition-opacity duration-700"
-                onLoad={(e) => { (e.currentTarget as HTMLImageElement).style.opacity = '1'; }}
-              />
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={photo.srcRight!}
-                alt={caption ?? ''}
-                className="w-full h-auto opacity-0 transition-opacity duration-700"
-                onLoad={(e) => { (e.currentTarget as HTMLImageElement).style.opacity = '1'; }}
-              />
+              {photo.images.map((img, i) => (
+                /* eslint-disable-next-line @next/next/no-img-element */
+                <img
+                  key={i}
+                  src={img.src}
+                  alt={caption ?? ''}
+                  className="w-full h-auto opacity-0 transition-opacity duration-700"
+                  onLoad={(e) => { (e.currentTarget as HTMLImageElement).style.opacity = '1'; }}
+                />
+              ))}
             </div>
           ) : (
-            /* eslint-disable-next-line @next/next/no-img-element */
-            <img
-              src={photo.src}
-              alt={caption ?? ''}
-              className="w-full h-auto opacity-0 transition-opacity duration-700"
-              onLoad={(e) => { (e.currentTarget as HTMLImageElement).style.opacity = '1'; }}
-            />
+            <div className="space-y-6 md:space-y-10">
+              {photo.images.map((img, i) => (
+                /* eslint-disable-next-line @next/next/no-img-element */
+                <img
+                  key={i}
+                  src={img.src}
+                  alt={caption ?? ''}
+                  className="w-full h-auto opacity-0 transition-opacity duration-700"
+                  onLoad={(e) => { (e.currentTarget as HTMLImageElement).style.opacity = '1'; }}
+                />
+              ))}
+            </div>
           )}
           {caption && (
             <p className="mt-5 text-[13px] md:text-[14px] text-muted leading-relaxed max-w-2xl break-keep">

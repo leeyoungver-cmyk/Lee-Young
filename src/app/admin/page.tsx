@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useState } from 'react';
 import type { Work, WorkImage } from '@/types/work';
-import type { Photo } from '@/types/photo';
+import type { Photo, PhotoImage } from '@/types/photo';
 
 const TOKEN_KEY = 'ly_admin_token';
 
@@ -283,12 +283,18 @@ function PhotosManager({ token }: { token: string }) {
                   <button onClick={() => move(p, 1)} disabled={i === photos.length - 1} className="hover:text-ink disabled:opacity-30" aria-label="Move down">▼</button>
                 </div>
                 <div className="w-20 h-24 md:w-[120px] md:h-[120px] bg-subtle overflow-hidden">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={p.src} alt="" className="w-full h-full object-cover" />
+                  {p.images[0] ? (
+                    /* eslint-disable-next-line @next/next/no-img-element */
+                    <img src={p.images[0].src} alt="" className="w-full h-full object-cover" />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center text-[10px] text-muted uppercase tracking-wider2">empty</div>
+                  )}
                 </div>
                 <div>
                   <div className="text-[14px]">{p.caption || <span className="text-muted">No caption</span>}</div>
-                  {p.srcRight && <div className="mt-1 text-[11px] tracking-wider2 uppercase text-muted">Paired</div>}
+                  <div className="mt-1 text-[11px] tracking-wider2 uppercase text-muted">
+                    {p.images.length} image{p.images.length === 1 ? '' : 's'}
+                  </div>
                 </div>
                 <div className="flex items-center gap-4 text-[11px] tracking-wider2 uppercase">
                   <button onClick={() => setEditing(p)} className="text-muted hover:text-ink">Edit</button>
@@ -323,42 +329,50 @@ function PhotoEditor({
   onSaved: () => void;
 }) {
   const isNew = !photo;
-  const [src, setSrc] = useState(photo?.src ?? '');
-  const [srcRight, setSrcRight] = useState(photo?.srcRight ?? '');
+  const [images, setImages] = useState<PhotoImage[]>(photo?.images ?? []);
   const [caption, setCaption] = useState(photo?.caption ?? '');
-  const [uploading, setUploading] = useState<'left' | 'right' | null>(null);
+  const [uploading, setUploading] = useState(false);
   const [saving, setSaving] = useState(false);
   const [err, setErr] = useState<string | null>(null);
 
-  async function handleUpload(fileList: FileList | null, side: 'left' | 'right') {
+  async function handleUpload(fileList: FileList | null) {
     if (!fileList || fileList.length === 0) return;
-    setUploading(side); setErr(null);
+    setUploading(true); setErr(null);
     try {
       const fd = new FormData();
-      Array.from(fileList).slice(0, 1).forEach((f) => fd.append('files', f));
+      Array.from(fileList).forEach((f) => fd.append('files', f));
       const r = await fetch('/api/upload', { method: 'POST', headers: { 'x-admin-token': token }, body: fd });
       if (!r.ok) {
         const d = await r.json().catch(() => ({}));
         throw new Error(d.error || 'Upload failed');
       }
       const d = await r.json();
-      const first = d.files?.[0];
-      if (first?.src) {
-        if (side === 'left') setSrc(first.src);
-        else setSrcRight(first.src);
-      }
+      const newImages: PhotoImage[] = (d.files ?? []).map((f: any) => ({ src: f.src }));
+      setImages((prev) => [...prev, ...newImages]);
     } catch (e: any) {
       setErr(e.message);
     } finally {
-      setUploading(null);
+      setUploading(false);
     }
   }
 
+  function moveImage(i: number, dir: -1 | 1) {
+    const j = i + dir;
+    if (j < 0 || j >= images.length) return;
+    const next = [...images];
+    [next[i], next[j]] = [next[j], next[i]];
+    setImages(next);
+  }
+
+  function removeImage(i: number) {
+    setImages(images.filter((_, idx) => idx !== i));
+  }
+
   async function save() {
-    if (!src.trim()) { setErr('Photo image is required.'); return; }
+    if (images.length === 0) { setErr('At least one image is required.'); return; }
     setSaving(true); setErr(null);
     try {
-      const payload = { src, srcRight: srcRight || undefined, caption };
+      const payload = { images, caption };
       const r = await fetch(isNew ? '/api/photos' : `/api/photos/${photo!.id}`, {
         method: isNew ? 'POST' : 'PUT',
         headers: { 'content-type': 'application/json', 'x-admin-token': token },
@@ -387,44 +401,34 @@ function PhotoEditor({
         </div>
 
         <div className="mt-10 space-y-8">
-          <Field label="Images (left + optional right)">
-            <div className="grid grid-cols-2 gap-5">
-              {/* Left image */}
-              <div>
-                <div className="w-full aspect-square bg-subtle overflow-hidden">
-                  {src ? (
-                    /* eslint-disable-next-line @next/next/no-img-element */
-                    <img src={src} alt="" className="w-full h-full object-cover" />
-                  ) : (
-                    <div className="w-full h-full flex items-center justify-center text-[10px] text-muted uppercase tracking-wider2">left (required)</div>
-                  )}
-                </div>
-                <label className="mt-3 inline-flex items-center gap-3 text-[11px] tracking-wider2 uppercase border border-ink px-3 py-1.5 cursor-pointer hover:bg-ink hover:text-bg transition-colors">
-                  {uploading === 'left' ? 'Uploading…' : src ? '↻ Replace' : '+ Add'}
-                  <input type="file" accept="image/*" onChange={(e) => handleUpload(e.target.files, 'left')} className="hidden" disabled={uploading !== null} />
-                </label>
-              </div>
-              {/* Right image */}
-              <div>
-                <div className="w-full aspect-square bg-subtle overflow-hidden">
-                  {srcRight ? (
-                    /* eslint-disable-next-line @next/next/no-img-element */
-                    <img src={srcRight} alt="" className="w-full h-full object-cover" />
-                  ) : (
-                    <div className="w-full h-full flex items-center justify-center text-[10px] text-muted uppercase tracking-wider2">right (optional)</div>
-                  )}
-                </div>
-                <div className="mt-3 flex items-center gap-3">
-                  <label className="inline-flex items-center gap-3 text-[11px] tracking-wider2 uppercase border border-ink px-3 py-1.5 cursor-pointer hover:bg-ink hover:text-bg transition-colors">
-                    {uploading === 'right' ? 'Uploading…' : srcRight ? '↻ Replace' : '+ Add'}
-                    <input type="file" accept="image/*" onChange={(e) => handleUpload(e.target.files, 'right')} className="hidden" disabled={uploading !== null} />
-                  </label>
-                  {srcRight && (
-                    <button onClick={() => setSrcRight('')} className="text-[10px] tracking-wider2 uppercase text-muted hover:text-red-700">Remove</button>
-                  )}
-                </div>
-              </div>
+          <Field label="Images">
+            <div className="text-[11px] text-muted mb-3">
+              첫 번째 이미지가 대표 썸네일로 사용돼요. 라이트박스에서는 모든 이미지가 순서대로 표시됩니다.
             </div>
+            <label className="inline-flex items-center gap-3 text-[12px] tracking-wider2 uppercase border border-ink px-4 py-2 cursor-pointer hover:bg-ink hover:text-bg transition-colors">
+              {uploading ? 'Uploading…' : '+ Add images'}
+              <input type="file" accept="image/*" multiple onChange={(e) => handleUpload(e.target.files)} className="hidden" disabled={uploading} />
+            </label>
+
+            <ul className="mt-6 space-y-4">
+              {images.map((img, i) => (
+                <li key={i} className="grid grid-cols-[80px_1fr_auto] gap-4 items-center py-3 border-t border-line">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={img.src} alt="" className="w-20 h-20 object-cover bg-subtle" />
+                  <div>
+                    <div className="text-[10px] tracking-wider2 uppercase text-muted">
+                      {i === 0 ? 'Thumbnail · #1' : `#${i + 1}`}
+                    </div>
+                    <div className="mt-1 text-[10px] text-muted truncate">{img.src}</div>
+                  </div>
+                  <div className="flex flex-col gap-1 text-[11px] text-muted">
+                    <button onClick={() => moveImage(i, -1)} disabled={i === 0} className="hover:text-ink disabled:opacity-30">▲</button>
+                    <button onClick={() => moveImage(i, 1)} disabled={i === images.length - 1} className="hover:text-ink disabled:opacity-30">▼</button>
+                    <button onClick={() => removeImage(i)} className="hover:text-red-700 mt-1">✕</button>
+                  </div>
+                </li>
+              ))}
+            </ul>
           </Field>
 
           <Field label="Caption">
