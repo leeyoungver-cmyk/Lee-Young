@@ -120,7 +120,7 @@ function WorkLightbox({ work, onClose, lang = 'ko' }: { work: Work; onClose: () 
       <div className="max-w-4xl mx-auto px-5 md:px-14 py-8 md:py-10">
         <div className="flex items-center justify-between">
           <div className="text-[10px] tracking-wider2 uppercase text-muted">
-            Lee Young — Works
+            Jang Eunyoung — Works
           </div>
           <button
             onClick={onClose}

@@ -53,7 +53,7 @@ function Login({ onSuccess }: { onSuccess: (token: string) => void }) {
   return (
     <main className="min-h-screen flex items-center justify-center px-6">
       <form onSubmit={submit} className="w-full max-w-sm">
-        <div className="text-[11px] tracking-wider3 uppercase text-muted">Lee Young / Admin</div>
+        <div className="text-[11px] tracking-wider3 uppercase text-muted">Jang Eunyoung / Admin</div>
         <h1 className="mt-2 text-[24px] font-light tracking-tight">Sign in</h1>
         <div className="mt-10">
           <label className="block text-[11px] tracking-wider2 uppercase text-muted mb-2">Password</label>
@@ -93,7 +93,7 @@ function Dashboard({ token, onLogout }: { token: string; onLogout: () => void })
       <header className="border-b border-line">
         <div className="max-w-6xl mx-auto px-6 md:px-10 py-5 flex items-center justify-between">
           <div className="flex items-baseline gap-4">
-            <a href="/" className="text-[13px] tracking-wider3 uppercase">Lee Young</a>
+            <a href="/" className="text-[13px] tracking-wider3 uppercase">Jang Eunyoung</a>
             <span className="text-[11px] tracking-wider2 uppercase text-muted">/ Admin</span>
           </div>
           <div className="flex items-center gap-6 text-[11px] tracking-wider2 uppercase">

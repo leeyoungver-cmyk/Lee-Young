@@ -353,7 +353,7 @@ function PhotoLightbox({
       <div className="w-full px-4 md:px-8 py-5 md:py-6">
         <div className="flex items-center justify-between">
           <div className="text-[10px] tracking-wider2 uppercase text-muted">
-            Lee Young — Photo {displayCaption ? `/ ${displayCaption}` : ''}
+            Jang Eunyoung — Photo {displayCaption ? `/ ${displayCaption}` : ''}
           </div>
           <button
             onClick={onClose}

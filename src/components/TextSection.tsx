@@ -3,7 +3,7 @@ import type { Lang } from '@/app/page';
 const ko = (
   <>
     <p>
-      <strong className="font-semibold text-ink">이영(b.2000)</strong>은 현실이라고 부르는 장면이 어떤 조건 속에서 만들어지고 유지되는지를
+      <strong className="font-semibold text-ink">장은영(b.2000)</strong>은 현실이라고 부르는 장면이 어떤 조건 속에서 만들어지고 유지되는지를
       의심하는 것에서 작업을 시작한다. 오늘날 이미지는 기록, 증거, 경험의 대리물로
       기능하지만 동시에 그 신뢰를 가장 쉽게 붕괴시키는 매체이기도 하다. 뉴스,
       다큐멘터리, 기록 영상과 같이 사실을 전제하던 형식들 또한 그 안의 이미지가 실제인지
@@ -35,7 +35,7 @@ const ko = (
 const en = (
   <>
     <p>
-      <strong className="font-semibold text-ink">Lee Young (b. 2000)</strong> begins his practice by questioning
+      <strong className="font-semibold text-ink">Jang Eunyoung (b. 2000)</strong> begins his practice by questioning
       the conditions under which what we call 'reality' is constructed and sustained.
       Today, images function as proxies for record, evidence, and experience—while
       simultaneously being the medium most capable of collapsing that trust. Formats
@@ -77,7 +77,7 @@ export default function TextSection({ lang = 'ko' }: { lang?: Lang }) {
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/images/profile.jpg"
-            alt="Lee Young"
+            alt="Jang Eunyoung"
             className="w-[120px] md:w-full aspect-[3/4] object-cover bg-subtle"
             onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = 'none'; }}
           />
