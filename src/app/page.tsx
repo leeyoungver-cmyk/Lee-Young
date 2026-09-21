@@ -70,7 +70,7 @@ export default function Home() {
           <div className="px-5 h-12 flex items-center justify-between">
             <button onClick={() => setActive('home')} className="text-left">
               <span className="block text-[15px] tracking-[0.18em] uppercase font-medium leading-none text-[#3A3A3C]">
-                Lee Young
+                JANG EUNYOUNG
               </span>
             </button>
             <div className="flex items-center gap-1.5">
@@ -143,7 +143,7 @@ export default function Home() {
           <div className="relative px-14 lg:px-20 h-16 flex items-center justify-between">
             <button onClick={() => setActive('home')} className="text-left shrink-0">
               <span className="block text-[24px] tracking-[0.2em] uppercase font-medium leading-none text-[#3A3A3C]">
-                Lee Young
+                JANG EUNYOUNG
               </span>
             </button>
 
