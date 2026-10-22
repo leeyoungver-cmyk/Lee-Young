@@ -21,7 +21,7 @@ const education = [
   {
     degree: 'MA',
     title: '서울과학기술대학교 대학원 조형예술과 재학',
-    titleEn: 'Fine Arts, Graduate School, Seoul National University of Science and Technology (in progress)',
+    titleEn: 'Fine Arts, Seoul National University of Science and Technology (in progress)',
   },
   {
     degree: 'BA',
