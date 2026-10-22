@@ -20,13 +20,13 @@ type Award = {
 const education = [
   {
     degree: 'MA',
-    title: '서울과학기술대학교 대학원 조형예술과 재학',
-    titleEn: 'Fine Arts, Seoul National University of Science and Technology (in progress)',
+    title: '조형예술, 서울과학기술대학교, 서울, 한국 (재학)',
+    titleEn: 'Fine Art, Seoul National University of Science and Technology, Seoul, Korea (in progress)',
   },
   {
     degree: 'BA',
-    title: '계원예술대학교 순수미술과 학사 졸업',
-    titleEn: 'Fine Art, Kaywon University of Art & Design (graduated)',
+    title: '순수미술, 계원예술대학교, 의왕, 한국',
+    titleEn: 'Fine Art, Kaywon University of Art & Design, Uiwang, Korea',
   },
 ];
 
@@ -100,11 +100,8 @@ export default function CVSection({ lang = 'ko' }: { lang?: Lang }) {
         <SubHead label="Education" ko={isEn ? undefined : '학력'} />
         <ul className="mt-6 space-y-4 md:space-y-5">
           {education.map((e) => (
-            <li key={e.degree} className="grid grid-cols-[64px_1fr] md:grid-cols-[88px_1fr] gap-4 md:gap-8">
-              <span className="text-[13px] md:text-[14px] text-muted pt-[2px]">{e.degree}</span>
-              <div className="text-[14px] md:text-[16px] leading-relaxed">
-                {isEn ? e.titleEn : e.title}
-              </div>
+            <li key={e.degree} className="text-[14px] md:text-[16px] leading-relaxed">
+              {e.degree} {isEn ? e.titleEn : e.title}
             </li>
           ))}
         </ul>
