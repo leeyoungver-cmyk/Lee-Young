@@ -17,6 +17,19 @@ type Award = {
   orgEn: string;
 };
 
+const education = [
+  {
+    degree: 'MA',
+    title: '서울과학기술대학교 대학원 조형예술과 재학',
+    titleEn: 'Fine Arts, Graduate School, Seoul National University of Science and Technology (in progress)',
+  },
+  {
+    degree: 'BA',
+    title: '계원예술대학교 순수미술과 학사 졸업',
+    titleEn: 'Fine Art, Kaywon University of Art & Design (graduated)',
+  },
+];
+
 const exhibitions: Entry[] = [
   {
     year: '2025',
@@ -84,6 +97,20 @@ export default function CVSection({ lang = 'ko' }: { lang?: Lang }) {
       <SectionHeader title="CV" />
 
       <div className="mt-14">
+        <SubHead label="Education" ko={isEn ? undefined : '학력'} />
+        <ul className="mt-6 space-y-4 md:space-y-5">
+          {education.map((e) => (
+            <li key={e.degree} className="grid grid-cols-[64px_1fr] md:grid-cols-[88px_1fr] gap-4 md:gap-8">
+              <span className="text-[13px] md:text-[14px] text-muted pt-[2px]">{e.degree}</span>
+              <div className="text-[14px] md:text-[16px] leading-relaxed">
+                {isEn ? e.titleEn : e.title}
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div className="mt-16 md:mt-20">
         <SubHead label="Exhibitions" ko={isEn ? undefined : '전시'} />
         <ul className="mt-6 space-y-4 md:space-y-5">
           {exhibitions.map((e, i) => (
